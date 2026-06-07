@@ -1,0 +1,13 @@
+table configuraciones {
+  id int [pk, increment] //Primary
+  nombre varchar
+  descripcion varchar
+  direccion varchar
+  telefono1 varchar
+  telefono2 varchar
+  divisa varchar
+  correo_electronico varchar
+  web varchar
+  logo varchar
+  
+}
