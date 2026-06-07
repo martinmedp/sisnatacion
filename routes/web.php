@@ -3,9 +3,22 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\WebsiteController;
+
+Route::get('/', [WebsiteController::class, 'inicio'])->name('inicio');
+
+Route::get('/nosotros', [WebsiteController::class, 'nosotros'])->name('nosotros');
+
+Route::get('/contacto', [WebsiteController::class, 'contacto'])->name('contacto');
+
+Route::get('/admisiones', [WebsiteController::class, 'admisiones'])->name('admisiones');
+
+Route::get('/noticias', [WebsiteController::class, 'noticias'])->name('noticias');
+
+Route::get('/galeria', [WebsiteController::class, 'galeria'])->name('galeria');
+
+//Route::get('/', function () {return view('welcome');
+//});
 
 Auth::routes();
 
