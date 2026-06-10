@@ -300,12 +300,7 @@ return [
 
     'menu' => [
 
-        [
-            'text' => 'Configuración',
-            'url' => 'admin/configuracion',
-            'icon' => 'fas fa-cogs',
-            'classes' => 'bg-red text-white',
-        ],
+
 
         [
             'text' => 'Página Web',
@@ -315,6 +310,13 @@ return [
             'submenu' => [
 
                 [
+                    'text' => 'Configuración',
+                    'url' => 'admin/configuracion',
+                    'icon' => 'fas fa-cogs',
+                    'classes' => 'bg-red text-white',
+                ],
+
+                [
                     'text' => 'Banners',
                     'route' => 'admin.banners.index',
                     'icon' => 'fas fa-images',
@@ -322,7 +324,7 @@ return [
 
                 [
                     'text' => 'Noticias',
-                    'url' => '#',
+                    'route' => 'admin.noticias.index',
                     'icon' => 'fas fa-newspaper',
                 ],
 

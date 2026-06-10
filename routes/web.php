@@ -36,3 +36,13 @@ Route::post('/admin/banners/store', [BannerController::class, 'store'])->name('a
 Route::get('/admin/banners/{id}/edit', [BannerController::class, 'edit'])->name('admin.banners.edit');
 Route::put('/admin/banners/{id}', [BannerController::class, 'update'])->name('admin.banners.update');
 Route::delete('/admin/banners/{id}', [BannerController::class, 'destroy'])->name('admin.banners.destroy');
+
+
+
+// Rutas para la gestión de noticias página web
+Route::get('/admin/noticias', [App\Http\Controllers\NoticiaController::class, 'index'])->name('admin.noticias.index');
+Route::get('/admin/noticias/create', [App\Http\Controllers\NoticiaController::class, 'create'])->name('admin.noticias.create');
+Route::post('/admin/noticias', [App\Http\Controllers\NoticiaController::class, 'store'])->name('admin.noticias.store');
+Route::get('/admin/noticias/{id}/edit', [App\Http\Controllers\NoticiaController::class, 'edit'])->name('admin.noticias.edit');
+Route::put('/admin/noticias/{id}', [App\Http\Controllers\NoticiaController::class, 'update'])->name('admin.noticias.update');
+Route::delete('/admin/noticias/{id}', [App\Http\Controllers\NoticiaController::class, 'destroy'])->name('admin.noticias.destroy');
