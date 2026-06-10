@@ -3,109 +3,126 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>
         {{ $configuracion->nombre ?? 'Sistema Escolar' }}
     </title>
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        header {
-            background: #0d6efd;
-            color: white;
-            padding: 20px;
-        }
-
-        nav {
-            margin-top: 10px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin-right: 15px;
-        }
-
-        main {
-            padding: 20px;
-        }
-
-        footer {
-            background: #f5f5f5;
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-        }
-
-        .logo {
-            max-height: 80px;
-        }
-    </style>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
 
-    <header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
-        @if (!empty($configuracion->logo))
-            <img src="{{ asset($configuracion->logo) }}" alt="Logo" class="logo">
-        @endif
+        <div class="container">
 
-        <h1>{{ $configuracion->nombre }}</h1>
+            <a class="navbar-brand d-flex align-items-center" href="{{ route('inicio') }}">
 
-        <nav>
+                @if (!empty($configuracion->logo))
+                    <img src="{{ asset($configuracion->logo) }}" alt="Logo" width="50" height="50"
+                        class="me-2">
+                @endif
 
-            <a href="{{ route('inicio') }}">
-                Inicio
+                <span>
+                    {{ $configuracion->nombre }}
+                </span>
+
             </a>
 
-            <a href="{{ route('nosotros') }}">
-                Nosotros
-            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuPrincipal">
 
-            <a href="{{ route('admisiones') }}">
-                Admisiones
-            </a>
+                <span class="navbar-toggler-icon"></span>
 
-            <a href="{{ route('noticias') }}">
-                Noticias
-            </a>
+            </button>
 
-            <a href="{{ route('galeria') }}">
-                Galería
-            </a>
+            <div class="collapse navbar-collapse" id="menuPrincipal">
 
-            <a href="{{ route('contacto') }}">
-                Contacto
-            </a>
+                <ul class="navbar-nav ms-auto">
 
-            <a href="{{ route('login') }}">
-                Login
-            </a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('inicio') }}">
+                            Inicio
+                        </a>
+                    </li>
 
-        </nav>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('nosotros') }}">
+                            Nosotros
+                        </a>
+                    </li>
 
-    </header>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admisiones') }}">
+                            Admisiones
+                        </a>
+                    </li>
 
-    <main>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('noticias') }}">
+                            Noticias
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('galeria') }}">
+                            Galería
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contacto') }}">
+                            Contacto
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="btn btn-light ms-2" href="{{ route('login') }}">
+                            Ingresar
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+    <!-- Contenido -->
+    <main class="container mt-4">
 
         @yield('content')
 
     </main>
 
-    <footer>
+    <!-- Footer -->
+    <footer class="bg-light mt-5 py-4 border-top">
 
-        <p>{{ $configuracion->direccion }}</p>
+        <div class="container text-center">
 
-        <p>{{ $configuracion->correo_electronico }}</p>
+            <h5>{{ $configuracion->nombre }}</h5>
+
+            <p class="mb-1">
+                {{ $configuracion->direccion }}
+            </p>
+
+            <p class="mb-1">
+                {{ $configuracion->correo_electronico }}
+            </p>
+
+            <p class="mb-0">
+                {{ $configuracion->telefono1 }}
+            </p>
+
+        </div>
 
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

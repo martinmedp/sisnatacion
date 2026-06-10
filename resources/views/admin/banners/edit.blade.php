@@ -1,0 +1,99 @@
+@extends('adminlte::page')
+
+@section('content')
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">
+                Editar Banner
+            </h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('admin.banners.update', $banner->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Título</label>
+                            <input type="text" name="titulo" class="form-control" value="{{ $banner->titulo }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Subtítulo</label>
+                            <input type="text" name="subtitulo" class="form-control" value="{{ $banner->subtitulo }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Texto Botón</label>
+                            <input type="text" name="texto_boton" class="form-control"
+                                value="{{ $banner->texto_boton }}">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>URL Botón</label>
+                            <input type="text" name="url_boton" class="form-control" value="{{ $banner->url_boton }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Orden</label>
+                            <input type="number" name="orden" class="form-control" value="{{ $banner->orden }}">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select class="form-control" name="estado">
+                                <option {{ $banner->estado == 'ACTIVO' ? 'selected' : '' }}>
+                                    ACTIVO
+                                </option>
+                                <option {{ $banner->estado == 'INACTIVO' ? 'selected' : '' }}>
+                                    INACTIVO
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Nueva imagen (opcional)</label>
+                            <input type="file" class="form-control" name="imagen" accept="image/*"
+                                onchange="mostrarImagen(event)">
+                        </div>
+                        <br>
+                        <div class="text-center">
+                            <label>Imagen actual</label>
+                            <br>
+                            <img id="preview" src="{{ asset($banner->imagen) }}" class="img-fluid"
+                                style="max-height:200px;">
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <a href="{{ route('admin.banners.index') }}" class="btn btn-secondary">
+                    Volver
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    Actualizar Banner
+                </button>
+            </form>
+        </div>
+    </div>
+    <script>
+        function mostrarImagen(event) {
+            let archivo = event.target.files[0];
+            if (!archivo) {
+                return;
+            }
+            document.getElementById('preview').src =
+                URL.createObjectURL(archivo);
+        }
+    </script>
+@stop
