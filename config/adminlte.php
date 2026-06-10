@@ -330,8 +330,8 @@ return [
 
                 [
                     'text' => 'Galería',
-                    'url' => '#',
-                    'icon' => 'fas fa-camera',
+                    'route' => 'admin.galerias.index',
+                    'icon' => 'fas fa-images',
                 ],
 
                 [

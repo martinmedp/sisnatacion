@@ -46,3 +46,12 @@ Route::post('/admin/noticias', [App\Http\Controllers\NoticiaController::class, '
 Route::get('/admin/noticias/{id}/edit', [App\Http\Controllers\NoticiaController::class, 'edit'])->name('admin.noticias.edit');
 Route::put('/admin/noticias/{id}', [App\Http\Controllers\NoticiaController::class, 'update'])->name('admin.noticias.update');
 Route::delete('/admin/noticias/{id}', [App\Http\Controllers\NoticiaController::class, 'destroy'])->name('admin.noticias.destroy');
+
+
+// Rutas para la gestión de galerías página web
+Route::get('/admin/galerias', [App\Http\Controllers\GaleriaController::class, 'index'])->name('admin.galerias.index');
+Route::get('/admin/galerias/create', [App\Http\Controllers\GaleriaController::class, 'create'])->name('admin.galerias.create');
+Route::post('/admin/galerias', [App\Http\Controllers\GaleriaController::class, 'store'])->name('admin.galerias.store');
+Route::get('/admin/galerias/{id}/edit', [App\Http\Controllers\GaleriaController::class, 'edit'])->name('admin.galerias.edit');
+Route::put('/admin/galerias/{id}', [App\Http\Controllers\GaleriaController::class, 'update'])->name('admin.galerias.update');
+Route::delete('/admin/galerias/{id}', [App\Http\Controllers\GaleriaController::class, 'destroy'])->name('admin.galerias.destroy');
