@@ -55,3 +55,11 @@ Route::post('/admin/galerias', [App\Http\Controllers\GaleriaController::class, '
 Route::get('/admin/galerias/{id}/edit', [App\Http\Controllers\GaleriaController::class, 'edit'])->name('admin.galerias.edit');
 Route::put('/admin/galerias/{id}', [App\Http\Controllers\GaleriaController::class, 'update'])->name('admin.galerias.update');
 Route::delete('/admin/galerias/{id}', [App\Http\Controllers\GaleriaController::class, 'destroy'])->name('admin.galerias.destroy');
+
+// Rutas para la gestión de docentes
+Route::get('/admin/docentes', [App\Http\Controllers\DocenteController::class, 'index'])->name('admin.docentes.index');
+Route::get('/admin/docentes/create', [App\Http\Controllers\DocenteController::class, 'create'])->name('admin.docentes.create');
+Route::post('/admin/docentes', [App\Http\Controllers\DocenteController::class, 'store'])->name('admin.docentes.store');
+Route::get('/admin/docentes/{id}/edit', [App\Http\Controllers\DocenteController::class, 'edit'])->name('admin.docentes.edit');
+Route::put('/admin/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'update'])->name('admin.docentes.update');
+Route::delete('/admin/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'destroy'])->name('admin.docentes.destroy');

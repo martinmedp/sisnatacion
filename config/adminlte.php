@@ -336,7 +336,7 @@ return [
 
                 [
                     'text' => 'Docentes',
-                    'url' => '#',
+                    'route' => 'admin.docentes.index',
                     'icon' => 'fas fa-chalkboard-teacher',
                 ],
 
