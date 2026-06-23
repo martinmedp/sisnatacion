@@ -27,7 +27,7 @@ class GaleriaController extends Controller
     {
         $request->validate([
             'titulo' => 'required|max:255',
-            'imagen' => 'required|image|mimes:jpg,jpeg,png,webp',
+            'imagen' => 'required|image|mimes:jpg,jpeg,png,webp,avif',
             'orden' => 'required|integer',
             'estado' => 'required',
         ]);

@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Banner;
 use App\Models\Noticia;
 use App\Models\Galeria;
-
+use App\Models\Configuracion;
+use App\Models\Docente;
 
 class WebsiteController extends Controller
 {
@@ -39,29 +40,37 @@ class WebsiteController extends Controller
             )
             ->take(6)
             ->get();
+        $configuracion = Configuracion::first();
 
         return view(
             'website.inicio',
             compact(
                 'banners',
                 'ultimasNoticias',
-                'ultimasGalerias'
+                'ultimasGalerias',
+                'configuracion'
             )
         );
     }
 
-
-
-
-
-
+    // Método para mostrar la página de nosotros
     public function nosotros()
     {
-        return view('website.nosotros');
+        $configuracion = Configuracion::first();
+
+        return view(
+            'website.nosotros',
+            compact('configuracion')
+        );
     }
     public function contacto()
     {
-        return view('website.contacto');
+        $configuracion = Configuracion::first();
+
+        return view(
+            'website.contacto',
+            compact('configuracion')
+        );
     }
 
     // Método para mostrar la página de admisiones
@@ -116,6 +125,22 @@ class WebsiteController extends Controller
         return view(
             'website.galeria',
             compact('galerias')
+        );
+    }
+
+
+    public function docentes()
+    {
+        $docentes = Docente::where(
+            'estado',
+            'ACTIVO'
+        )
+            ->orderBy('orden')
+            ->get();
+
+        return view(
+            'website.docentes',
+            compact('docentes')
         );
     }
 }

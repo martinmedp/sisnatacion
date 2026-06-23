@@ -28,7 +28,7 @@ class NoticiaController extends Controller
             'contenido' => 'required',
             'estado' => 'required',
             'fecha_publicacion' => 'required|date',
-            'imagen' => 'required|image|mimes:jpg,jpeg,png,webp',
+            'imagen' => 'required|image|mimes:jpg,jpeg,png,webp,avif',
         ]);
 
         $rutaImagen = '';

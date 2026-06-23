@@ -39,6 +39,12 @@
                             <label>Imagen</label>
                             <input type="file" name="imagen" class="form-control" accept="image/*"
                                 onchange="mostrarImagen(event)">
+                            <small class="text-muted">
+                                Tamaño recomendado: 1200x675 px.
+                                Relación 16:9.
+                                Máximo 4 MB.
+                                Formatos:.jpg, .jpeg, .png, .webp
+                            </small>
                         </div>
                     </div>
                     <div class="col-md-3">

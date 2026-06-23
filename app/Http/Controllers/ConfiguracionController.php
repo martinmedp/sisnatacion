@@ -33,6 +33,11 @@ class ConfiguracionController extends Controller
             'correo_electronico' => 'required|email',
             'divisa' => 'required',
             'web' => 'required|url|max:255',
+
+            'mision' => 'nullable|string',
+            'vision' => 'nullable|string',
+            'historia' => 'nullable|string',
+
             'logo' => 'image|mimes:jpeg,png,jpg,svg',
         ]);
         // Verificar si ya existe una configuración
@@ -41,6 +46,9 @@ class ConfiguracionController extends Controller
             // Si existe, actualizar la configuración
             $configuracion->nombre = $request->nombre;
             $configuracion->descripcion = $request->descripcion;
+            $configuracion->mision = $request->mision;
+            $configuracion->vision = $request->vision;
+            $configuracion->historia = $request->historia;
             $configuracion->direccion = $request->direccion;
             $configuracion->telefono1 = $request->telefono1;
             $configuracion->divisa = $request->divisa;
@@ -69,6 +77,9 @@ class ConfiguracionController extends Controller
             $configuracion = new Configuracion();
             $configuracion->nombre = $request->nombre;
             $configuracion->descripcion = $request->descripcion;
+            $configuracion->mision = $request->mision;
+            $configuracion->vision = $request->vision;
+            $configuracion->historia = $request->historia;
             $configuracion->direccion = $request->direccion;
             $configuracion->telefono1 = $request->telefono1;
             $configuracion->divisa = $request->divisa;

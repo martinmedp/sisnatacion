@@ -66,6 +66,8 @@
                             <label>Nueva imagen (opcional)</label>
                             <input type="file" class="form-control" name="imagen" accept="image/*"
                                 onchange="mostrarImagen(event)">
+                            <small class="text-muted">Tamaño recomendado: 1920x600 px. - Formatos: JPG, PNG, WEBP, AVIF. -
+                                Máximo 4 MB.
                         </div>
                         <br>
                         <div class="text-center">

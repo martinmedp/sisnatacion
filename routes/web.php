@@ -18,6 +18,7 @@ Route::get('/contacto', [WebsiteController::class, 'contacto'])->name('contacto'
 Route::get('/admisiones', [WebsiteController::class, 'admisiones'])->name('admisiones');
 Route::get('/noticias', [WebsiteController::class, 'noticias'])->name('noticias');
 Route::get('/galeria', [WebsiteController::class, 'galeria'])->name('galeria');
+Route::get('/docentes', [WebsiteController::class, 'docentes'])->name('docentes');
 
 // Rutas para la configuración del sistema
 Route::get('/admin/configuracion', [App\Http\Controllers\ConfiguracionController::class, 'index'])->name('admin.configuracion.index')->middleware('auth');

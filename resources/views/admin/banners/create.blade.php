@@ -33,6 +33,9 @@
                             <input type="file" class="form-control" name="imagen" id="imagen" accept="image/*"
                                 onchange="mostrarImagen(event)">
                         </div>
+                        <small class="text-muted">Tamaño recomendado: 1920x600 px. - Formatos: JPG, PNG, WEBP, AVIF. -
+                            Máximo 4 MB.
+                        </small>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">

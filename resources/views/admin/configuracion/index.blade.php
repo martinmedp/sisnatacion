@@ -69,6 +69,55 @@
                                             @enderror
                                         </div>
                                     </div>
+
+                                </div>
+                                /// Misión, Visión e Historia
+                                <!-- Misión y Visión -->
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Misión</label>
+
+                                            <textarea name="mision" class="form-control" rows="4" placeholder="Misión institucional">{{ old('mision', $configuracion->mision ?? '') }}</textarea>
+
+                                            @error('mision')
+                                                <small style="color:red">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Visión</label>
+
+                                            <textarea name="vision" class="form-control" rows="4" placeholder="Visión institucional">{{ old('vision', $configuracion->vision ?? '') }}</textarea>
+
+                                            @error('vision')
+                                                <small style="color:red">{{ $message }}</small>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Historia -->
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+
+                                            <label>Historia Institucional</label>
+
+                                            <textarea name="historia" class="form-control" rows="6" placeholder="Historia de la institución">{{ old('historia', $configuracion->historia ?? '') }}</textarea>
+
+                                            @error('historia')
+                                                <small style="color:red">{{ $message }}</small>
+                                            @enderror
+
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <!-- Dirección, teléfono y moneda -->
                                 <div class="row">
@@ -116,7 +165,7 @@
                                                     <option value="">Moneda</option>
 
                                                     <!-- Agrega más opciones de monedas según sea necesario,en configuracionController hacemos lectura
-                                                                                                                                                                                                                                                                    de la API y enviamos la información a la vista -->
+                                                                                                                                                                                                                                                                                de la API y enviamos la información a la vista -->
                                                     @foreach ($divisas as $divisa)
                                                         <option value="{{ $divisa['symbol'] }}"
                                                             {{ old('divisa', $configuracion->divisa ?? '') == $divisa['symbol'] ? 'selected' : '' }}>
@@ -181,6 +230,10 @@
                                             placeholder="Logo de la institución" onchange="mostrarImagen(event)"
                                             accept="image/*">
                                     </div>
+                                    <small class="text-muted">
+                                        Tamaño recomendado: 400x400 px.
+                                        Formatos permitidos: PNG, JPG, WEBP, AVIF.
+                                    </small>
                                     <br>
                                     {{-- <img src="" id="preview" style="max-width: 200px; margin-top: 10px;"> --}}
                                     <img src="{{ url($configuracion->logo ?? '') }}" id="preview"
