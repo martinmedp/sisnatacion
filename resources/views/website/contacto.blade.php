@@ -1,43 +1,63 @@
 @extends('layouts.website')
 
 @section('content')
-    <div class="text-center mb-5">
-        <h1>
-            Contáctanos
-        </h1>
-        <p class="text-muted">
+    {{-- ── Hero de sección ──────────────────────────────────────────── --}}
+    <section class="hero-section">
+        <span class="hero-badge">{{ $configuracion->nombre ?? 'Sistema Web' }}</span>
+        <h1>Contác<span class="accent">tanos</span></h1>
+        <p class="hero-desc">
             Estamos disponibles para atender tus consultas e inquietudes.
         </p>
-    </div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    <h3 class="mb-4">
-                        {{ $configuracion->nombre }}
-                    </h3>
-                    <div class="mb-3">
-                        <strong>Dirección:</strong><br>
-                        {{ $configuracion->direccion }}
+    </section>
+
+    <div class="inst-divider"></div>
+
+    {{-- ── Información de contacto ──────────────────────────────────── --}}
+    <section class="inst-section">
+        <div class="container">
+
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+
+                    <div class="pilar-card info">
+                        <span class="pilar-num">✉</span>
+                        <span class="pilar-tag">Contacto</span>
+                        <h4>{{ $configuracion->nombre }}</h4>
+
+                        <div class="contacto-items">
+
+                            <div class="contacto-item">
+                                <span class="contacto-label">Dirección</span>
+                                <span class="contacto-valor">{{ $configuracion->direccion }}</span>
+                            </div>
+
+                            <div class="contacto-item">
+                                <span class="contacto-label">Teléfono</span>
+                                <span class="contacto-valor">{{ $configuracion->telefono1 }}</span>
+                            </div>
+
+                            <div class="contacto-item">
+                                <span class="contacto-label">Correo electrónico</span>
+                                <a class="contacto-valor contacto-link"
+                                    href="mailto:{{ $configuracion->correo_electronico }}">
+                                    {{ $configuracion->correo_electronico }}
+                                </a>
+                            </div>
+
+                            <div class="contacto-item">
+                                <span class="contacto-label">Página web</span>
+                                <a class="contacto-valor contacto-link" href="{{ $configuracion->web }}" target="_blank"
+                                    rel="noopener">
+                                    {{ $configuracion->web }}
+                                </a>
+                            </div>
+
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <strong>Teléfono:</strong><br>
-                        {{ $configuracion->telefono1 }}
-                    </div>
-                    <div class="mb-3">
-                        <strong>Correo Electrónico:</strong><br>
-                        <a href="mailto:{{ $configuracion->correo_electronico }}">
-                            {{ $configuracion->correo_electronico }}
-                        </a>
-                    </div>
-                    <div class="mb-3">
-                        <strong>Página Web:</strong><br>
-                        <a href="{{ $configuracion->web }}" target="_blank">
-                            {{ $configuracion->web }}
-                        </a>
-                    </div>
+
                 </div>
             </div>
+
         </div>
-    </div>
+    </section>
 @endsection

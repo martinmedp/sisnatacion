@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ asset('css/variables.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
 
     <title>
         {{ $configuracion->nombre ?? 'Sistema Escolar' }}
@@ -54,7 +56,7 @@
     <header>
 
         @if (!empty($configuracion->logo))
-            <img src="{{ asset($configuracion->logo) }}" alt="Logo" class="logo">
+        <img src="{{ asset($configuracion->logo) }}" alt="Logo" class="logo">
         @endif
 
         <h1>{{ $configuracion->nombre }}</h1>

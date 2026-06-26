@@ -1,0 +1,58 @@
+/* ============================================================
+   VARIABLES GLOBALES
+   Escuela de Natación
+   ============================================================ */
+
+:root {
+
+  /* ===== Marca ===== 
+
+  --color-primario: #0077B6;*/
+  --color-primario: #bb2a83;
+  --color-secundario: #00B4D8;
+  --color-acento: #90E0EF;
+  --color-footer: #023E8A;
+
+  /* ===== Fondos ===== */
+
+  --bg-principal: #F8FAFC;
+  --bg-secundario: #EAF7FB;
+  --bg-card: #FFFFFF;
+
+  /* ===== Textos ===== */
+
+  --texto-principal: #334155;
+  --texto-secundario: #64748B;
+  --texto-claro: #FFFFFF;
+
+  /* ===== Estados ===== */
+
+  --success: #2A9D8F;
+  --warning: #F4A261;
+  --danger: #E63946;
+
+  /* ===== Hover ===== */
+
+  --hover-primario: #0096C7;
+  --hover-secundario: #005F8F;
+
+  /* ===== Bordes ===== */
+
+  --border-color: #DCEEF3;
+  --divider-color: #CFE5EC;
+
+  /* ===== Footer ===== */
+
+  --footer-texto: #B8D4E3;
+
+  /* ===== Sombras ===== */
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+  /* ===== Radios ===== */
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}

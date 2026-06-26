@@ -1,7 +1,6 @@
 @extends('layouts.website')
 
 @section('content')
-
     {{-- ── Carrusel ── --}}
     @if ($banners->count() > 0)
         <div id="carouselInstitucion" class="carousel slide" data-bs-ride="carousel">
@@ -53,13 +52,13 @@
             @endif
 
             <div class="hero-badge">Bienvenido a nuestra institución</div>
+            @if (!empty($configuracion->nombre))
+                <h1>
+                    <span class="accent">{{ $configuracion->nombre }}</span>
+                </h1>
 
-            <h1>
-                <span class="accent">{{ $configuracion->nombre }}</span>
-            </h1>
-
-            <p class="hero-desc">{{ $configuracion->descripcion }}</p>
-
+                <p class="hero-desc">{{ $configuracion->descripcion }}</p>
+            @endif
             <div class="hero-btns">
                 <a href="{{ route('login') }}" class="btn-hero-primary">Iniciar sesión</a>
                 <a href="{{ route('contacto') }}" class="btn-hero-secondary">Contáctanos</a>
@@ -174,7 +173,7 @@
                                             <div class="noticia-date">{{ $noticia->fecha_publicacion }}</div>
                                             <h6>{{ Str::limit($noticia->titulo, 60) }}</h6>
                                             <a href="{{ route('noticias.show', $noticia->id) }}"
-                                                class="pilar-link mt-2 d-block" style="font-size:12px; color:#3A7D6B;">
+                                                class="pilar-link mt-2 d-block" style="font-size:12px; color:var(--color-secundario);">
                                                 Leer →
                                             </a>
                                         </div>
@@ -221,5 +220,4 @@
 
         </div>
     </section>
-
 @endsection
