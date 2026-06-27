@@ -48,7 +48,7 @@
                                     <i class="fas fa-pencil-alt"></i>
                                 </a>
                                 <form action="{{ route('admin.noticias.destroy', $noticia->id) }}" method="POST"
-                                    class="form-eliminar" style="display:inline-block;">
+                                    class="form-eliminar" data-nombre="noticia" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -63,25 +63,4 @@
         </div>
     </div>
 
-
-    <script>
-        document.querySelectorAll('.form-eliminar')
-            .forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    Swal.fire({
-                        title: '¿Eliminar noticia?',
-                        text: 'Esta acción no se puede deshacer',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Sí, eliminar',
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
-                    });
-                });
-            });
-    </script>
 @stop

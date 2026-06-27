@@ -386,6 +386,16 @@ return [
     */
 
     'plugins' => [
+        'AdminJS' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'js/admin.js',
+                ],
+            ],
+        ],
         'Datatables' => [
             'active' => false,
             'files' => [

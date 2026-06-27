@@ -46,7 +46,7 @@
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <form action="{{ route('admin.galerias.destroy', $galeria->id) }}" method="POST"
-                                    class="form-eliminar" style="display:inline;">
+                                    class="form-eliminar" data-nombre="imagen" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -60,24 +60,4 @@
             </table>
         </div>
     </div>
-    <script>
-        document.querySelectorAll('.form-eliminar')
-            .forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    Swal.fire({
-                        title: '¿Eliminar imagen?',
-                        text: 'Esta acción no se puede deshacer',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Sí, eliminar',
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
-                    });
-                });
-            });
-    </script>
 @stop

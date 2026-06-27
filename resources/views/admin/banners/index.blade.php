@@ -43,7 +43,7 @@
                                             <i class="fas fa-edit"></i>
                                         </a>
                                         <form action="{{ route('admin.banners.destroy', $banner->id) }}" method="POST"
-                                            class="form-eliminar" style="display:inline;">
+                                            class="form-eliminar" data-nombre="banner" style="display:inline;">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm">
@@ -60,25 +60,4 @@
         </div>
     </div>
 
-
-    <script>
-        document.querySelectorAll('.form-eliminar')
-            .forEach(form => {
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    Swal.fire({
-                        title: '¿Eliminar banner?',
-                        text: 'Esta acción no se puede deshacer',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonText: 'Sí, eliminar',
-                        cancelButtonText: 'Cancelar'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            form.submit();
-                        }
-                    });
-                });
-            });
-    </script>
 @stop
