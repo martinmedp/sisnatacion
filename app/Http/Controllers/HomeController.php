@@ -6,23 +6,32 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('home');
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+
+        if ($user->hasRole('admin')) {
+            return redirect()->route('admin.dashboard');
+        }
+
+        if ($user->hasRole('docente')) {
+            return redirect()->route('docente.dashboard');
+        }
+
+        if ($user->hasRole('alumno')) {
+            return redirect()->route('alumno.dashboard');
+        }
+
+        if ($user->hasRole('acudiente')) {
+            return redirect()->route('acudiente.dashboard');
+        }
+
+        abort(403, 'Tu usuario no tiene un rol asignado. Contacta al administrador.');
     }
 }
