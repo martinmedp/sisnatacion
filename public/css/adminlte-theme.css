@@ -1,0 +1,80 @@
+/* =====================================================
+   PERSONALIZACIÓN ADMINLTE — Identidad institucional
+   Sobrescribe los colores por defecto de AdminLTE usando
+   las variables institucionales definidas en variables.css
+   ===================================================== */
+
+/* Sidebar — fondo con color institucional primario */
+.main-sidebar,
+.main-sidebar::before {
+  background-color: var(--color-primario) !important;
+}
+
+/* Marca / logo en el sidebar */
+.brand-link {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Ítems del menú — texto */
+.nav-sidebar>.nav-item>.nav-link {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.nav-sidebar>.nav-item>.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+}
+
+/* Ítem activo — color secundario institucional */
+.nav-sidebar>.nav-item>.nav-link.active {
+  background-color: var(--color-secundario) !important;
+  color: var(--texto-principal) !important;
+}
+
+.nav-sidebar>.nav-item>.nav-link.active i,
+.nav-sidebar>.nav-item>.nav-link.active p {
+  color: var(--texto-principal) !important;
+}
+
+/* Submenús — fondo ligeramente más oscuro */
+.nav-treeview {
+  background-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.nav-treeview>.nav-item>.nav-link {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.nav-treeview>.nav-item>.nav-link:hover {
+  color: #ffffff !important;
+}
+
+/* Íconos del menú */
+.nav-sidebar .nav-icon {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Encabezados de sección del menú (headers) */
+.nav-sidebar .nav-header {
+  color: var(--color-acento) !important;
+}
+
+/* Navbar superior */
+.main-header.navbar {
+  background-color: #ffffff !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* Botón / enlaces activos en navbar */
+.main-header .nav-link {
+  color: var(--texto-principal) !important;
+}
+
+/* Footer del sidebar (usuario logueado) */
+.user-panel {
+  border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
+}
+
+.user-panel .info a {
+  color: #ffffff !important;
+}

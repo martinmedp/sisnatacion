@@ -300,52 +300,167 @@ return [
 
     'menu' => [
 
-
-
+        // ── General ──────────────────────────────────────────
         [
-            'text' => 'Página Web',
-            'icon' => 'fas fa-globe',
-            'classes' => 'bg-primary text-white',
+            'text' => 'Dashboard',
+            'route' => 'admin.dashboard',
+            'icon' => 'fas fa-tachometer-alt',
+        ],
 
+        // ── Página Web ────────────────────────────────────────
+        [
+            'text'    => 'Página Web',
+            'icon'    => 'fas fa-globe',
             'submenu' => [
-
                 [
-                    'text' => 'Configuración',
-                    'url' => 'admin/configuracion',
-                    'icon' => 'fas fa-cogs',
-                    'classes' => 'bg-red text-white',
+                    'text'  => 'Configuración',
+                    'route' => 'admin.configuracion.index',
+                    'icon'  => 'fas fa-cogs',
                 ],
-
                 [
-                    'text' => 'Banners',
+                    'text'  => 'Banners',
                     'route' => 'admin.banners.index',
-                    'icon' => 'fas fa-images',
+                    'icon'  => 'fas fa-images',
                 ],
-
                 [
-                    'text' => 'Noticias',
+                    'text'  => 'Noticias',
                     'route' => 'admin.noticias.index',
-                    'icon' => 'fas fa-newspaper',
+                    'icon'  => 'fas fa-newspaper',
                 ],
-
                 [
-                    'text' => 'Galería',
+                    'text'  => 'Galería',
                     'route' => 'admin.galerias.index',
-                    'icon' => 'fas fa-images',
+                    'icon'  => 'fas fa-camera',
                 ],
 
+            ],
+        ],
+
+        // ── Fase 1 — Estructura base ──────────────────────────
+        [
+            'text'    => 'Estructura Base',
+            'icon'    => 'fas fa-sitemap',
+            'submenu' => [
                 [
-                    'text' => 'Docentes',
+                    'text' => 'Sedes',
+                    'url'  => '#',
+                    'icon' => 'fas fa-building',
+                ],
+                [
+                    'text' => 'Niveles',
+                    'url'  => '#',
+                    'icon' => 'fas fa-layer-group',
+                ],
+                [
+                    'text' => 'Descuentos',
+                    'url'  => '#',
+                    'icon' => 'fas fa-tag',
+                ],
+            ],
+        ],
+
+        // ── Fase 2 — Personas ─────────────────────────────────
+        [
+            'text'    => 'Personal',
+            'icon'    => 'fas fa-user-friends',
+            'submenu' => [
+                [
+                    'text'  => 'Docentes',
                     'route' => 'admin.docentes.index',
-                    'icon' => 'fas fa-chalkboard-teacher',
+                    'icon'  => 'fas fa-chalkboard-teacher',
                 ],
-
                 [
-                    'text' => 'Contacto',
-                    'url' => '#',
-                    'icon' => 'fas fa-envelope',
+                    'text' => 'Acudientes',
+                    'url'  => '#',
+                    'icon' => 'fas fa-users',
                 ],
+                [
+                    'text' => 'Alumnos',
+                    'url'  => '#',
+                    'icon' => 'fas fa-swimmer',
+                ],
+            ],
+        ],
 
+        // ── Fase 3 — Académico ────────────────────────────────
+        [
+            'text'    => 'Académico',
+            'icon'    => 'fas fa-graduation-cap',
+            'submenu' => [
+                [
+                    'text' => 'Grupos',
+                    'url'  => '#',
+                    'icon' => 'fas fa-users-cog',
+                ],
+                [
+                    'text' => 'Horarios',
+                    'url'  => '#',
+                    'icon' => 'fas fa-clock',
+                ],
+                [
+                    'text' => 'Matrículas',
+                    'url'  => '#',
+                    'icon' => 'fas fa-clipboard-list',
+                ],
+            ],
+        ],
+
+        // ── Fase 4 — Económico ────────────────────────────────
+        [
+            'text'    => 'Económico',
+            'icon'    => 'fas fa-dollar-sign',
+            'submenu' => [
+                [
+                    'text' => 'Cobros',
+                    'url'  => '#',
+                    'icon' => 'fas fa-file-invoice-dollar',
+                ],
+                [
+                    'text' => 'Pagos',
+                    'url'  => '#',
+                    'icon' => 'fas fa-cash-register',
+                ],
+            ],
+        ],
+
+        // ── Fase 5 — Deportivo ────────────────────────────────
+        [
+            'text'    => 'Control Académico',
+            'icon'    => 'fas fa-medal',
+            'submenu' => [
+                [
+                    'text' => 'Asistencia',
+                    'url'  => '#',
+                    'icon' => 'fas fa-calendar-check',
+                ],
+                [
+                    'text' => 'Evaluaciones',
+                    'url'  => '#',
+                    'icon' => 'fas fa-award',
+                ],
+                [
+                    'text' => 'Anotaciones',
+                    'url'  => '#',
+                    'icon' => 'fas fa-award',
+                ],
+            ],
+        ],
+
+        // ── Fase 6 — Reportes ─────────────────────────────────
+        [
+            'text'    => 'Reportes',
+            'icon'    => 'fas fa-chart-bar',
+            'submenu' => [
+                [
+                    'text' => 'Estadísticas',
+                    'url'  => '#',
+                    'icon' => 'fas fa-chart-pie',
+                ],
+                [
+                    'text' => 'Reportes',
+                    'url'  => '#',
+                    'icon' => 'fas fa-file-alt',
+                ],
             ],
         ],
 
@@ -393,6 +508,21 @@ return [
                     'type' => 'js',
                     'asset' => true,
                     'location' => 'js/admin.js',
+                ],
+            ],
+        ],
+        'AdminTheme' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'css/variables.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'css/adminlte-theme.css',
                 ],
             ],
         ],
