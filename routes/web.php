@@ -64,28 +64,52 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::get('/docentes/{id}/edit', [App\Http\Controllers\DocenteController::class, 'edit'])->name('docentes.edit');
   Route::put('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'update'])->name('docentes.update');
   Route::delete('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'destroy'])->name('docentes.destroy');
+
+  // Sedes
+  Route::get('/sedes', [App\Http\Controllers\SedeController::class, 'index'])->name('sedes.index');
+  Route::get('/sedes/create', [App\Http\Controllers\SedeController::class, 'create'])->name('sedes.create');
+  Route::post('/sedes', [App\Http\Controllers\SedeController::class, 'store'])->name('sedes.store');
+  Route::get('/sedes/{id}/edit', [App\Http\Controllers\SedeController::class, 'edit'])->name('sedes.edit');
+  Route::put('/sedes/{id}', [App\Http\Controllers\SedeController::class, 'update'])->name('sedes.update');
+  Route::delete('/sedes/{id}', [App\Http\Controllers\SedeController::class, 'destroy'])->name('sedes.destroy');
+
+  // Niveles
+  Route::get('/niveles', [App\Http\Controllers\NivelController::class, 'index'])->name('niveles.index');
+  Route::get('/niveles/create', [App\Http\Controllers\NivelController::class, 'create'])->name('niveles.create');
+  Route::post('/niveles', [App\Http\Controllers\NivelController::class, 'store'])->name('niveles.store');
+  Route::get('/niveles/{id}/edit', [App\Http\Controllers\NivelController::class, 'edit'])->name('niveles.edit');
+  Route::put('/niveles/{id}', [App\Http\Controllers\NivelController::class, 'update'])->name('niveles.update');
+  Route::delete('/niveles/{id}', [App\Http\Controllers\NivelController::class, 'destroy'])->name('niveles.destroy');
+
+  // Descuentos
+  Route::get('/descuentos', [App\Http\Controllers\DescuentoController::class, 'index'])->name('descuentos.index');
+  Route::get('/descuentos/create', [App\Http\Controllers\DescuentoController::class, 'create'])->name('descuentos.create');
+  Route::post('/descuentos', [App\Http\Controllers\DescuentoController::class, 'store'])->name('descuentos.store');
+  Route::get('/descuentos/{id}/edit', [App\Http\Controllers\DescuentoController::class, 'edit'])->name('descuentos.edit');
+  Route::put('/descuentos/{id}', [App\Http\Controllers\DescuentoController::class, 'update'])->name('descuentos.update');
+  Route::delete('/descuentos/{id}', [App\Http\Controllers\DescuentoController::class, 'destroy'])->name('descuentos.destroy');
 });
 
 // =====================================================
 // PANEL DOCENTE — solo rol docente
 // =====================================================
-Route::prefix('docente')->name('docente.')->middleware(['auth', 'role:docente'])->group(function () {
+/* Route::prefix('docente')->name('docente.')->middleware(['auth', 'role:docente'])->group(function () {
   Route::get('/dashboard', [App\Http\Controllers\Docente\DashboardController::class, 'index'])->name('dashboard');
   // Aquí irán: clases, alumnos, asistencia
-});
+}); */
 
 // =====================================================
 // PANEL ALUMNO — solo rol alumno
 // =====================================================
-Route::prefix('alumno')->name('alumno.')->middleware(['auth', 'role:alumno'])->group(function () {
+/* Route::prefix('alumno')->name('alumno.')->middleware(['auth', 'role:alumno'])->group(function () {
   Route::get('/dashboard', [App\Http\Controllers\Alumno\DashboardController::class, 'index'])->name('dashboard');
   // Aquí irán: horario, pagos, asistencia
-});
+}); */
 
 // =====================================================
 // PANEL ACUDIENTE — solo rol acudiente
 // =====================================================
-Route::prefix('acudiente')->name('acudiente.')->middleware(['auth', 'role:acudiente'])->group(function () {
+/* Route::prefix('acudiente')->name('acudiente.')->middleware(['auth', 'role:acudiente'])->group(function () {
   Route::get('/dashboard', [App\Http\Controllers\Acudiente\DashboardController::class, 'index'])->name('dashboard');
   // Aquí irán: ver hijo, pagos, horario
-});
+}); */

@@ -64,7 +64,7 @@ return [
     */
 
     'logo' => '<b>EXE</b>NATACION',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'vendor/adminlte/dist/img/logoSwimFitFer.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -302,7 +302,7 @@ return [
 
         // ── General ──────────────────────────────────────────
         [
-            'text' => 'Dashboard',
+            'text' => 'SISNATACION',
             'route' => 'admin.dashboard',
             'icon' => 'fas fa-tachometer-alt',
         ],
@@ -342,20 +342,26 @@ return [
             'icon'    => 'fas fa-sitemap',
             'submenu' => [
                 [
-                    'text' => 'Sedes',
-                    'url'  => '#',
-                    'icon' => 'fas fa-building',
+                    'text'  => 'Sedes',
+                    'route' => 'admin.sedes.index',
+                    'icon'  => 'fas fa-building',
                 ],
                 [
-                    'text' => 'Niveles',
-                    'url'  => '#',
-                    'icon' => 'fas fa-layer-group',
+                    'text'  => 'Niveles',
+                    'route' => 'admin.niveles.index',
+                    'icon'  => 'fas fa-layer-group',
                 ],
                 [
-                    'text' => 'Descuentos',
+                    'text' => 'Grupos',
                     'url'  => '#',
-                    'icon' => 'fas fa-tag',
+                    'icon' => 'fas fa-users-cog',
                 ],
+                [
+                    'text' => 'Horarios',
+                    'url'  => '#',
+                    'icon' => 'fas fa-clock',
+                ],
+
             ],
         ],
 
@@ -369,15 +375,16 @@ return [
                     'route' => 'admin.docentes.index',
                     'icon'  => 'fas fa-chalkboard-teacher',
                 ],
-                [
-                    'text' => 'Acudientes',
-                    'url'  => '#',
-                    'icon' => 'fas fa-users',
-                ],
+
                 [
                     'text' => 'Alumnos',
                     'url'  => '#',
                     'icon' => 'fas fa-swimmer',
+                ],
+                [
+                    'text' => 'Acudientes',
+                    'url'  => '#',
+                    'icon' => 'fas fa-users',
                 ],
             ],
         ],
@@ -387,16 +394,7 @@ return [
             'text'    => 'Académico',
             'icon'    => 'fas fa-graduation-cap',
             'submenu' => [
-                [
-                    'text' => 'Grupos',
-                    'url'  => '#',
-                    'icon' => 'fas fa-users-cog',
-                ],
-                [
-                    'text' => 'Horarios',
-                    'url'  => '#',
-                    'icon' => 'fas fa-clock',
-                ],
+
                 [
                     'text' => 'Matrículas',
                     'url'  => '#',
@@ -419,6 +417,11 @@ return [
                     'text' => 'Pagos',
                     'url'  => '#',
                     'icon' => 'fas fa-cash-register',
+                ],
+                [
+                    'text'  => 'Descuentos',
+                    'route' => 'admin.descuentos.index',
+                    'icon'  => 'fas fa-tag',
                 ],
             ],
         ],

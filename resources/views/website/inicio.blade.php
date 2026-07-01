@@ -42,6 +42,8 @@
     {{-- ── Hero institucional ── --}}
     <section class="hero-section">
         <div class="container position-relative" style="z-index: 1;">
+            <div class="hero-badge">Bienvenido a nuestra institución</div>
+            <hr class="inst-divider">
 
             @if (!empty($configuracion->logo))
                 <img src="{{ asset($configuracion->logo) }}" alt="Logo" class="hero-logo-img">
@@ -51,7 +53,6 @@
                 </div>
             @endif
 
-            <div class="hero-badge">Bienvenido a nuestra institución</div>
             @if (!empty($configuracion->nombre))
                 <h1>
                     <span class="accent">{{ $configuracion->nombre }}</span>
@@ -173,7 +174,8 @@
                                             <div class="noticia-date">{{ $noticia->fecha_publicacion }}</div>
                                             <h6>{{ Str::limit($noticia->titulo, 60) }}</h6>
                                             <a href="{{ route('noticias.show', $noticia->id) }}"
-                                                class="pilar-link mt-2 d-block" style="font-size:12px; color:var(--color-secundario);">
+                                                class="pilar-link mt-2 d-block"
+                                                style="font-size:12px; color:var(--color-secundario);">
                                                 Leer →
                                             </a>
                                         </div>

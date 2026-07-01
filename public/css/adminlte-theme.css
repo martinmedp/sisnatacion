@@ -1,7 +1,5 @@
 /* =====================================================
    PERSONALIZACIÓN ADMINLTE — Identidad institucional
-   Sobrescribe los colores por defecto de AdminLTE usando
-   las variables institucionales definidas en variables.css
    ===================================================== */
 
 /* Sidebar — fondo con color institucional primario */
@@ -13,64 +11,82 @@
 /* Marca / logo en el sidebar */
 .brand-link {
   border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
+  background-color: var(--color-primario) !important;
 }
 
-/* Ítems del menú — texto */
-.nav-sidebar>.nav-item>.nav-link {
-  color: rgba(255, 255, 255, 0.85) !important;
+/* Ítems del menú — texto e íconos */
+.nav-sidebar .nav-link,
+.nav-sidebar .nav-link p,
+.nav-sidebar .nav-link i {
+  color: rgba(255, 255, 255, 0.80) !important;
 }
 
-.nav-sidebar>.nav-item>.nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.08) !important;
+/* Hover */
+.nav-sidebar .nav-link:hover,
+.nav-sidebar .nav-link:hover p,
+.nav-sidebar .nav-link:hover i {
+  background-color: rgba(255, 255, 255, 0.10) !important;
   color: #ffffff !important;
 }
 
-/* Ítem activo — color secundario institucional */
-.nav-sidebar>.nav-item>.nav-link.active {
-  background-color: var(--color-secundario) !important;
-  color: var(--texto-principal) !important;
+/* Ítem ACTIVO — fondo blanco semitransparente, texto blanco en negrita */
+.nav-sidebar .nav-link.active,
+.nav-sidebar .nav-item>.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border-left: 3px solid #ffffff !important;
 }
 
-.nav-sidebar>.nav-item>.nav-link.active i,
-.nav-sidebar>.nav-item>.nav-link.active p {
-  color: var(--texto-principal) !important;
+.nav-sidebar .nav-link.active p,
+.nav-sidebar .nav-link.active i,
+.nav-sidebar .nav-item>.nav-link.active p,
+.nav-sidebar .nav-item>.nav-link.active i {
+  color: #ffffff !important;
+  font-weight: 700 !important;
 }
 
-/* Submenús — fondo ligeramente más oscuro */
+/* Submenús — fondo más oscuro */
 .nav-treeview {
-  background-color: rgba(0, 0, 0, 0.12) !important;
+  background-color: rgba(0, 0, 0, 0.15) !important;
 }
 
-.nav-treeview>.nav-item>.nav-link {
-  color: rgba(255, 255, 255, 0.75) !important;
+.nav-treeview .nav-link,
+.nav-treeview .nav-link p,
+.nav-treeview .nav-link i {
+  color: rgba(255, 255, 255, 0.70) !important;
 }
 
-.nav-treeview>.nav-item>.nav-link:hover {
+.nav-treeview .nav-link:hover,
+.nav-treeview .nav-link:hover p,
+.nav-treeview .nav-link:hover i {
   color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
 }
 
-/* Íconos del menú */
-.nav-sidebar .nav-icon {
-  color: rgba(255, 255, 255, 0.7) !important;
+.nav-treeview .nav-link.active,
+.nav-treeview .nav-link.active p,
+.nav-treeview .nav-link.active i {
+  background-color: rgba(255, 255, 255, 0.20) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  border-left: 3px solid #ffffff !important;
 }
 
-/* Encabezados de sección del menú (headers) */
+/* Encabezados de sección */
 .nav-sidebar .nav-header {
   color: var(--color-acento) !important;
+  font-size: 11px !important;
+  letter-spacing: 0.8px !important;
 }
 
 /* Navbar superior */
 .main-header.navbar {
   background-color: #ffffff !important;
-  border-bottom: 1px solid var(--border-color) !important;
+  border-bottom: 1px solid #dee2e6 !important;
 }
 
-/* Botón / enlaces activos en navbar */
-.main-header .nav-link {
-  color: var(--texto-principal) !important;
-}
-
-/* Footer del sidebar (usuario logueado) */
+/* Footer del sidebar */
 .user-panel {
   border-top: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
