@@ -42,9 +42,16 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Encargado</label>
-                        <input type="text" name="encargado" class="form-control @error('encargado') is-invalid @enderror"
-                            value="{{ old('encargado') }}">
-                        @error('encargado')
+                        <select name="encargado_id" class="form-control @error('encargado_id') is-invalid @enderror">
+                            <option value="">-- Seleccionar encargado --</option>
+                            @foreach ($docentes as $docente)
+                                <option value="{{ $docente->id }}"
+                                    {{ old('encargado_id') == $docente->id ? 'selected' : '' }}>
+                                    {{ $docente->nombre_completo }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('encargado_id')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>

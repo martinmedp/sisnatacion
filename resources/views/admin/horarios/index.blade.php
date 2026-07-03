@@ -1,19 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', 'Sedes')
+@section('title', 'Horarios')
 
 @section('content_header')
-    <h1>Sedes</h1>
+    <h1>Horarios</h1>
 @stop
 
 @section('content')
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Listado de sedes</h3>
+            <h3 class="card-title">Listado de horarios</h3>
             <div class="card-tools">
-                <a href="{{ route('admin.sedes.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Nueva sede
+                <a href="{{ route('admin.horarios.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Nuevo horario
                 </a>
             </div>
         </div>
@@ -21,36 +21,41 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Dirección</th>
-                        <th>Teléfono</th>
-                        <th>Encargado</th>
+                        <th>Día</th>
+                        <th>Hora</th>
+                        <th>Grupo</th>
+                        <th>Nivel</th>
+                        <th>Sede</th>
+                        <th>Docente</th>
                         <th>Estado</th>
                         <th width="120">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($sedes as $sede)
+                    @forelse ($horarios as $horario)
                         <tr>
-                            <td>{{ $sede->id }}</td>
-                            <td>{{ $sede->nombre }}</td>
-                            <td>{{ $sede->direccion }}</td>
-                            <td>{{ $sede->telefono }}</td>
-                            <td>{{ $sede->encargado->nombre_completo ?? '—' }}</td>
+                            <td>{{ ucfirst($horario->dia_semana) }}</td>
                             <td>
-                                @if ($sede->estado === 'activo')
+                                {{ date('g:i a', strtotime($horario->hora_inicio)) }}
+                                — {{ date('g:i a', strtotime($horario->hora_fin)) }}
+                            </td>
+                            <td>{{ $horario->grupo->nombre ?? '—' }}</td>
+                            <td>{{ $horario->grupo->nivel->nombre ?? '—' }}</td>
+                            <td>{{ $horario->grupo->sede->nombre ?? '—' }}</td>
+                            <td>{{ $horario->grupo->docente->nombre_completo ?? '—' }}</td>
+                            <td>
+                                @if ($horario->estado === 'activo')
                                     <span class="badge badge-success">Activo</span>
                                 @else
                                     <span class="badge badge-secondary">Inactivo</span>
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('admin.sedes.edit', $sede->id) }}" class="btn btn-success btn-sm">
+                                <a href="{{ route('admin.horarios.edit', $horario->id) }}" class="btn btn-success btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.sedes.destroy', $sede->id) }}" method="POST"
-                                    class="form-eliminar" data-nombre="sede" style="display:inline;">
+                                <form action="{{ route('admin.horarios.destroy', $horario->id) }}" method="POST"
+                                    class="form-eliminar" data-nombre="horario" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -61,7 +66,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center">No hay sedes registradas.</td>
+                            <td colspan="8" class="text-center">No hay horarios registrados.</td>
                         </tr>
                     @endforelse
                 </tbody>

@@ -4,19 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Sede;
+use App\Models\Docente;
 
 class SedeController extends Controller
 {
     public function index()
     {
-        $sedes = Sede::orderBy('id', 'asc')->get();
+        $sedes = Sede::with('encargado')->orderBy('nombre', 'asc')->get();
 
         return view('admin.sedes.index', compact('sedes'));
     }
 
     public function create()
     {
-        return view('admin.sedes.create');
+        $docentes = Docente::where('estado', 'ACTIVO')->orderBy('nombre_completo')->get();
+
+        return view('admin.sedes.create', compact('docentes'));
     }
 
     public function store(Request $request)
@@ -25,7 +28,7 @@ class SedeController extends Controller
             'nombre' => 'required|string|max:255',
             'direccion' => 'nullable|string|max:255',
             'telefono' => 'nullable|string|max:20',
-            'encargado' => 'nullable|string|max:255',
+            'encargado_id' => 'nullable|exists:docentes,id',
             'descripcion' => 'nullable|string',
             'estado' => 'required|in:activo,inactivo',
         ]);
@@ -34,7 +37,7 @@ class SedeController extends Controller
             'nombre',
             'direccion',
             'telefono',
-            'encargado',
+            'encargado_id',
             'descripcion',
             'estado',
         ]));
@@ -47,8 +50,9 @@ class SedeController extends Controller
     public function edit($id)
     {
         $sede = Sede::findOrFail($id);
+        $docentes = Docente::where('estado', 'ACTIVO')->orderBy('nombre_completo')->get();
 
-        return view('admin.sedes.edit', compact('sede'));
+        return view('admin.sedes.edit', compact('sede', 'docentes'));
     }
 
     public function update(Request $request, $id)
@@ -59,7 +63,7 @@ class SedeController extends Controller
             'nombre' => 'required|string|max:255',
             'direccion' => 'nullable|string|max:255',
             'telefono' => 'nullable|string|max:20',
-            'encargado' => 'nullable|string|max:255',
+            'encargado_id' => 'nullable|exists:docentes,id',
             'descripcion' => 'nullable|string',
             'estado' => 'required|in:activo,inactivo',
         ]);
@@ -68,7 +72,7 @@ class SedeController extends Controller
             'nombre',
             'direccion',
             'telefono',
-            'encargado',
+            'encargado_id',
             'descripcion',
             'estado',
         ]));

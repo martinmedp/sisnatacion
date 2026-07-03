@@ -13,8 +13,13 @@ class Sede extends Model
         'nombre',
         'direccion',
         'telefono',
-        'encargado',
+        'encargado_id',
         'descripcion',
         'estado',
     ];
+
+    public function encargado()
+    {
+        return $this->belongsTo(Docente::class, 'encargado_id');
+    }
 }

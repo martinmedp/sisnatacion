@@ -1,19 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', 'Sedes')
+@section('title', 'Grupos')
 
 @section('content_header')
-    <h1>Sedes</h1>
+    <h1>Grupos</h1>
 @stop
 
 @section('content')
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Listado de sedes</h3>
+            <h3 class="card-title">Listado de grupos</h3>
             <div class="card-tools">
-                <a href="{{ route('admin.sedes.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Nueva sede
+                <a href="{{ route('admin.grupos.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Nuevo grupo
                 </a>
             </div>
         </div>
@@ -21,36 +21,48 @@
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>ID</th>
                         <th>Nombre</th>
-                        <th>Dirección</th>
-                        <th>Teléfono</th>
-                        <th>Encargado</th>
+                        <th>Nivel</th>
+                        <th>Sede</th>
+                        <th>Docente</th>
+                        <th>Cupo</th>
+                        <th>Horarios</th>
                         <th>Estado</th>
                         <th width="120">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse ($sedes as $sede)
+                    @forelse ($grupos as $grupo)
                         <tr>
-                            <td>{{ $sede->id }}</td>
-                            <td>{{ $sede->nombre }}</td>
-                            <td>{{ $sede->direccion }}</td>
-                            <td>{{ $sede->telefono }}</td>
-                            <td>{{ $sede->encargado->nombre_completo ?? '—' }}</td>
+                            <td>{{ $grupo->nombre }}</td>
+                            <td>{{ $grupo->nivel->nombre ?? '—' }}</td>
+                            <td>{{ $grupo->sede->nombre ?? '—' }}</td>
+                            <td>{{ $grupo->docente->nombre_completo ?? '—' }}</td>
+                            <td>{{ $grupo->cupo_maximo }}</td>
                             <td>
-                                @if ($sede->estado === 'activo')
+                                @forelse ($grupo->horarios as $h)
+                                    <span class="badge badge-info">
+                                        {{ ucfirst($h->dia_semana) }}
+                                        {{ date('g:i a', strtotime($h->hora_inicio)) }}
+                                        — {{ date('g:i a', strtotime($h->hora_fin)) }}
+                                    </span>
+                                @empty
+                                    <span class="text-muted">Sin horario</span>
+                                @endforelse
+                            </td>
+                            <td>
+                                @if ($grupo->estado === 'activo')
                                     <span class="badge badge-success">Activo</span>
                                 @else
                                     <span class="badge badge-secondary">Inactivo</span>
                                 @endif
                             </td>
                             <td>
-                                <a href="{{ route('admin.sedes.edit', $sede->id) }}" class="btn btn-success btn-sm">
+                                <a href="{{ route('admin.grupos.edit', $grupo->id) }}" class="btn btn-success btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('admin.sedes.destroy', $sede->id) }}" method="POST"
-                                    class="form-eliminar" data-nombre="sede" style="display:inline;">
+                                <form action="{{ route('admin.grupos.destroy', $grupo->id) }}" method="POST"
+                                    class="form-eliminar" data-nombre="grupo" style="display:inline;">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm">
@@ -61,7 +73,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="text-center">No hay sedes registradas.</td>
+                            <td colspan="8" class="text-center">No hay grupos registrados.</td>
                         </tr>
                     @endforelse
                 </tbody>

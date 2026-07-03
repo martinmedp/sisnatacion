@@ -43,9 +43,16 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label>Encargado</label>
-                        <input type="text" name="encargado" class="form-control @error('encargado') is-invalid @enderror"
-                            value="{{ old('encargado', $sede->encargado) }}">
-                        @error('encargado')
+                        <select name="encargado_id" class="form-control @error('encargado_id') is-invalid @enderror">
+                            <option value="">-- Seleccionar encargado --</option>
+                            @foreach ($docentes as $docente)
+                                <option value="{{ $docente->id }}"
+                                    {{ old('encargado_id', $sede->encargado_id) == $docente->id ? 'selected' : '' }}>
+                                    {{ $docente->nombre_completo }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('encargado_id')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
@@ -62,8 +69,10 @@
                 <div class="form-group">
                     <label>Estado</label>
                     <select name="estado" class="form-control @error('estado') is-invalid @enderror">
-                        <option value="activo" {{ old('estado', $sede->estado) == 'activo' ? 'selected' : '' }}>Activo</option>
-                        <option value="inactivo" {{ old('estado', $sede->estado) == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
+                        <option value="activo" {{ old('estado', $sede->estado) == 'activo' ? 'selected' : '' }}>Activo
+                        </option>
+                        <option value="inactivo" {{ old('estado', $sede->estado) == 'inactivo' ? 'selected' : '' }}>
+                            Inactivo</option>
                     </select>
                     @error('estado')
                         <span class="invalid-feedback">{{ $message }}</span>

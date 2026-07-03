@@ -352,48 +352,49 @@ return [
                     'icon'  => 'fas fa-layer-group',
                 ],
                 [
-                    'text'  => 'Grupos',
-                    'route' => 'admin.grupos.index',
-                    'icon'  => 'fas fa-users-cog',
+                    'text' => 'Grupos',
+                    'url'  => '#',
+                    'icon' => 'fas fa-users-cog',
                 ],
                 [
-                    'text'  => 'Horarios',
-                    'route' => 'admin.horarios.index',
-                    'icon'  => 'fas fa-clock',
+                    'text' => 'Horarios',
+                    'url'  => '#',
+                    'icon' => 'fas fa-clock',
+                ],
 
+            ],
+        ],
 
+        // ── Fase 2 — Personas ─────────────────────────────────
+        [
+            'text'    => 'Personal',
+            'icon'    => 'fas fa-user-friends',
+            'submenu' => [
+                [
+                    'text'  => 'Docentes',
+                    'route' => 'admin.docentes.index',
+                    'icon'  => 'fas fa-chalkboard-teacher',
+                ],
+
+                [
+                    'text' => 'Alumnos',
+                    'url'  => '#',
+                    'icon' => 'fas fa-swimmer',
+                ],
+                [
+                    'text' => 'Acudientes',
+                    'url'  => '#',
+                    'icon' => 'fas fa-users',
                 ],
             ],
+        ],
 
-            // ── Fase 2 — Personas ─────────────────────────────────
-            [
-                'text'    => 'Personal',
-                'icon'    => 'fas fa-user-friends',
-                'submenu' => [
-                    [
-                        'text'  => 'Docentes',
-                        'route' => 'admin.docentes.index',
-                        'icon'  => 'fas fa-chalkboard-teacher',
-                    ],
+        // ── Fase 3 — Académico ────────────────────────────────
+        [
+            'text'    => 'Académico',
+            'icon'    => 'fas fa-graduation-cap',
+            'submenu' => [
 
-                    [
-                        'text' => 'Alumnos',
-                        'url'  => '#',
-                        'icon' => 'fas fa-swimmer',
-                    ],
-                    [
-                        'text' => 'Acudientes',
-                        'url'  => '#',
-                        'icon' => 'fas fa-users',
-                    ],
-                ],
-            ],
-
-            // ── Fase 3 — Académico ────────────────────────────────
-            [
-                'text'    => 'Académico',
-                'icon'    => 'fas fa-graduation-cap',
-                'submenu' => [],
                 [
                     'text' => 'Matrículas',
                     'url'  => '#',

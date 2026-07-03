@@ -65,22 +65,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::put('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'update'])->name('docentes.update');
   Route::delete('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'destroy'])->name('docentes.destroy');
 
-  // Grupos
-  Route::get('/grupos', [App\Http\Controllers\GrupoController::class, 'index'])->name('grupos.index');
-  Route::get('/grupos/create', [App\Http\Controllers\GrupoController::class, 'create'])->name('grupos.create');
-  Route::post('/grupos', [App\Http\Controllers\GrupoController::class, 'store'])->name('grupos.store');
-  Route::get('/grupos/{id}/edit', [App\Http\Controllers\GrupoController::class, 'edit'])->name('grupos.edit');
-  Route::put('/grupos/{id}', [App\Http\Controllers\GrupoController::class, 'update'])->name('grupos.update');
-  Route::delete('/grupos/{id}', [App\Http\Controllers\GrupoController::class, 'destroy'])->name('grupos.destroy');
-
-  // Horarios
-  Route::get('/horarios', [App\Http\Controllers\HorarioController::class, 'index'])->name('horarios.index');
-  Route::get('/horarios/create', [App\Http\Controllers\HorarioController::class, 'create'])->name('horarios.create');
-  Route::post('/horarios', [App\Http\Controllers\HorarioController::class, 'store'])->name('horarios.store');
-  Route::get('/horarios/{id}/edit', [App\Http\Controllers\HorarioController::class, 'edit'])->name('horarios.edit');
-  Route::put('/horarios/{id}', [App\Http\Controllers\HorarioController::class, 'update'])->name('horarios.update');
-  Route::delete('/horarios/{id}', [App\Http\Controllers\HorarioController::class, 'destroy'])->name('horarios.destroy');
-
   // Sedes
   Route::get('/sedes', [App\Http\Controllers\SedeController::class, 'index'])->name('sedes.index');
   Route::get('/sedes/create', [App\Http\Controllers\SedeController::class, 'create'])->name('sedes.create');
