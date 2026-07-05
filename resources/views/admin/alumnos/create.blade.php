@@ -1,0 +1,202 @@
+@extends('adminlte::page')
+
+@section('title', 'Nuevo alumno')
+
+@section('content_header')
+    <h1>Nuevo alumno</h1>
+@stop
+
+@section('content')
+
+    <div class="card">
+        <div class="card-body">
+            <form action="{{ route('admin.alumnos.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <h5 class="mb-3">Datos personales</h5>
+
+                <div class="form-group text-center">
+                    <div class="mb-2">
+                        <img id="preview-foto" src="{{ asset('vendor/adminlte/dist/img/user4-128x128.jpg') }}"
+                            style="width:100px;height:100px;object-fit:cover;border-radius:50%;border:2px solid #dee2e6;">
+                    </div>
+                    <label>Foto</label>
+                    <input type="file" name="foto" id="input-foto" accept="image/*"
+                        class="form-control-file @error('foto') is-invalid @enderror"
+                        onchange="previsualizarFoto(this)">
+                    @error('foto')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label>Nombre completo</label>
+                        <input type="text" name="nombre_completo"
+                            class="form-control @error('nombre_completo') is-invalid @enderror"
+                            value="{{ old('nombre_completo') }}">
+                        @error('nombre_completo')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Fecha de nacimiento</label>
+                        <input type="date" name="fecha_nacimiento"
+                            class="form-control @error('fecha_nacimiento') is-invalid @enderror"
+                            value="{{ old('fecha_nacimiento') }}">
+                        @error('fecha_nacimiento')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label>Tipo de documento</label>
+                        <select name="tipo_documento" class="form-control @error('tipo_documento') is-invalid @enderror">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="RC" {{ old('tipo_documento') == 'RC' ? 'selected' : '' }}>Registro civil</option>
+                            <option value="TI" {{ old('tipo_documento') == 'TI' ? 'selected' : '' }}>Tarjeta de identidad</option>
+                            <option value="CC" {{ old('tipo_documento') == 'CC' ? 'selected' : '' }}>Cédula de ciudadanía</option>
+                            <option value="CE" {{ old('tipo_documento') == 'CE' ? 'selected' : '' }}>Cédula de extranjería</option>
+                        </select>
+                        @error('tipo_documento')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Número de documento</label>
+                        <input type="text" name="numero_documento"
+                            class="form-control @error('numero_documento') is-invalid @enderror"
+                            value="{{ old('numero_documento') }}">
+                        @error('numero_documento')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Sexo</label>
+                        <select name="sexo" class="form-control @error('sexo') is-invalid @enderror">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="masculino" {{ old('sexo') == 'masculino' ? 'selected' : '' }}>Masculino</option>
+                            <option value="femenino" {{ old('sexo') == 'femenino' ? 'selected' : '' }}>Femenino</option>
+                        </select>
+                        @error('sexo')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Teléfono</label>
+                        <input type="text" name="telefono"
+                            class="form-control @error('telefono') is-invalid @enderror"
+                            value="{{ old('telefono') }}">
+                        @error('telefono')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Dirección</label>
+                        <input type="text" name="direccion" class="form-control @error('direccion') is-invalid @enderror"
+                            value="{{ old('direccion') }}">
+                        @error('direccion')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Correo</label>
+                        <input type="email" name="correo" class="form-control @error('correo') is-invalid @enderror"
+                            value="{{ old('correo') }}">
+                        @error('correo')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <hr>
+                <h5 class="mb-3">Acudiente responsable</h5>
+
+                <div class="form-group">
+                    <label>Acudiente</label>
+                    <select name="acudiente_id" class="form-control @error('acudiente_id') is-invalid @enderror">
+                        <option value="">-- Seleccionar acudiente --</option>
+                        @foreach ($acudientes as $acudiente)
+                            <option value="{{ $acudiente->id }}" {{ old('acudiente_id') == $acudiente->id ? 'selected' : '' }}>
+                                {{ $acudiente->nombre_completo }} ({{ $acudiente->parentesco }})
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('acudiente_id')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                    <small class="form-text text-muted">
+                        Si el acudiente no existe aún, créalo primero en el módulo de Acudientes.
+                    </small>
+                </div>
+
+                <hr>
+                <h5 class="mb-3">Contacto de emergencia y observaciones</h5>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Contacto de emergencia</label>
+                        <input type="text" name="contacto_emergencia"
+                            class="form-control @error('contacto_emergencia') is-invalid @enderror"
+                            value="{{ old('contacto_emergencia') }}">
+                        @error('contacto_emergencia')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Teléfono de emergencia</label>
+                        <input type="text" name="telefono_emergencia"
+                            class="form-control @error('telefono_emergencia') is-invalid @enderror"
+                            value="{{ old('telefono_emergencia') }}">
+                        @error('telefono_emergencia')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Observaciones (alergias, condiciones médicas, etc.)</label>
+                    <textarea name="observaciones" rows="3"
+                        class="form-control @error('observaciones') is-invalid @enderror">{{ old('observaciones') }}</textarea>
+                    @error('observaciones')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label>Estado</label>
+                    <select name="estado" class="form-control @error('estado') is-invalid @enderror">
+                        <option value="activo" {{ old('estado') == 'activo' ? 'selected' : '' }}>Activo</option>
+                        <option value="inactivo" {{ old('estado') == 'inactivo' ? 'selected' : '' }}>Inactivo</option>
+                    </select>
+                    @error('estado')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Guardar
+                </button>
+                <a href="{{ route('admin.alumnos.index') }}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function previsualizarFoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('preview-foto').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+
+@stop

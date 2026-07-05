@@ -7,15 +7,17 @@ use Illuminate\Http\Request;
 
 class DocenteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $docentes = Docente::orderBy('orden')
+        $buscar = $request->get('buscar');
+
+        $docentes = Docente::when($buscar, function ($query) use ($buscar) {
+            $query->where('nombre_completo', 'like', "%{$buscar}%");
+        })
+            ->orderBy('nombre_completo', 'asc')
             ->get();
 
-        return view(
-            'admin.docentes.index',
-            compact('docentes')
-        );
+        return view('admin.docentes.index', compact('docentes', 'buscar'));
     }
 
     public function create()

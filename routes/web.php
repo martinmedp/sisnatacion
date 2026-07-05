@@ -65,6 +65,38 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::put('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'update'])->name('docentes.update');
   Route::delete('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'destroy'])->name('docentes.destroy');
 
+  // Acudientes
+  Route::get('/acudientes', [App\Http\Controllers\AcudienteController::class, 'index'])->name('acudientes.index');
+  Route::get('/acudientes/create', [App\Http\Controllers\AcudienteController::class, 'create'])->name('acudientes.create');
+  Route::post('/acudientes', [App\Http\Controllers\AcudienteController::class, 'store'])->name('acudientes.store');
+  Route::get('/acudientes/{id}/edit', [App\Http\Controllers\AcudienteController::class, 'edit'])->name('acudientes.edit');
+  Route::put('/acudientes/{id}', [App\Http\Controllers\AcudienteController::class, 'update'])->name('acudientes.update');
+  Route::delete('/acudientes/{id}', [App\Http\Controllers\AcudienteController::class, 'destroy'])->name('acudientes.destroy');
+
+  // Alumnos
+  Route::get('/alumnos', [App\Http\Controllers\AlumnoController::class, 'index'])->name('alumnos.index');
+  Route::get('/alumnos/create', [App\Http\Controllers\AlumnoController::class, 'create'])->name('alumnos.create');
+  Route::post('/alumnos', [App\Http\Controllers\AlumnoController::class, 'store'])->name('alumnos.store');
+  Route::get('/alumnos/{id}/edit', [App\Http\Controllers\AlumnoController::class, 'edit'])->name('alumnos.edit');
+  Route::put('/alumnos/{id}', [App\Http\Controllers\AlumnoController::class, 'update'])->name('alumnos.update');
+  Route::delete('/alumnos/{id}', [App\Http\Controllers\AlumnoController::class, 'destroy'])->name('alumnos.destroy');
+
+  // Cargos
+  Route::get('/cargos', [App\Http\Controllers\CargoController::class, 'index'])->name('cargos.index');
+  Route::get('/cargos/create', [App\Http\Controllers\CargoController::class, 'create'])->name('cargos.create');
+  Route::post('/cargos', [App\Http\Controllers\CargoController::class, 'store'])->name('cargos.store');
+  Route::get('/cargos/{id}/edit', [App\Http\Controllers\CargoController::class, 'edit'])->name('cargos.edit');
+  Route::put('/cargos/{id}', [App\Http\Controllers\CargoController::class, 'update'])->name('cargos.update');
+  Route::delete('/cargos/{id}', [App\Http\Controllers\CargoController::class, 'destroy'])->name('cargos.destroy');
+
+  // Administrativos
+  Route::get('/administrativos', [App\Http\Controllers\AdministrativoController::class, 'index'])->name('administrativos.index');
+  Route::get('/administrativos/create', [App\Http\Controllers\AdministrativoController::class, 'create'])->name('administrativos.create');
+  Route::post('/administrativos', [App\Http\Controllers\AdministrativoController::class, 'store'])->name('administrativos.store');
+  Route::get('/administrativos/{id}/edit', [App\Http\Controllers\AdministrativoController::class, 'edit'])->name('administrativos.edit');
+  Route::put('/administrativos/{id}', [App\Http\Controllers\AdministrativoController::class, 'update'])->name('administrativos.update');
+  Route::delete('/administrativos/{id}', [App\Http\Controllers\AdministrativoController::class, 'destroy'])->name('administrativos.destroy');
+
   // Grupos
   Route::get('/grupos', [App\Http\Controllers\GrupoController::class, 'index'])->name('grupos.index');
   Route::get('/grupos/create', [App\Http\Controllers\GrupoController::class, 'create'])->name('grupos.create');

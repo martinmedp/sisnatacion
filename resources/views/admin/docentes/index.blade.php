@@ -11,6 +11,22 @@
                 </a>
             </div>
         </div>
+
+        <div class="card-body">
+            <form action="{{ route('admin.docentes.index') }}" method="GET" class="form-inline mb-3">
+                <input type="text" name="buscar" value="{{ $buscar }}" class="form-control mr-2"
+                    style="width: 300px;" placeholder="Buscar por nombre...">
+                <button type="submit" class="btn btn-primary mr-2">
+                    <i class="fas fa-search"></i> Buscar
+                </button>
+                @if ($buscar)
+                    <a href="{{ route('admin.docentes.index') }}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Limpiar
+                    </a>
+                @endif
+            </form>
+        </div>
+
         <table class="table table-bordered table-striped">
             <thead>
                 <tr>
@@ -24,7 +40,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($docentes as $docente)
+                @forelse ($docentes as $docente)
                     <tr>
                         <td>
                             {{ $docente->id }}
@@ -60,7 +76,17 @@
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                @empty
+                    <tr>
+                        <td colspan="7" class="text-center">
+                            @if ($buscar)
+                                No se encontraron docentes con "{{ $buscar }}".
+                            @else
+                                No hay docentes registrados.
+                            @endif
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

@@ -364,43 +364,52 @@ return [
 
                 ],
             ],
-
-            // ── Fase 2 — Personas ─────────────────────────────────
-            [
-                'text'    => 'Personal',
-                'icon'    => 'fas fa-user-friends',
-                'submenu' => [
-                    [
-                        'text'  => 'Docentes',
-                        'route' => 'admin.docentes.index',
-                        'icon'  => 'fas fa-chalkboard-teacher',
-                    ],
-
-                    [
-                        'text' => 'Alumnos',
-                        'url'  => '#',
-                        'icon' => 'fas fa-swimmer',
-                    ],
-                    [
-                        'text' => 'Acudientes',
-                        'url'  => '#',
-                        'icon' => 'fas fa-users',
-                    ],
-                ],
-            ],
-
-            // ── Fase 3 — Académico ────────────────────────────────
-            [
-                'text'    => 'Académico',
-                'icon'    => 'fas fa-graduation-cap',
-                'submenu' => [],
+        ],
+        // ── Fase 2 — Personas ─────────────────────────────────
+        [
+            'text'    => 'Personal',
+            'icon'    => 'fas fa-user-friends',
+            'submenu' => [
                 [
-                    'text' => 'Matrículas',
-                    'url'  => '#',
-                    'icon' => 'fas fa-clipboard-list',
+                    'text'  => 'Docentes',
+                    'route' => 'admin.docentes.index',
+                    'icon'  => 'fas fa-chalkboard-teacher',
+                ],
+                [
+                    'text'  => 'Cargos',
+                    'route' => 'admin.cargos.index',
+                    'icon'  => 'fas fa-id-badge',
+                ],
+                [
+                    'text'  => 'Administrativos',
+                    'route' => 'admin.administrativos.index',
+                    'icon'  => 'fas fa-user-tie',
+                ],
+                [
+                    'text'  => 'Acudientes',
+                    'route' => 'admin.acudientes.index',
+                    'icon'  => 'fas fa-users',
+                ],
+                [
+                    'text'  => 'Alumnos',
+                    'route' => 'admin.alumnos.index',
+                    'icon'  => 'fas fa-swimmer',
                 ],
             ],
         ],
+
+        // ── Fase 3 — Académico ────────────────────────────────
+        [
+            'text'    => 'Académico',
+            'icon'    => 'fas fa-graduation-cap',
+            'submenu' => [],
+            [
+                'text' => 'Matrículas',
+                'url'  => '#',
+                'icon' => 'fas fa-clipboard-list',
+            ],
+        ],
+
 
         // ── Fase 4 — Económico ────────────────────────────────
         [
@@ -423,8 +432,8 @@ return [
                     'icon'  => 'fas fa-tag',
                 ],
             ],
-        ],
 
+        ],
         // ── Fase 5 — Deportivo ────────────────────────────────
         [
             'text'    => 'Control Académico',
