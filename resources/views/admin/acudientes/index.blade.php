@@ -75,13 +75,15 @@
 
     @if (session('success'))
         <script>
-            Swal.fire({
+            window.addEventListener('load', function () {
+                Swal.fire({
                 icon: 'success',
                 title: 'Correcto',
                 text: '{{ session('success') }}',
                 timer: 1500,
                 timerProgressBar: true,
                 showConfirmButton: false
+            });
             });
         </script>
     @endif

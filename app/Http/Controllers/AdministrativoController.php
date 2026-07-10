@@ -9,13 +9,18 @@ use App\Models\Sede;
 
 class AdministrativoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $buscar = $request->get('buscar');
+
         $administrativos = Administrativo::with(['cargo', 'sede'])
+            ->when($buscar, function ($query) use ($buscar) {
+                $query->where('nombre_completo', 'like', "%{$buscar}%");
+            })
             ->orderBy('nombre_completo', 'asc')
             ->get();
 
-        return view('admin.administrativos.index', compact('administrativos'));
+        return view('admin.administrativos.index', compact('administrativos', 'buscar'));
     }
 
     public function create()
@@ -29,6 +34,7 @@ class AdministrativoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'foto'                 => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'nombre_completo'      => 'required|string|max:255',
             'tipo_documento'       => 'nullable|string|max:20',
             'numero_documento'     => 'nullable|string|max:30',
@@ -44,11 +50,20 @@ class AdministrativoController extends Controller
             'estado'               => 'required|in:activo,inactivo',
         ]);
 
-        Administrativo::create($request->only([
+        $data = $request->only([
             'nombre_completo', 'tipo_documento', 'numero_documento', 'fecha_nacimiento',
             'telefono', 'correo', 'cargo_id', 'sede_id', 'fecha_ingreso',
             'contacto_emergencia', 'telefono_emergencia', 'observaciones', 'estado',
-        ]));
+        ]);
+
+        if ($request->hasFile('foto')) {
+            $archivo = $request->file('foto');
+            $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
+            $archivo->move(public_path('uploads/administrativos'), $nombreArchivo);
+            $data['foto'] = 'uploads/administrativos/' . $nombreArchivo;
+        }
+
+        Administrativo::create($data);
 
         return redirect()
             ->route('admin.administrativos.index')
@@ -69,6 +84,7 @@ class AdministrativoController extends Controller
         $administrativo = Administrativo::findOrFail($id);
 
         $request->validate([
+            'foto'                 => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'nombre_completo'      => 'required|string|max:255',
             'tipo_documento'       => 'nullable|string|max:20',
             'numero_documento'     => 'nullable|string|max:30',
@@ -84,11 +100,24 @@ class AdministrativoController extends Controller
             'estado'               => 'required|in:activo,inactivo',
         ]);
 
-        $administrativo->update($request->only([
+        $data = $request->only([
             'nombre_completo', 'tipo_documento', 'numero_documento', 'fecha_nacimiento',
             'telefono', 'correo', 'cargo_id', 'sede_id', 'fecha_ingreso',
             'contacto_emergencia', 'telefono_emergencia', 'observaciones', 'estado',
-        ]));
+        ]);
+
+        if ($request->hasFile('foto')) {
+            if ($administrativo->foto && file_exists(public_path($administrativo->foto))) {
+                unlink(public_path($administrativo->foto));
+            }
+
+            $archivo = $request->file('foto');
+            $nombreArchivo = time() . '_' . $archivo->getClientOriginalName();
+            $archivo->move(public_path('uploads/administrativos'), $nombreArchivo);
+            $data['foto'] = 'uploads/administrativos/' . $nombreArchivo;
+        }
+
+        $administrativo->update($data);
 
         return redirect()
             ->route('admin.administrativos.index')
@@ -98,6 +127,11 @@ class AdministrativoController extends Controller
     public function destroy($id)
     {
         $administrativo = Administrativo::findOrFail($id);
+
+        if ($administrativo->foto && file_exists(public_path($administrativo->foto))) {
+            unlink(public_path($administrativo->foto));
+        }
+
         $administrativo->delete();
 
         return redirect()

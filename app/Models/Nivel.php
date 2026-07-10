@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Nivel extends Model
 {
     use HasFactory;
-    protected $table = 'niveles';  // ← agregar esta línea
+
+    protected $table = 'niveles';
 
     protected $fillable = [
         'nombre',
@@ -17,6 +18,7 @@ class Nivel extends Model
         'edad_minima',
         'edad_maxima',
         'valor_clase',
+        'duracion_meses',
         'estado',
     ];
 
@@ -25,5 +27,10 @@ class Nivel extends Model
         return [
             'valor_clase' => 'decimal:2',
         ];
+    }
+
+    public function grupos()
+    {
+        return $this->hasMany(Grupo::class);
     }
 }

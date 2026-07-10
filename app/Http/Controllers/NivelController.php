@@ -28,11 +28,13 @@ class NivelController extends Controller
             'edad_minima' => 'nullable|integer|min:0',
             'edad_maxima' => 'nullable|integer|min:0|gte:edad_minima',
             'valor_clase' => 'required|numeric|min:0',
+            'duracion_meses' => 'required|integer|min:1|max:24',
             'estado' => 'required|in:activo,inactivo',
         ]);
 
         Nivel::create($request->only([
-            'nombre', 'descripcion', 'orden', 'edad_minima', 'edad_maxima', 'valor_clase', 'estado',
+            'nombre', 'descripcion', 'orden', 'edad_minima', 'edad_maxima',
+            'valor_clase', 'duracion_meses', 'estado',
         ]));
 
         return redirect()
@@ -58,11 +60,13 @@ class NivelController extends Controller
             'edad_minima' => 'nullable|integer|min:0',
             'edad_maxima' => 'nullable|integer|min:0|gte:edad_minima',
             'valor_clase' => 'required|numeric|min:0',
+            'duracion_meses' => 'required|integer|min:1|max:24',
             'estado' => 'required|in:activo,inactivo',
         ]);
 
         $nivel->update($request->only([
-            'nombre', 'descripcion', 'orden', 'edad_minima', 'edad_maxima', 'valor_clase', 'estado',
+            'nombre', 'descripcion', 'orden', 'edad_minima', 'edad_maxima',
+            'valor_clase', 'duracion_meses', 'estado',
         ]));
 
         return redirect()

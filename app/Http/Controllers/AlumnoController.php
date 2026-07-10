@@ -66,7 +66,15 @@ class AlumnoController extends Controller
             $data['foto'] = 'uploads/alumnos/' . $nombreArchivo;
         }
 
-        Alumno::create($data);
+        $alumno = Alumno::create($data);
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'id'     => $alumno->id,
+                'nombre' => $alumno->nombre_completo,
+                'codigo' => $alumno->codigo,
+            ]);
+        }
 
         return redirect()
             ->route('admin.alumnos.index')

@@ -10,11 +10,26 @@
 
     <div class="card">
         <div class="card-body">
-            <form action="{{ route('admin.administrativos.update', $administrativo->id) }}" method="POST">
+            <form action="{{ route('admin.administrativos.update', $administrativo->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
 
                 <h5 class="mb-3">Datos personales</h5>
+
+                <div class="form-group text-center">
+                    <div class="mb-2">
+                        <img id="preview-foto"
+                            src="{{ $administrativo->foto ? asset($administrativo->foto) : asset('vendor/adminlte/dist/img/user4-128x128.jpg') }}"
+                            style="width:100px;height:100px;object-fit:cover;border-radius:50%;border:2px solid #dee2e6;">
+                    </div>
+                    <label>Foto {{ $administrativo->foto ? '(selecciona una nueva para reemplazarla)' : '' }}</label>
+                    <input type="file" name="foto" id="input-foto" accept="image/*"
+                        class="form-control-file @error('foto') is-invalid @enderror"
+                        onchange="previsualizarFoto(this)">
+                    @error('foto')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
+                </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-8">
@@ -178,5 +193,17 @@
             </form>
         </div>
     </div>
+
+    <script>
+        function previsualizarFoto(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('preview-foto').src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
 
 @stop

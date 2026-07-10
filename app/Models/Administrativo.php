@@ -10,6 +10,7 @@ class Administrativo extends Model
     use HasFactory;
 
     protected $fillable = [
+        'foto',
         'nombre_completo',
         'tipo_documento',
         'numero_documento',

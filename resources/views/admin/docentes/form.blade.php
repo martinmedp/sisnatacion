@@ -1,3 +1,14 @@
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <h5><i class="icon fas fa-ban"></i> Se encontraron los siguientes errores:</h5>
+        <ul class="mb-0">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 {{-- FOTO --}}
 <div class="card card-primary">
     <div class="card-header">
@@ -10,8 +21,11 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Fotografía</label>
-                    <input type="file" name="foto" class="form-control" accept="image/*"
-                        onchange="mostrarImagen(event)">
+                    <input type="file" name="foto" class="form-control @error('foto') is-invalid @enderror"
+                        accept="image/*" onchange="mostrarImagen(event)">
+                    @error('foto')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
                 </div>
                 <small class="text-muted">
                     Tamaño recomendado: 600x800 px.
@@ -50,8 +64,12 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label>Nombre Completo</label>
-                    <input type="text" name="nombre_completo" class="form-control"
+                    <input type="text" name="nombre_completo"
+                        class="form-control @error('nombre_completo') is-invalid @enderror"
                         value="{{ old('nombre_completo', $docente->nombre_completo ?? '') }}">
+                    @error('nombre_completo')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             <div class="col-md-3">
@@ -77,8 +95,12 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label>Número Documento</label>
-                    <input type="text" name="numero_documento" class="form-control"
+                    <input type="text" name="numero_documento"
+                        class="form-control @error('numero_documento') is-invalid @enderror"
                         value="{{ old('numero_documento', $docente->numero_documento ?? '') }}">
+                    @error('numero_documento')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
         </div>
@@ -215,8 +237,11 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label>Cargo</label>
-                    <input type="text" name="cargo" class="form-control"
+                    <input type="text" name="cargo" class="form-control @error('cargo') is-invalid @enderror"
                         value="{{ old('cargo', $docente->cargo ?? '') }}">
+                    @error('cargo')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
                 </div>
             </div>
             <div class="col-md-4">

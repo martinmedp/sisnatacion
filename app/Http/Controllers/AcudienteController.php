@@ -35,10 +35,18 @@ class AcudienteController extends Controller
             'estado'           => 'required|in:activo,inactivo',
         ]);
 
-        Acudiente::create($request->only([
+        $acudiente = Acudiente::create($request->only([
             'nombre_completo', 'tipo_documento', 'numero_documento', 'parentesco',
             'telefono', 'correo', 'direccion', 'observaciones', 'estado',
         ]));
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'id'     => $acudiente->id,
+                'nombre' => $acudiente->nombre_completo,
+                'parentesco' => $acudiente->parentesco,
+            ]);
+        }
 
         return redirect()
             ->route('admin.acudientes.index')

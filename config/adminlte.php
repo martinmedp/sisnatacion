@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>EXE</b>NATACION',
+    'logo' => '<b>EXE</b>ENGINER',
     'logo_img' => 'vendor/adminlte/dist/img/logoSwimFitFer.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -113,7 +113,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/logoSwimFitFer.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
@@ -338,7 +338,7 @@ return [
 
         // ── Fase 1 — Estructura base ──────────────────────────
         [
-            'text'    => 'Estructura Base',
+            'text'    => 'Académico',
             'icon'    => 'fas fa-sitemap',
             'submenu' => [
                 [
@@ -360,8 +360,11 @@ return [
                     'text'  => 'Horarios',
                     'route' => 'admin.horarios.index',
                     'icon'  => 'fas fa-clock',
-
-
+                ],
+                [
+                    'text' => 'Matrículas',
+                    'route'  => 'admin.matriculas.index',
+                    'icon' => 'fas fa-clipboard-list',
                 ],
             ],
         ],
@@ -399,16 +402,7 @@ return [
         ],
 
         // ── Fase 3 — Académico ────────────────────────────────
-        [
-            'text'    => 'Académico',
-            'icon'    => 'fas fa-graduation-cap',
-            'submenu' => [],
-            [
-                'text' => 'Matrículas',
-                'url'  => '#',
-                'icon' => 'fas fa-clipboard-list',
-            ],
-        ],
+
 
 
         // ── Fase 4 — Económico ────────────────────────────────
@@ -418,13 +412,8 @@ return [
             'submenu' => [
                 [
                     'text' => 'Cobros',
-                    'url'  => '#',
+                    'route' => 'admin.cobros.index',
                     'icon' => 'fas fa-file-invoice-dollar',
-                ],
-                [
-                    'text' => 'Pagos',
-                    'url'  => '#',
-                    'icon' => 'fas fa-cash-register',
                 ],
                 [
                     'text'  => 'Descuentos',

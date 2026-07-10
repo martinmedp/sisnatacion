@@ -43,7 +43,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label>Edad mínima</label>
                         <input type="number" name="edad_minima" min="0"
                             class="form-control @error('edad_minima') is-invalid @enderror"
@@ -52,7 +52,7 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label>Edad máxima</label>
                         <input type="number" name="edad_maxima" min="0"
                             class="form-control @error('edad_maxima') is-invalid @enderror"
@@ -61,12 +61,23 @@
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>
-                    <div class="form-group col-md-4">
-                        <label>Valor por clase</label>
+                    <div class="form-group col-md-3">
+                        <label>Valor del nivel</label>
                         <input type="number" name="valor_clase" step="0.01" min="0"
                             class="form-control @error('valor_clase') is-invalid @enderror"
                             value="{{ old('valor_clase', $nivel->valor_clase) }}">
+                        <small class="form-text text-muted">Valor total del nivel completo</small>
                         @error('valor_clase')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label>Duración (meses)</label>
+                        <input type="number" name="duracion_meses" min="1" max="24"
+                            class="form-control @error('duracion_meses') is-invalid @enderror"
+                            value="{{ old('duracion_meses', $nivel->duracion_meses) }}">
+                        <small class="form-text text-muted">El valor se dividirá en estas cuotas</small>
+                        @error('duracion_meses')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
                     </div>

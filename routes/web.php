@@ -33,6 +33,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::get('/configuracion', [App\Http\Controllers\ConfiguracionController::class, 'index'])->name('configuracion.index');
   Route::post('/configuracion/create', [App\Http\Controllers\ConfiguracionController::class, 'create'])->name('configuracion.create');
 
+  // Cobros
+
+  //Route::post('/cobros/{id}/pagar', [App\Http\Controllers\CobroController::class, 'registrarPago'])->name('cobros.pagar');
+
+  // Cobros
+  Route::get('/cobros', [App\Http\Controllers\CobroController::class, 'index'])->name('cobros.index');
+  Route::post('/cobros/{id}/pagar', [App\Http\Controllers\CobroController::class, 'registrarPago'])->name('cobros.pagar');
+
   // Banners
   Route::get('/banners', [BannerController::class, 'index'])->name('banners.index');
   Route::get('/banners/create', [BannerController::class, 'create'])->name('banners.create');
@@ -64,6 +72,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::get('/docentes/{id}/edit', [App\Http\Controllers\DocenteController::class, 'edit'])->name('docentes.edit');
   Route::put('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'update'])->name('docentes.update');
   Route::delete('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'destroy'])->name('docentes.destroy');
+
+  // Matrículas
+  Route::get('/matriculas', [App\Http\Controllers\MatriculaController::class, 'index'])->name('matriculas.index');
+  Route::get('/matriculas/create', [App\Http\Controllers\MatriculaController::class, 'create'])->name('matriculas.create');
+  Route::post('/matriculas', [App\Http\Controllers\MatriculaController::class, 'store'])->name('matriculas.store');
+  Route::get('/matriculas/{id}/edit', [App\Http\Controllers\MatriculaController::class, 'edit'])->name('matriculas.edit');
+  Route::put('/matriculas/{id}', [App\Http\Controllers\MatriculaController::class, 'update'])->name('matriculas.update');
+  Route::delete('/matriculas/{id}', [App\Http\Controllers\MatriculaController::class, 'destroy'])->name('matriculas.destroy');
 
   // Acudientes
   Route::get('/acudientes', [App\Http\Controllers\AcudienteController::class, 'index'])->name('acudientes.index');
