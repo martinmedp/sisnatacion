@@ -50,6 +50,12 @@
                             <td class="text-right">{{ \Carbon\Carbon::parse($matricula->fecha_matricula)->format('d/m/Y') }}</td>
                         </tr>
                         <tr>
+                            <td>Periodicidad</td>
+                            <td class="text-right">
+                                <span class="badge badge-secondary">{{ $matricula->periodicidad_formateada }}</span>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>Valor total del nivel</td>
                             <td class="text-right">${{ number_format($matricula->valor_total_nivel, 0, ',', '.') }}</td>
                         </tr>

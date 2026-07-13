@@ -40,6 +40,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   // Cobros
   Route::get('/cobros', [App\Http\Controllers\CobroController::class, 'index'])->name('cobros.index');
   Route::post('/cobros/{id}/pagar', [App\Http\Controllers\CobroController::class, 'registrarPago'])->name('cobros.pagar');
+  Route::get('/cobros/pdf', [App\Http\Controllers\CobroController::class, 'exportarPdf'])->name('cobros.pdf');
 
   // Banners
   Route::get('/banners', [BannerController::class, 'index'])->name('banners.index');

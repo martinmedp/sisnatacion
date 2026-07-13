@@ -17,6 +17,7 @@ class Matricula extends Model
         'valor_total_nivel',
         'descuento_aplicado',
         'numero_cuotas',
+        'periodicidad',
         'valor_cuota',
         'estado',
     ];
@@ -44,5 +45,10 @@ class Matricula extends Model
     public function getValorTotalConDescuentoAttribute(): float
     {
         return $this->valor_total_nivel - $this->descuento_aplicado;
+    }
+
+    public function getPeriodicidadFormateadaAttribute(): string
+    {
+        return $this->periodicidad === 'quincenal' ? 'Quincenal' : 'Mensual';
     }
 }

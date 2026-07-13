@@ -20,9 +20,8 @@
 
         <div class="card-body">
             <form action="{{ route('admin.alumnos.index') }}" method="GET" class="form-inline mb-3">
-                <input type="text" name="buscar" value="{{ $buscar }}"
-                    class="form-control mr-2" style="width: 300px;"
-                    placeholder="Buscar por nombre o código...">
+                <input type="text" name="buscar" value="{{ $buscar }}" class="form-control mr-2"
+                    style="width: 300px;" placeholder="Buscar por nombre o código...">
                 <button type="submit" class="btn btn-primary mr-2">
                     <i class="fas fa-search"></i> Buscar
                 </button>
@@ -107,15 +106,27 @@
 
     @if (session('success'))
         <script>
-            window.addEventListener('load', function () {
+            window.addEventListener('load', function() {
                 Swal.fire({
-                icon: 'success',
-                title: 'Correcto',
-                text: '{{ session('success') }}',
-                timer: 1500,
-                timerProgressBar: true,
-                showConfirmButton: false
+                    icon: 'success',
+                    title: 'Correcto',
+                    text: '{{ session('success') }}',
+                    timer: 1500,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
             });
+        </script>
+    @endif
+
+    @if (session('error'))
+        <script>
+            window.addEventListener('load', function() {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'No se puede eliminar',
+                    text: '{{ session('error') }}',
+                });
             });
         </script>
     @endif

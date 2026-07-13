@@ -26,14 +26,24 @@
                     <option value="vencido" {{ $estado == 'vencido' ? 'selected' : '' }}>Vencido</option>
                 </select>
 
+                <select name="orden" class="form-control mr-2" onchange="this.form.submit()">
+                    <option value="vencimiento" {{ $orden == 'vencimiento' ? 'selected' : '' }}>Ordenar por vencimiento</option>
+                    <option value="alumno" {{ $orden == 'alumno' ? 'selected' : '' }}>Ordenar por alumno</option>
+                    <option value="codigo" {{ $orden == 'codigo' ? 'selected' : '' }}>Ordenar por código</option>
+                </select>
+
                 <button type="submit" class="btn btn-primary mr-2">
                     <i class="fas fa-search"></i> Filtrar
                 </button>
-                @if ($buscar || $estado)
-                    <a href="{{ route('admin.cobros.index') }}" class="btn btn-secondary">
+                @if ($buscar || $estado || $orden != 'vencimiento')
+                    <a href="{{ route('admin.cobros.index') }}" class="btn btn-secondary mr-2">
                         <i class="fas fa-times"></i> Limpiar
                     </a>
                 @endif
+                <a href="{{ route('admin.cobros.pdf', request()->only(['buscar', 'estado', 'orden'])) }}"
+                    target="_blank" class="btn btn-outline-dark" title="Imprimir / Generar PDF">
+                    <i class="fas fa-print"></i>
+                </a>
             </form>
 
             <table class="table table-bordered table-striped">

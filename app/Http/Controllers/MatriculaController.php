@@ -41,6 +41,8 @@ class MatriculaController extends Controller
             'grupo_id'        => 'required|exists:grupos,id',
             'descuento_id'    => 'nullable|exists:descuentos,id',
             'fecha_matricula' => 'required|date',
+            'numero_cuotas'   => 'required|integer|min:1|max:60',
+            'periodicidad'    => 'required|in:mensual,quincenal',
         ]);
 
         $grupo = Grupo::with('nivel')->findOrFail($request->grupo_id);
@@ -53,7 +55,8 @@ class MatriculaController extends Controller
         }
 
         $valorTotal = (float) $nivel->valor_clase;
-        $numeroCuotas = max(1, (int) $nivel->duracion_meses);
+        $numeroCuotas = (int) $request->numero_cuotas;
+        $periodicidad = $request->periodicidad;
 
         $descuentoAplicado = 0;
         if ($request->descuento_id) {
@@ -77,26 +80,31 @@ class MatriculaController extends Controller
                 'valor_total_nivel'  => $valorTotal,
                 'descuento_aplicado' => $descuentoAplicado,
                 'numero_cuotas'      => $numeroCuotas,
+                'periodicidad'       => $periodicidad,
                 'valor_cuota'        => $valorCuota,
                 'estado'             => 'activa',
             ]);
 
-            // Generar los cobros (cuotas) de una sola vez
+            // Generar los cobros (cuotas) de una sola vez, según la periodicidad elegida
             $fechaBase = Carbon::parse($request->fecha_matricula);
             $sumaCuotas = 0;
 
             for ($i = 1; $i <= $numeroCuotas; $i++) {
                 $valorEstaCuota = $valorCuota;
 
-                // Ajustar la última cuota para que la suma total cuadre exacto (evita descuadres por redondeo)
+                // Ajustar la última cuota para que la suma total cuadre exacto
                 if ($i === $numeroCuotas) {
                     $valorEstaCuota = round($valorConDescuento - $sumaCuotas, 2);
                 }
 
+                $fechaVencimiento = $periodicidad === 'quincenal'
+                    ? $fechaBase->copy()->addDays(15 * ($i - 1))
+                    : $fechaBase->copy()->addMonthsNoOverflow($i - 1);
+
                 Cobro::create([
                     'matricula_id'      => $matricula->id,
                     'numero_cuota'      => $i,
-                    'fecha_vencimiento' => $fechaBase->copy()->addMonthsNoOverflow($i - 1),
+                    'fecha_vencimiento' => $fechaVencimiento,
                     'valor'             => $valorEstaCuota,
                     'estado'            => 'pendiente',
                 ]);
@@ -121,7 +129,7 @@ class MatriculaController extends Controller
 
         return redirect()
             ->route('admin.matriculas.index')
-            ->with('success', 'Matrícula creada correctamente con ' . $numeroCuotas . ' cuota(s) generada(s).');
+            ->with('success', 'Matrícula creada correctamente con ' . $numeroCuotas . ' cuota(s) ' . $periodicidad . '(es) generada(s).');
     }
 
     public function edit($id)

@@ -11,6 +11,7 @@ class Alumno extends Model
 
     protected $fillable = [
         'foto',
+        'codigo',
         'nombre_completo',
         'tipo_documento',
         'numero_documento',
@@ -29,6 +30,11 @@ class Alumno extends Model
     public function acudiente()
     {
         return $this->belongsTo(Acudiente::class);
+    }
+
+    public function matriculas()
+    {
+        return $this->hasMany(Matricula::class);
     }
 
     public function getEdadAttribute(): ?int

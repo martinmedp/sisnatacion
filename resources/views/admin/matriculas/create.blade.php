@@ -27,22 +27,17 @@
                     <div class="form-group col-md-6">
                         <label>Alumno</label>
                         <div class="input-group">
-                            <select name="alumno_id" id="alumno_id"
-                                class="form-control @error('alumno_id') is-invalid @enderror">
+                            <select name="alumno_id" id="alumno_id" class="form-control @error('alumno_id') is-invalid @enderror">
                                 <option value="">-- Seleccionar alumno --</option>
                                 @foreach ($alumnos as $alumno)
-                                    <option value="{{ $alumno->id }}"
-                                        {{ old('alumno_id') == $alumno->id ? 'selected' : '' }}>
+                                    <option value="{{ $alumno->id }}" {{ old('alumno_id') == $alumno->id ? 'selected' : '' }}>
                                         {{ $alumno->nombre_completo }}
-                                        @if ($alumno->codigo)
-                                            ({{ $alumno->codigo }})
-                                        @endif
+                                        @if ($alumno->codigo) ({{ $alumno->codigo }}) @endif
                                     </option>
                                 @endforeach
                             </select>
                             <div class="input-group-append">
-                                <button type="button" class="btn btn-outline-primary" data-toggle="modal"
-                                    data-target="#modalAlumno">
+                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#modalAlumno">
                                     <i class="fas fa-plus"></i> Nuevo
                                 </button>
                             </div>
@@ -68,12 +63,12 @@
                         onchange="mostrarInfoGrupo()">
                         <option value="">-- Seleccionar grupo --</option>
                         @foreach ($grupos as $grupo)
-                            <option value="{{ $grupo->id }}" data-valor="{{ $grupo->nivel->valor_clase ?? 0 }}"
+                            <option value="{{ $grupo->id }}"
+                                data-valor="{{ $grupo->nivel->valor_clase ?? 0 }}"
                                 data-meses="{{ $grupo->nivel->duracion_meses ?? 1 }}"
                                 data-nivel="{{ $grupo->nivel->nombre ?? '—' }}"
                                 {{ old('grupo_id') == $grupo->id ? 'selected' : '' }}>
-                                {{ $grupo->nombre }} — {{ $grupo->nivel->nombre ?? '' }}
-                                ({{ $grupo->sede->nombre ?? '' }})
+                                {{ $grupo->nombre }} — {{ $grupo->nivel->nombre ?? '' }} ({{ $grupo->sede->nombre ?? '' }})
                             </option>
                         @endforeach
                     </select>
@@ -82,13 +77,40 @@
                     @enderror
                 </div>
 
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Número de cuotas</label>
+                        <input type="number" name="numero_cuotas" id="numero_cuotas" min="1" max="60"
+                            class="form-control @error('numero_cuotas') is-invalid @enderror"
+                            value="{{ old('numero_cuotas', 1) }}" onchange="mostrarInfoGrupo()">
+                        <small class="form-text text-muted">Se sugiere al elegir el grupo, pero puedes ajustarla</small>
+                        @error('numero_cuotas')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label>Periodicidad</label>
+                        <select name="periodicidad" id="periodicidad"
+                            class="form-control @error('periodicidad') is-invalid @enderror"
+                            onchange="mostrarInfoGrupo()">
+                            <option value="mensual" {{ old('periodicidad', 'mensual') == 'mensual' ? 'selected' : '' }}>Mensual</option>
+                            <option value="quincenal" {{ old('periodicidad') == 'quincenal' ? 'selected' : '' }}>Quincenal</option>
+                        </select>
+                        @error('periodicidad')
+                            <span class="invalid-feedback">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <label>Descuento (opcional)</label>
                     <select name="descuento_id" id="descuento_id"
-                        class="form-control @error('descuento_id') is-invalid @enderror" onchange="mostrarInfoGrupo()">
+                        class="form-control @error('descuento_id') is-invalid @enderror"
+                        onchange="mostrarInfoGrupo()">
                         <option value="">-- Sin descuento --</option>
                         @foreach ($descuentos as $descuento)
-                            <option value="{{ $descuento->id }}" data-tipo="{{ $descuento->tipo }}"
+                            <option value="{{ $descuento->id }}"
+                                data-tipo="{{ $descuento->tipo }}"
                                 data-valor="{{ $descuento->valor }}"
                                 {{ old('descuento_id') == $descuento->id ? 'selected' : '' }}>
                                 {{ $descuento->nombre }}
@@ -118,7 +140,7 @@
                                 <td id="r-descuento" class="text-right text-danger"></td>
                             </tr>
                             <tr>
-                                <td>Duración</td>
+                                <td>Cuotas / Periodicidad</td>
                                 <td id="r-meses" class="text-right"></td>
                             </tr>
                             <tr class="border-top">
@@ -178,8 +200,7 @@
                         <input type="email" id="ac-correo" class="form-control">
                     </div>
                     <small class="text-muted">
-                        Los demás datos (documento, dirección, observaciones) se pueden completar luego desde el módulo de
-                        Acudientes.
+                        Los demás datos (documento, dirección, observaciones) se pueden completar luego desde el módulo de Acudientes.
                     </small>
                 </div>
                 <div class="modal-footer">
@@ -255,8 +276,7 @@
                                     @endforeach
                                 </select>
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-outline-info"
-                                        onclick="abrirModalAcudienteDesdeAlumno()">
+                                    <button type="button" class="btn btn-outline-info" onclick="abrirModalAcudienteDesdeAlumno()">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
@@ -265,8 +285,7 @@
                     </div>
 
                     <small class="text-muted">
-                        Los demás datos (foto, dirección, contacto de emergencia, observaciones) se pueden completar luego
-                        desde el módulo de Alumnos.
+                        Los demás datos (foto, dirección, contacto de emergencia, observaciones) se pueden completar luego desde el módulo de Alumnos.
                     </small>
                 </div>
                 <div class="modal-footer">
@@ -289,14 +308,14 @@
     {{-- ============================================================ --}}
     <script>
         function abrirModalAcudienteDesdeAlumno() {
-            $('#modalAlumno').one('hidden.bs.modal', function() {
+            $('#modalAlumno').one('hidden.bs.modal', function () {
                 $('#modalAcudiente').modal('show');
             });
             $('#modalAlumno').modal('hide');
         }
 
         function cerrarModalAcudiente() {
-            $('#modalAcudiente').one('hidden.bs.modal', function() {
+            $('#modalAcudiente').one('hidden.bs.modal', function () {
                 $('#modalAlumno').modal('show');
             });
             $('#modalAcudiente').modal('hide');
@@ -306,43 +325,56 @@
     <script>
         const CSRF_TOKEN = '{{ csrf_token() }}';
 
+        let grupoAnterior = null;
+
         function mostrarInfoGrupo() {
             const selectGrupo = document.getElementById('grupo_id');
             const selectDescuento = document.getElementById('descuento_id');
+            const inputCuotas = document.getElementById('numero_cuotas');
+            const selectPeriodicidad = document.getElementById('periodicidad');
             const opcionGrupo = selectGrupo.options[selectGrupo.selectedIndex];
             const opcionDescuento = selectDescuento.options[selectDescuento.selectedIndex];
 
             if (!opcionGrupo.value) {
                 document.getElementById('resumen').style.display = 'none';
+                grupoAnterior = null;
                 return;
             }
 
+            // Al cambiar de grupo (no al ajustar cuotas/periodicidad), sugerir el número de cuotas
+            // según la duración del nivel y la periodicidad elegida
+            if (opcionGrupo.value !== grupoAnterior) {
+                const mesesNivel = parseInt(opcionGrupo.dataset.meses || 1);
+                const sugerido = selectPeriodicidad.value === 'quincenal' ? mesesNivel * 2 : mesesNivel;
+                inputCuotas.value = sugerido;
+                grupoAnterior = opcionGrupo.value;
+            }
+
             const valorNivel = parseFloat(opcionGrupo.dataset.valor || 0);
-            const meses = parseInt(opcionGrupo.dataset.meses || 1);
             const nombreNivel = opcionGrupo.dataset.nivel || '';
+            const numeroCuotas = parseInt(inputCuotas.value || 1);
+            const periodicidad = selectPeriodicidad.value;
 
             let descuentoAplicado = 0;
             if (opcionDescuento.value) {
                 const tipo = opcionDescuento.dataset.tipo;
                 const valorDescuento = parseFloat(opcionDescuento.dataset.valor || 0);
-                descuentoAplicado = tipo === 'porcentaje' ?
-                    valorNivel * (valorDescuento / 100) :
-                    valorDescuento;
+                descuentoAplicado = tipo === 'porcentaje'
+                    ? valorNivel * (valorDescuento / 100)
+                    : valorDescuento;
             }
 
             const valorConDescuento = valorNivel - descuentoAplicado;
-            const valorCuota = valorConDescuento / meses;
+            const valorCuota = numeroCuotas > 0 ? valorConDescuento / numeroCuotas : 0;
 
-            const formatoMoneda = (valor) => '$' + valor.toLocaleString('es-CO', {
-                maximumFractionDigits: 0
-            });
+            const formatoMoneda = (valor) => '$' + valor.toLocaleString('es-CO', { maximumFractionDigits: 0 });
+            const etiquetaPeriodo = periodicidad === 'quincenal' ? 'quincena' : 'mes';
 
             document.getElementById('r-nivel').textContent = nombreNivel;
             document.getElementById('r-valor').textContent = formatoMoneda(valorNivel);
-            document.getElementById('r-descuento').textContent = descuentoAplicado > 0 ? '-' + formatoMoneda(
-                descuentoAplicado) : '$0';
-            document.getElementById('r-meses').textContent = meses + ' mes(es)';
-            document.getElementById('r-cuota').textContent = formatoMoneda(valorCuota) + ' / mes';
+            document.getElementById('r-descuento').textContent = descuentoAplicado > 0 ? '-' + formatoMoneda(descuentoAplicado) : '$0';
+            document.getElementById('r-meses').textContent = numeroCuotas + ' cuota(s) — ' + (periodicidad === 'quincenal' ? 'quincenal' : 'mensual');
+            document.getElementById('r-cuota').textContent = formatoMoneda(valorCuota) + ' cada ' + etiquetaPeriodo;
 
             document.getElementById('resumen').style.display = 'block';
         }
@@ -364,46 +396,46 @@
             formData.append('estado', 'activo');
 
             fetch('{{ route('admin.acudientes.store') }}', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': CSRF_TOKEN,
-                        'Accept': 'application/json',
-                    },
-                    body: formData,
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error('Error al guardar');
-                    return response.json();
-                })
-                .then(data => {
-                    // Agregar la nueva opción al select de acudiente dentro del modal de alumno
-                    const select = document.getElementById('al-acudiente-id');
-                    const option = document.createElement('option');
-                    option.value = data.id;
-                    option.textContent = data.nombre + (data.parentesco ? ' (' + data.parentesco + ')' : '');
-                    select.appendChild(option);
-                    select.value = data.id;
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN,
+                    'Accept': 'application/json',
+                },
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Error al guardar');
+                return response.json();
+            })
+            .then(data => {
+                // Agregar la nueva opción al select de acudiente dentro del modal de alumno
+                const select = document.getElementById('al-acudiente-id');
+                const option = document.createElement('option');
+                option.value = data.id;
+                option.textContent = data.nombre + (data.parentesco ? ' (' + data.parentesco + ')' : '');
+                select.appendChild(option);
+                select.value = data.id;
 
-                    // Limpiar formulario y cerrar modal
-                    document.getElementById('ac-nombre').value = '';
-                    document.getElementById('ac-parentesco').value = '';
-                    document.getElementById('ac-telefono').value = '';
-                    document.getElementById('ac-correo').value = '';
-                    document.getElementById('alerta-acudiente').innerHTML = '';
-                    cerrarModalAcudiente();
+                // Limpiar formulario y cerrar modal
+                document.getElementById('ac-nombre').value = '';
+                document.getElementById('ac-parentesco').value = '';
+                document.getElementById('ac-telefono').value = '';
+                document.getElementById('ac-correo').value = '';
+                document.getElementById('alerta-acudiente').innerHTML = '';
+                cerrarModalAcudiente();
 
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Acudiente creado',
-                        text: data.nombre + ' fue agregado correctamente',
-                        timer: 1800,
-                        showConfirmButton: false,
-                    });
-                })
-                .catch(() => {
-                    document.getElementById('alerta-acudiente').innerHTML =
-                        '<div class="alert alert-danger">Ocurrió un error al guardar el acudiente.</div>';
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Acudiente creado',
+                    text: data.nombre + ' fue agregado correctamente',
+                    timer: 1800,
+                    showConfirmButton: false,
                 });
+            })
+            .catch(() => {
+                document.getElementById('alerta-acudiente').innerHTML =
+                    '<div class="alert alert-danger">Ocurrió un error al guardar el acudiente.</div>';
+            });
         }
 
         function crearAlumnoAjax() {
@@ -426,49 +458,49 @@
             formData.append('estado', 'activo');
 
             fetch('{{ route('admin.alumnos.store') }}', {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRF-TOKEN': CSRF_TOKEN,
-                        'Accept': 'application/json',
-                    },
-                    body: formData,
-                })
-                .then(response => {
-                    if (!response.ok) throw new Error('Error al guardar');
-                    return response.json();
-                })
-                .then(data => {
-                    // Agregar la nueva opción al select principal de alumno
-                    const select = document.getElementById('alumno_id');
-                    const option = document.createElement('option');
-                    option.value = data.id;
-                    option.textContent = data.nombre + (data.codigo ? ' (' + data.codigo + ')' : '');
-                    select.appendChild(option);
-                    select.value = data.id;
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': CSRF_TOKEN,
+                    'Accept': 'application/json',
+                },
+                body: formData,
+            })
+            .then(response => {
+                if (!response.ok) throw new Error('Error al guardar');
+                return response.json();
+            })
+            .then(data => {
+                // Agregar la nueva opción al select principal de alumno
+                const select = document.getElementById('alumno_id');
+                const option = document.createElement('option');
+                option.value = data.id;
+                option.textContent = data.nombre + (data.codigo ? ' (' + data.codigo + ')' : '');
+                select.appendChild(option);
+                select.value = data.id;
 
-                    // Limpiar formulario y cerrar modal
-                    document.getElementById('al-nombre').value = '';
-                    document.getElementById('al-fecha-nacimiento').value = '';
-                    document.getElementById('al-tipo-documento').value = '';
-                    document.getElementById('al-numero-documento').value = '';
-                    document.getElementById('al-sexo').value = '';
-                    document.getElementById('al-telefono').value = '';
-                    document.getElementById('al-acudiente-id').value = '';
-                    document.getElementById('alerta-alumno').innerHTML = '';
-                    $('#modalAlumno').modal('hide');
+                // Limpiar formulario y cerrar modal
+                document.getElementById('al-nombre').value = '';
+                document.getElementById('al-fecha-nacimiento').value = '';
+                document.getElementById('al-tipo-documento').value = '';
+                document.getElementById('al-numero-documento').value = '';
+                document.getElementById('al-sexo').value = '';
+                document.getElementById('al-telefono').value = '';
+                document.getElementById('al-acudiente-id').value = '';
+                document.getElementById('alerta-alumno').innerHTML = '';
+                $('#modalAlumno').modal('hide');
 
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Alumno creado',
-                        text: data.nombre + ' fue agregado y seleccionado automáticamente',
-                        timer: 1800,
-                        showConfirmButton: false,
-                    });
-                })
-                .catch(() => {
-                    document.getElementById('alerta-alumno').innerHTML =
-                        '<div class="alert alert-danger">Ocurrió un error al guardar el alumno.</div>';
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Alumno creado',
+                    text: data.nombre + ' fue agregado y seleccionado automáticamente',
+                    timer: 1800,
+                    showConfirmButton: false,
                 });
+            })
+            .catch(() => {
+                document.getElementById('alerta-alumno').innerHTML =
+                    '<div class="alert alert-danger">Ocurrió un error al guardar el alumno.</div>';
+            });
         }
     </script>
 

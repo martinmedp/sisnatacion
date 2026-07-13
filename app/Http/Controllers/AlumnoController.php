@@ -16,7 +16,7 @@ class AlumnoController extends Controller
             ->when($buscar, function ($query) use ($buscar) {
                 $query->where(function ($q) use ($buscar) {
                     $q->where('nombre_completo', 'like', "%{$buscar}%")
-                      ->orWhere('codigo', 'like', "%{$buscar}%");
+                        ->orWhere('codigo', 'like', "%{$buscar}%");
                 });
             })
             ->orderBy('nombre_completo', 'asc')
@@ -54,9 +54,19 @@ class AlumnoController extends Controller
         ]);
 
         $data = $request->only([
-            'nombre_completo', 'tipo_documento', 'numero_documento', 'fecha_nacimiento',
-            'sexo', 'telefono', 'direccion', 'correo', 'acudiente_id',
-            'contacto_emergencia', 'telefono_emergencia', 'observaciones', 'estado',
+            'nombre_completo',
+            'tipo_documento',
+            'numero_documento',
+            'fecha_nacimiento',
+            'sexo',
+            'telefono',
+            'direccion',
+            'correo',
+            'acudiente_id',
+            'contacto_emergencia',
+            'telefono_emergencia',
+            'observaciones',
+            'estado',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -113,9 +123,19 @@ class AlumnoController extends Controller
         ]);
 
         $data = $request->only([
-            'nombre_completo', 'tipo_documento', 'numero_documento', 'fecha_nacimiento',
-            'sexo', 'telefono', 'direccion', 'correo', 'acudiente_id',
-            'contacto_emergencia', 'telefono_emergencia', 'observaciones', 'estado',
+            'nombre_completo',
+            'tipo_documento',
+            'numero_documento',
+            'fecha_nacimiento',
+            'sexo',
+            'telefono',
+            'direccion',
+            'correo',
+            'acudiente_id',
+            'contacto_emergencia',
+            'telefono_emergencia',
+            'observaciones',
+            'estado',
         ]);
 
         if ($request->hasFile('foto')) {
@@ -139,6 +159,12 @@ class AlumnoController extends Controller
     public function destroy($id)
     {
         $alumno = Alumno::findOrFail($id);
+
+        if ($alumno->matriculas()->exists()) {
+            return redirect()
+                ->route('admin.alumnos.index')
+                ->with('error', 'No se puede eliminar a ' . $alumno->nombre_completo . ' porque tiene matrículas registradas (con cuotas y/o pagos asociados). Si ya no está activo, cambia su estado a Inactivo en su lugar.');
+        }
 
         if ($alumno->foto && file_exists(public_path($alumno->foto))) {
             unlink(public_path($alumno->foto));
