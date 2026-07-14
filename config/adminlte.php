@@ -452,6 +452,11 @@ return [
             'icon'    => 'fas fa-chart-bar',
             'submenu' => [
                 [
+                    'text'  => 'Carnets',
+                    'route' => 'admin.carnets.index',
+                    'icon'  => 'fas fa-id-card',
+                ],
+                [
                     'text' => 'Estadísticas',
                     'url'  => '#',
                     'icon' => 'fas fa-chart-pie',

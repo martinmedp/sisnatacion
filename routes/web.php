@@ -74,6 +74,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::put('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'update'])->name('docentes.update');
   Route::delete('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'destroy'])->name('docentes.destroy');
 
+  // Carnets
+  Route::get('/carnets', [App\Http\Controllers\CarnetController::class, 'index'])->name('carnets.index');
+  Route::get('/carnets/{id}/generar', [App\Http\Controllers\CarnetController::class, 'generar'])->name('carnets.generar');
+
   // Matrículas
   Route::get('/matriculas', [App\Http\Controllers\MatriculaController::class, 'index'])->name('matriculas.index');
   Route::get('/matriculas/create', [App\Http\Controllers\MatriculaController::class, 'create'])->name('matriculas.create');
