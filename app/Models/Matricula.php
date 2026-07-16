@@ -20,6 +20,7 @@ class Matricula extends Model
         'periodicidad',
         'valor_cuota',
         'estado',
+        'resultado_final',
     ];
 
     public function alumno()
@@ -40,6 +41,11 @@ class Matricula extends Model
     public function cobros()
     {
         return $this->hasMany(Cobro::class);
+    }
+
+    public function evaluaciones()
+    {
+        return $this->hasMany(Evaluacion::class);
     }
 
     public function getValorTotalConDescuentoAttribute(): float

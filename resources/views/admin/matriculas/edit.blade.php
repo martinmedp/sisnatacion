@@ -179,6 +179,88 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Evaluación de criterios del nivel</h3>
+                    <div class="card-tools">
+                        @if ($matricula->resultado_final === 'aprobado')
+                            <span class="badge badge-success">Nivel aprobado</span>
+                        @elseif ($matricula->resultado_final === 'reprobado')
+                            <span class="badge badge-danger">Nivel reprobado</span>
+                        @else
+                            <span class="badge badge-warning">En curso</span>
+                        @endif
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-bordered table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th width="40">#</th>
+                                <th>Criterio</th>
+                                <th width="180">Estado</th>
+                                <th width="150">Fecha evaluación</th>
+                                <th width="140">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($matricula->evaluaciones as $evaluacion)
+                                <tr>
+                                    <td>{{ $evaluacion->criterio->orden ?? '—' }}</td>
+                                    <td>{{ $evaluacion->criterio->nombre ?? '—' }}</td>
+                                    <td>
+                                        <form action="{{ route('admin.evaluaciones.update', $evaluacion->id) }}" method="POST" class="form-inline">
+                                            @csrf
+                                            @method('PUT')
+                                            <select name="estado_criterio" class="form-control form-control-sm" onchange="this.form.submit()">
+                                                <option value="no_logrado" {{ $evaluacion->estado_criterio == 'no_logrado' ? 'selected' : '' }}>No logrado</option>
+                                                <option value="en_proceso" {{ $evaluacion->estado_criterio == 'en_proceso' ? 'selected' : '' }}>En proceso</option>
+                                                <option value="logrado" {{ $evaluacion->estado_criterio == 'logrado' ? 'selected' : '' }}>Logrado</option>
+                                            </select>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        {{ $evaluacion->fecha_evaluacion ? \Carbon\Carbon::parse($evaluacion->fecha_evaluacion)->format('d/m/Y') : '—' }}
+                                    </td>
+                                    <td>
+                                        @if ($evaluacion->estado_criterio === 'logrado')
+                                            <span class="badge badge-success"><i class="fas fa-check"></i> Logrado</span>
+                                        @elseif ($evaluacion->estado_criterio === 'en_proceso')
+                                            <span class="badge badge-info">En proceso</span>
+                                        @else
+                                            <span class="badge badge-secondary">Pendiente</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="text-center">Este nivel no tiene criterios de evaluación configurados.</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <form action="{{ route('admin.matriculas.resultado', $matricula->id) }}" method="POST" class="form-inline">
+                        @csrf
+                        @method('PUT')
+                        <label class="mr-2 mb-0">Resultado final del nivel:</label>
+                        <select name="resultado_final" class="form-control form-control-sm mr-2">
+                            <option value="en_curso" {{ $matricula->resultado_final == 'en_curso' ? 'selected' : '' }}>En curso</option>
+                            <option value="aprobado" {{ $matricula->resultado_final == 'aprobado' ? 'selected' : '' }}>Aprobado</option>
+                            <option value="reprobado" {{ $matricula->resultado_final == 'reprobado' ? 'selected' : '' }}>Reprobado</option>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fas fa-save"></i> Guardar resultado
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <a href="{{ route('admin.matriculas.index') }}" class="btn btn-secondary">Volver</a>
 
     @if (session('success'))

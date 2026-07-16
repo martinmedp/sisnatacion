@@ -45,6 +45,23 @@ class MatriculaController extends Controller
             'periodicidad'    => 'required|in:mensual,quincenal',
         ]);
 
+        // ── Regla de negocio: un alumno solo puede tener UNA matrícula activa a la vez ──
+        $matriculaActiva = Matricula::with('grupo.nivel')
+            ->where('alumno_id', $request->alumno_id)
+            ->where('estado', 'activa')
+            ->first();
+
+        if ($matriculaActiva) {
+            $alumno = Alumno::find($request->alumno_id);
+
+            return back()
+                ->withInput()
+                ->with('error', $alumno->nombre_completo . ' ya tiene una matrícula activa en '
+                    . ($matriculaActiva->grupo->nivel->nombre ?? 'un nivel')
+                    . ' / ' . ($matriculaActiva->grupo->nombre ?? '')
+                    . '. Debes finalizar o cancelar esa matrícula antes de crear una nueva (ve a Matrículas → editar esa matrícula → cambiar su estado).');
+        }
+
         $grupo = Grupo::with('nivel')->findOrFail($request->grupo_id);
         $nivel = $grupo->nivel;
 
@@ -83,6 +100,7 @@ class MatriculaController extends Controller
                 'periodicidad'       => $periodicidad,
                 'valor_cuota'        => $valorCuota,
                 'estado'             => 'activa',
+                'resultado_final'    => 'en_curso',
             ]);
 
             // Generar los cobros (cuotas) de una sola vez, según la periodicidad elegida
@@ -92,7 +110,6 @@ class MatriculaController extends Controller
             for ($i = 1; $i <= $numeroCuotas; $i++) {
                 $valorEstaCuota = $valorCuota;
 
-                // Ajustar la última cuota para que la suma total cuadre exacto
                 if ($i === $numeroCuotas) {
                     $valorEstaCuota = round($valorConDescuento - $sumaCuotas, 2);
                 }
@@ -110,6 +127,15 @@ class MatriculaController extends Controller
                 ]);
 
                 $sumaCuotas += $valorEstaCuota;
+            }
+
+            // Generar automáticamente los registros de evaluación (uno por cada
+            // criterio del nivel), listos para que el docente los vaya marcando
+            foreach ($nivel->criterios as $criterio) {
+                $matricula->evaluaciones()->create([
+                    'criterio_id'     => $criterio->id,
+                    'estado_criterio' => 'no_logrado',
+                ]);
             }
 
             // Generar el código del alumno si aún no tiene
@@ -134,9 +160,11 @@ class MatriculaController extends Controller
 
     public function edit($id)
     {
-        $matricula = Matricula::with(['alumno', 'grupo.nivel', 'grupo.sede', 'cobros' => function ($q) {
-            $q->orderBy('numero_cuota');
-        }])->findOrFail($id);
+        $matricula = Matricula::with([
+            'alumno', 'grupo.nivel', 'grupo.sede',
+            'cobros' => function ($q) { $q->orderBy('numero_cuota'); },
+            'evaluaciones.criterio',
+        ])->findOrFail($id);
 
         return view('admin.matriculas.edit', compact('matricula'));
     }
@@ -161,7 +189,7 @@ class MatriculaController extends Controller
     public function destroy($id)
     {
         $matricula = Matricula::findOrFail($id);
-        $matricula->delete(); // los cobros se eliminan en cascada
+        $matricula->delete(); // cobros y evaluaciones se eliminan en cascada
 
         return redirect()
             ->route('admin.matriculas.index')

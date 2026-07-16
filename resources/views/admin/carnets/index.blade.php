@@ -10,7 +10,37 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Generar carnet con código QR</h3>
+            <h3 class="card-title">Impresión masiva de carnets</h3>
+        </div>
+        <div class="card-body">
+            <form action="{{ route('admin.carnets.imprimir') }}" method="GET" class="form-inline" target="_blank">
+                <select name="nivel_id" class="form-control mr-2" style="width: 220px;">
+                    <option value="">-- Todos los niveles --</option>
+                    @foreach ($niveles as $nivel)
+                        <option value="{{ $nivel->id }}">{{ $nivel->nombre }}</option>
+                    @endforeach
+                </select>
+
+                <select name="grupo_id" class="form-control mr-2" style="width: 220px;">
+                    <option value="">-- Todos los grupos --</option>
+                    @foreach ($grupos as $grupo)
+                        <option value="{{ $grupo->id }}">{{ $grupo->nombre }} ({{ $grupo->nivel->nombre ?? '' }})</option>
+                    @endforeach
+                </select>
+
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-print"></i> Imprimir carnets
+                </button>
+            </form>
+            <small class="form-text text-muted mt-1">
+                Si eliges un grupo, se ignora el nivel. Si no eliges nada, se imprimen todos los alumnos con matrícula activa.
+            </small>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Generar carnet individual con código QR</h3>
         </div>
         <div class="card-body">
             <p class="text-muted">
@@ -71,5 +101,17 @@
             </table>
         </div>
     </div>
+
+    @if (session('error'))
+        <script>
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Sin resultados',
+                    text: '{{ session('error') }}',
+                });
+            });
+        </script>
+    @endif
 
 @stop

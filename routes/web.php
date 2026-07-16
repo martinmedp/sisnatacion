@@ -74,9 +74,22 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::put('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'update'])->name('docentes.update');
   Route::delete('/docentes/{id}', [App\Http\Controllers\DocenteController::class, 'destroy'])->name('docentes.destroy');
 
+  // Criterios de Evaluación
+  Route::get('/criterios', [App\Http\Controllers\CriterioEvaluacionController::class, 'index'])->name('criterios.index');
+  Route::get('/criterios/create', [App\Http\Controllers\CriterioEvaluacionController::class, 'create'])->name('criterios.create');
+  Route::post('/criterios', [App\Http\Controllers\CriterioEvaluacionController::class, 'store'])->name('criterios.store');
+  Route::get('/criterios/{id}/edit', [App\Http\Controllers\CriterioEvaluacionController::class, 'edit'])->name('criterios.edit');
+  Route::put('/criterios/{id}', [App\Http\Controllers\CriterioEvaluacionController::class, 'update'])->name('criterios.update');
+  Route::delete('/criterios/{id}', [App\Http\Controllers\CriterioEvaluacionController::class, 'destroy'])->name('criterios.destroy');
+
+  // Evaluaciones (dentro del detalle de matrícula)
+  Route::put('/evaluaciones/{id}', [App\Http\Controllers\EvaluacionController::class, 'update'])->name('evaluaciones.update');
+  Route::put('/matriculas/{id}/resultado', [App\Http\Controllers\EvaluacionController::class, 'actualizarResultado'])->name('matriculas.resultado');
+
   // Carnets
   Route::get('/carnets', [App\Http\Controllers\CarnetController::class, 'index'])->name('carnets.index');
   Route::get('/carnets/{id}/generar', [App\Http\Controllers\CarnetController::class, 'generar'])->name('carnets.generar');
+  Route::get('/carnets/imprimir', [App\Http\Controllers\CarnetController::class, 'imprimirMasivo'])->name('carnets.imprimir');
 
   // Matrículas
   Route::get('/matriculas', [App\Http\Controllers\MatriculaController::class, 'index'])->name('matriculas.index');

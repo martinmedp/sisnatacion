@@ -18,6 +18,12 @@
         </div>
     @endif
 
+    @if (session('error'))
+        <div class="alert alert-warning">
+            <i class="icon fas fa-exclamation-triangle"></i> {{ session('error') }}
+        </div>
+    @endif
+
     <div class="card">
         <div class="card-body">
             <form action="{{ route('admin.matriculas.store') }}" method="POST">

@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Carnet — {{ $alumno->nombre_completo }}</title>
+    <title>Carnets — {{ $titulo }}</title>
     <style>
         * {
             box-sizing: border-box;
@@ -135,12 +135,31 @@
             color: #888;
             text-align: center;
         }
+    
+
+        /* Cada carnet ocupa una página independiente */
+        .pagina-carnet {
+            page-break-after: always;
+        }
+        .pagina-carnet:last-child {
+            page-break-after: auto;
+        }
     </style>
 </head>
 
 <body>
 
-    @include('admin.carnets._carnet')
+    @foreach ($registros as $registro)
+        <div class="pagina-carnet">
+            @php
+                $alumno = $registro['alumno'];
+                $matricula = $registro['matricula'];
+                $qrBase64 = $registro['qrBase64'];
+            @endphp
+
+            @include('admin.carnets._carnet')
+        </div>
+    @endforeach
 
 </body>
 

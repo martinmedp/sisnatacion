@@ -412,8 +412,13 @@ return [
             'submenu' => [
                 [
                     'text' => 'Cobros',
-                    'route' => 'admin.cobros.index',
+                    'url'  => '#',
                     'icon' => 'fas fa-file-invoice-dollar',
+                ],
+                [
+                    'text' => 'Pagos',
+                    'url'  => '#',
+                    'icon' => 'fas fa-cash-register',
                 ],
                 [
                     'text'  => 'Descuentos',
@@ -442,6 +447,11 @@ return [
                     'text' => 'Anotaciones',
                     'url'  => '#',
                     'icon' => 'fas fa-award',
+                ],
+                [
+                    'text'  => 'Criterios de Evaluación',
+                    'route' => 'admin.criterios.index',
+                    'icon'  => 'fas fa-clipboard-check',
                 ],
             ],
         ],

@@ -33,4 +33,9 @@ class Nivel extends Model
     {
         return $this->hasMany(Grupo::class);
     }
+
+    public function criterios()
+    {
+        return $this->hasMany(CriterioEvaluacion::class)->orderBy('orden');
+    }
 }
