@@ -82,6 +82,17 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::put('/criterios/{id}', [App\Http\Controllers\CriterioEvaluacionController::class, 'update'])->name('criterios.update');
   Route::delete('/criterios/{id}', [App\Http\Controllers\CriterioEvaluacionController::class, 'destroy'])->name('criterios.destroy');
 
+  // Nota débito
+  Route::post('/cobros/{id}/nota-debito', [App\Http\Controllers\CobroController::class, 'registrarNotaDebito'])->name('cobros.notaDebito');
+
+  // Pagos (historial/libro de pagos)
+  Route::get('/pagos', [App\Http\Controllers\PagoController::class, 'index'])->name('pagos.index');
+
+  // Reporte de Cartera (Cobros)
+  Route::get('/reportes/cobros', [App\Http\Controllers\ReporteController::class, 'cobros'])->name('reportes.cobros');
+  Route::get('/reportes/cobros/pdf', [App\Http\Controllers\ReporteController::class, 'cobrosPdf'])->name('reportes.cobros.pdf');
+
+
   // Evaluaciones (dentro del detalle de matrícula)
   Route::put('/evaluaciones/{id}', [App\Http\Controllers\EvaluacionController::class, 'update'])->name('evaluaciones.update');
   Route::put('/matriculas/{id}/resultado', [App\Http\Controllers\EvaluacionController::class, 'actualizarResultado'])->name('matriculas.resultado');

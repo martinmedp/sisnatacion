@@ -278,4 +278,16 @@
         </script>
     @endif
 
+    @if (session('error'))
+        <script>
+            window.addEventListener('load', function () {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'No se puede actualizar',
+                    text: '{{ session('error') }}',
+                });
+            });
+        </script>
+    @endif
+
 @stop

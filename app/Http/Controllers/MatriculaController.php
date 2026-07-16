@@ -171,11 +171,26 @@ class MatriculaController extends Controller
 
     public function update(Request $request, $id)
     {
-        $matricula = Matricula::findOrFail($id);
+        $matricula = Matricula::with('cobros')->findOrFail($id);
 
         $request->validate([
             'estado' => 'required|in:activa,finalizada,cancelada',
         ]);
+
+        // Si se intenta sacar la matrícula de "activa" (finalizarla o cancelarla),
+        // verificar que no queden cuotas con saldo pendiente sin resolver.
+        if ($request->estado !== 'activa') {
+            $saldoPendiente = $matricula->cobros->sum(fn ($c) => $c->saldo_pendiente);
+
+            if ($saldoPendiente > 0) {
+                return back()
+                    ->withInput()
+                    ->with('error', 'No se puede cambiar el estado de la matrícula: aún tiene $'
+                        . number_format($saldoPendiente, 0, ',', '.')
+                        . ' en saldo pendiente. Registra el pago correspondiente o aplica una nota débito '
+                        . 'desde el módulo de Cobros antes de finalizar o cancelar la matrícula.');
+            }
+        }
 
         $matricula->update([
             'estado' => $request->estado,

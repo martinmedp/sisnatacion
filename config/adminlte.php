@@ -412,13 +412,13 @@ return [
             'submenu' => [
                 [
                     'text' => 'Cobros',
-                    'url'  => '#',
+                    'route'  => 'admin.cobros.index',
                     'icon' => 'fas fa-file-invoice-dollar',
                 ],
                 [
-                    'text' => 'Pagos',
-                    'url'  => '#',
-                    'icon' => 'fas fa-cash-register',
+                    'text'  => 'Pagos',
+                    'route' => 'admin.pagos.index',
+                    'icon'  => 'fas fa-cash-register',
                 ],
                 [
                     'text'  => 'Descuentos',
@@ -472,9 +472,9 @@ return [
                     'icon' => 'fas fa-chart-pie',
                 ],
                 [
-                    'text' => 'Reportes',
-                    'url'  => '#',
-                    'icon' => 'fas fa-file-alt',
+                    'text'  => 'Reporte de Cartera',
+                    'route' => 'admin.reportes.cobros',
+                    'icon'  => 'fas fa-file-invoice-dollar',
                 ],
             ],
         ],

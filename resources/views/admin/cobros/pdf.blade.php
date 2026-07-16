@@ -7,7 +7,7 @@
     <style>
         * {
             box-sizing: border-box;
-            margin: ;
+            margin: 0;
             padding: 0;
         }
 
@@ -195,42 +195,45 @@
     {{-- TÍTULO Y FILTRO APLICADO --}}
     <div class="titulo-reporte">
         <h2>Listado de cuotas</h2>
-        <p>Total de registros: {{ $cobros->count() }}</p>
+        <p>Total de matrículas: {{ $registros->count() }}</p>
     </div>
 
-    {{-- TABLA DE COBROS --}}
+    {{-- TABLA DE COBROS CONSOLIDADA POR MATRÍCULA --}}
     <table class="datos">
         <thead>
             <tr>
                 <th class="text-center">Alumno</th>
                 <th class="text-center">Código</th>
                 <th class="text-center">Nivel / Grupo</th>
-                <th class="text-center">Cuota</th>
-                <th class="text-center">Vencimiento</th>
-                <th class="text-right">Valor</th>
-                <th class="text-right">Pagado</th>
-                <th class="text-right">Saldo</th>
+                <th class="text-center">Cuotas</th>
+                <th class="text-center">Próx. vencimiento</th>
+                <th class="text-right">Valor cuota</th>
+                <th class="text-right">Saldo total</th>
                 <th class="text-center">Estado</th>
             </tr>
         </thead>
         <tbody>
-            @forelse ($cobros as $cobro)
+            @forelse ($registros as $item)
+                @php
+                    $matricula = $item['matricula'];
+                    $proximo = $item['proximoCobro'];
+                @endphp
                 <tr>
-                    <td>{{ $cobro->matricula->alumno->nombre_completo ?? '—' }}</td>
-                    <td>{{ $cobro->matricula->alumno->codigo ?? '—' }}</td>
+                    <td>{{ $matricula->alumno->nombre_completo ?? '—' }}</td>
+                    <td>{{ $matricula->alumno->codigo ?? '—' }}</td>
                     <td>
-                        {{ $cobro->matricula->grupo->nivel->nombre ?? '—' }}
-                        / {{ $cobro->matricula->grupo->nombre ?? '' }}
+                        {{ $matricula->grupo->nivel->nombre ?? '—' }}
+                        / {{ $matricula->grupo->nombre ?? '' }}
                     </td>
-                    <td class="text-center">{{ $cobro->numero_cuota }} / {{ $cobro->matricula->numero_cuotas }}</td>
-                    <td class="text-center">{{ \Carbon\Carbon::parse($cobro->fecha_vencimiento)->format('d/m/Y') }}
-                    </td>
-                    <td class="text-right">${{ number_format($cobro->valor, 0, ',', '.') }}</td>
-                    <td class="text-right">${{ number_format($cobro->valor_pagado, 0, ',', '.') }}</td>
-                    <td class="text-right">${{ number_format($cobro->saldo_pendiente, 0, ',', '.') }}</td>
+                    <td class="text-center">{{ $item['progreso'] }}</td>
                     <td class="text-center">
-                        <span class="badge badge-{{ $cobro->estado }}">
-                            @switch($cobro->estado)
+                        {{ $proximo ? \Carbon\Carbon::parse($proximo->fecha_vencimiento)->format('d/m/Y') : 'Al día' }}
+                    </td>
+                    <td class="text-right">${{ number_format($matricula->valor_cuota, 0, ',', '.') }}</td>
+                    <td class="text-right">${{ number_format($item['saldoPendienteTotal'], 0, ',', '.') }}</td>
+                    <td class="text-center">
+                        <span class="badge badge-{{ $item['estadoGeneral'] }}">
+                            @switch($item['estadoGeneral'])
                                 @case('pendiente')
                                     Pendiente
                                 @break
@@ -252,7 +255,7 @@
                 </tr>
                 @empty
                     <tr>
-                        <td colspan="9" class="text-center">No hay registros con los filtros aplicados.</td>
+                        <td colspan="8" class="text-center">No hay registros con los filtros aplicados.</td>
                     </tr>
                 @endforelse
             </tbody>
