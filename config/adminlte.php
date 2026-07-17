@@ -300,17 +300,56 @@ return [
 
     'menu' => [
 
-        // ── General ──────────────────────────────────────────
+        // ── Paneles propios por rol (no administrador) ─────────
+        [
+            'text'  => 'Mi Panel',
+            'route' => 'docente.dashboard',
+            'icon'  => 'fas fa-chalkboard-teacher',
+            'can'   => 'docente.acceso',
+        ],
+        [
+            'text'    => 'Mi Panel',
+            'icon'    => 'fas fa-swimmer',
+            'can'     => 'alumno.acceso',
+            'submenu' => [
+                [
+                    'text'  => 'Inicio',
+                    'route' => 'alumno.dashboard',
+                    'icon'  => 'fas fa-home',
+                ],
+                [
+                    'text'  => 'Mi avance',
+                    'route' => 'alumno.avance',
+                    'icon'  => 'fas fa-chart-line',
+                ],
+            ],
+        ],
+        [
+            'text'  => 'Mi Panel',
+            'route' => 'acudiente.dashboard',
+            'icon'  => 'fas fa-user-friends',
+            'can'   => 'acudiente.acceso',
+        ],
+        [
+            'text'  => 'Mi Panel',
+            'route' => 'administrativo.dashboard',
+            'icon'  => 'fas fa-id-badge',
+            'can'   => 'administrativo.acceso',
+        ],
+
+        // ── General (solo admin) ────────────────────────────────
         [
             'text' => 'SISNATACION',
             'route' => 'admin.dashboard',
             'icon' => 'fas fa-tachometer-alt',
+            'can'  => 'admin.acceso',
         ],
 
         // ── Página Web ────────────────────────────────────────
         [
             'text'    => 'Página Web',
             'icon'    => 'fas fa-globe',
+            'can'     => 'admin.acceso',
             'submenu' => [
                 [
                     'text'  => 'Configuración',
@@ -340,6 +379,7 @@ return [
         [
             'text'    => 'Académico',
             'icon'    => 'fas fa-sitemap',
+            'can'     => 'admin.acceso',
             'submenu' => [
                 [
                     'text'  => 'Sedes',
@@ -372,6 +412,7 @@ return [
         [
             'text'    => 'Personal',
             'icon'    => 'fas fa-user-friends',
+            'can'     => 'admin.acceso',
             'submenu' => [
                 [
                     'text'  => 'Docentes',
@@ -401,14 +442,11 @@ return [
             ],
         ],
 
-        // ── Fase 3 — Académico ────────────────────────────────
-
-
-
         // ── Fase 4 — Económico ────────────────────────────────
         [
             'text'    => 'Económico',
             'icon'    => 'fas fa-dollar-sign',
+            'can'     => 'admin.acceso',
             'submenu' => [
                 [
                     'text' => 'Cobros',
@@ -432,6 +470,7 @@ return [
         [
             'text'    => 'Control Académico',
             'icon'    => 'fas fa-medal',
+            'can'     => 'admin.acceso',
             'submenu' => [
                 [
                     'text' => 'Asistencia',
@@ -460,6 +499,7 @@ return [
         [
             'text'    => 'Reportes',
             'icon'    => 'fas fa-chart-bar',
+            'can'     => 'admin.acceso',
             'submenu' => [
                 [
                     'text'  => 'Carnets',

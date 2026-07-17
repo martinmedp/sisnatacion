@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Docente;
+use App\Services\UsuarioGeneradorService;
 use Illuminate\Http\Request;
 
 class DocenteController extends Controller
@@ -59,7 +60,18 @@ class DocenteController extends Controller
                 $nombreArchivo;
         }
 
-        Docente::create([
+        // Genera (o vincula) su cuenta de acceso — prioriza el correo
+        // institucional; si no tiene, usa el personal.
+        $correoLogin = $request->correo_institucional ?: $request->correo_personal;
+
+        $resultadoUsuario = UsuarioGeneradorService::generarUsuario(
+            $request->nombre_completo,
+            $correoLogin,
+            'docente',
+            $request->numero_documento
+        );
+
+        $docente = Docente::create([
 
             'foto' => $rutaFoto,
 
@@ -93,13 +105,21 @@ class DocenteController extends Controller
             'orden' => $request->orden,
             'estado' => $request->estado,
 
+            'user_id' => $resultadoUsuario['user']->id ?? null,
+
         ]);
+
+        $mensaje = 'Docente creado correctamente';
+        if ($resultadoUsuario && $resultadoUsuario['password_generada']) {
+            $mensaje .= '. Se creó su cuenta de acceso: ' . $correoLogin
+                . ' / contraseña temporal: ' . $resultadoUsuario['password_generada'];
+        }
 
         return redirect()
             ->route('admin.docentes.index')
             ->with(
                 'success',
-                'Docente creado correctamente'
+                $mensaje
             );
     }
 
@@ -151,6 +171,30 @@ class DocenteController extends Controller
                 $nombreArchivo;
         }
 
+        $mensaje = 'Docente actualizado correctamente';
+        $userId = $docente->user_id;
+
+        // Si aún no tiene cuenta y ahora tiene un correo, generarla
+        if (!$docente->user_id) {
+            $correoLogin = $request->correo_institucional ?: $request->correo_personal;
+
+            $resultadoUsuario = UsuarioGeneradorService::generarUsuario(
+                $request->nombre_completo,
+                $correoLogin,
+                'docente',
+                $request->numero_documento
+            );
+
+            if ($resultadoUsuario) {
+                $userId = $resultadoUsuario['user']->id;
+
+                if ($resultadoUsuario['password_generada']) {
+                    $mensaje .= '. Se creó su cuenta de acceso: ' . $correoLogin
+                        . ' / contraseña temporal: ' . $resultadoUsuario['password_generada'];
+                }
+            }
+        }
+
         $docente->update([
 
             'foto' => $rutaFoto,
@@ -183,7 +227,9 @@ class DocenteController extends Controller
             'fecha_ingreso' => $request->fecha_ingreso,
 
             'orden' => $request->orden,
-            'estado' => $request->estado
+            'estado' => $request->estado,
+
+            'user_id' => $userId,
 
         ]);
 
@@ -191,7 +237,7 @@ class DocenteController extends Controller
             ->route('admin.docentes.index')
             ->with(
                 'success',
-                'Docente actualizado correctamente'
+                $mensaje
             );
     }
 

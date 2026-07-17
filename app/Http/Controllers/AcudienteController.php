@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Acudiente;
+use App\Services\UsuarioGeneradorService;
 
 class AcudienteController extends Controller
 {
@@ -35,10 +36,23 @@ class AcudienteController extends Controller
             'estado'           => 'required|in:activo,inactivo',
         ]);
 
-        $acudiente = Acudiente::create($request->only([
+        $data = $request->only([
             'nombre_completo', 'tipo_documento', 'numero_documento', 'parentesco',
             'telefono', 'correo', 'direccion', 'observaciones', 'estado',
-        ]));
+        ]);
+
+        $resultadoUsuario = UsuarioGeneradorService::generarUsuario(
+            $data['nombre_completo'],
+            $data['correo'] ?? null,
+            'acudiente',
+            $data['numero_documento'] ?? null
+        );
+
+        if ($resultadoUsuario) {
+            $data['user_id'] = $resultadoUsuario['user']->id;
+        }
+
+        $acudiente = Acudiente::create($data);
 
         if ($request->wantsJson() || $request->ajax()) {
             return response()->json([
@@ -48,9 +62,15 @@ class AcudienteController extends Controller
             ]);
         }
 
+        $mensaje = 'Acudiente guardado correctamente';
+        if ($resultadoUsuario && $resultadoUsuario['password_generada']) {
+            $mensaje .= '. Se creó su cuenta de acceso: ' . $data['correo']
+                . ' / contraseña temporal: ' . $resultadoUsuario['password_generada'];
+        }
+
         return redirect()
             ->route('admin.acudientes.index')
-            ->with('success', 'Acudiente guardado correctamente');
+            ->with('success', $mensaje);
     }
 
     public function edit($id)
@@ -76,14 +96,36 @@ class AcudienteController extends Controller
             'estado'           => 'required|in:activo,inactivo',
         ]);
 
-        $acudiente->update($request->only([
+        $data = $request->only([
             'nombre_completo', 'tipo_documento', 'numero_documento', 'parentesco',
             'telefono', 'correo', 'direccion', 'observaciones', 'estado',
-        ]));
+        ]);
+
+        $mensaje = 'Acudiente actualizado correctamente';
+
+        if (!$acudiente->user_id && !empty($data['correo'])) {
+            $resultadoUsuario = UsuarioGeneradorService::generarUsuario(
+                $data['nombre_completo'],
+                $data['correo'],
+                'acudiente',
+                $data['numero_documento'] ?? null
+            );
+
+            if ($resultadoUsuario) {
+                $data['user_id'] = $resultadoUsuario['user']->id;
+
+                if ($resultadoUsuario['password_generada']) {
+                    $mensaje .= '. Se creó su cuenta de acceso: ' . $data['correo']
+                        . ' / contraseña temporal: ' . $resultadoUsuario['password_generada'];
+                }
+            }
+        }
+
+        $acudiente->update($data);
 
         return redirect()
             ->route('admin.acudientes.index')
-            ->with('success', 'Acudiente actualizado correctamente');
+            ->with('success', $mensaje);
     }
 
     public function destroy($id)

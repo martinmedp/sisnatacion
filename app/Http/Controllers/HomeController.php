@@ -32,6 +32,10 @@ class HomeController extends Controller
             return redirect()->route('acudiente.dashboard');
         }
 
+        if ($user->hasRole('administrativo')) {
+            return redirect()->route('administrativo.dashboard');
+        }
+
         abort(403, 'Tu usuario no tiene un rol asignado. Contacta al administrador.');
     }
 }

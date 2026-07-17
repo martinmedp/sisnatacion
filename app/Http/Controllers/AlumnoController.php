@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Alumno;
 use App\Models\Acudiente;
+use App\Services\UsuarioGeneradorService;
 
 class AlumnoController extends Controller
 {
@@ -76,6 +77,18 @@ class AlumnoController extends Controller
             $data['foto'] = 'uploads/alumnos/' . $nombreArchivo;
         }
 
+        // Genera (o vincula) su cuenta de acceso si tiene correo
+        $resultadoUsuario = UsuarioGeneradorService::generarUsuario(
+            $data['nombre_completo'],
+            $data['correo'] ?? null,
+            'alumno',
+            $data['numero_documento'] ?? null
+        );
+
+        if ($resultadoUsuario) {
+            $data['user_id'] = $resultadoUsuario['user']->id;
+        }
+
         $alumno = Alumno::create($data);
 
         if ($request->wantsJson() || $request->ajax()) {
@@ -86,9 +99,15 @@ class AlumnoController extends Controller
             ]);
         }
 
+        $mensaje = 'Alumno guardado correctamente';
+        if ($resultadoUsuario && $resultadoUsuario['password_generada']) {
+            $mensaje .= '. Se creó su cuenta de acceso: ' . $data['correo']
+                . ' / contraseña temporal: ' . $resultadoUsuario['password_generada'];
+        }
+
         return redirect()
             ->route('admin.alumnos.index')
-            ->with('success', 'Alumno guardado correctamente');
+            ->with('success', $mensaje);
     }
 
     public function edit($id)
@@ -149,11 +168,32 @@ class AlumnoController extends Controller
             $data['foto'] = 'uploads/alumnos/' . $nombreArchivo;
         }
 
+        $mensaje = 'Alumno actualizado correctamente';
+
+        // Si aún no tiene cuenta y ahora se le asignó un correo, generarla
+        if (!$alumno->user_id && !empty($data['correo'])) {
+            $resultadoUsuario = UsuarioGeneradorService::generarUsuario(
+                $data['nombre_completo'],
+                $data['correo'],
+                'alumno',
+                $data['numero_documento'] ?? null
+            );
+
+            if ($resultadoUsuario) {
+                $data['user_id'] = $resultadoUsuario['user']->id;
+
+                if ($resultadoUsuario['password_generada']) {
+                    $mensaje .= '. Se creó su cuenta de acceso: ' . $data['correo']
+                        . ' / contraseña temporal: ' . $resultadoUsuario['password_generada'];
+                }
+            }
+        }
+
         $alumno->update($data);
 
         return redirect()
             ->route('admin.alumnos.index')
-            ->with('success', 'Alumno actualizado correctamente');
+            ->with('success', $mensaje);
     }
 
     public function destroy($id)

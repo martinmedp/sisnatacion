@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Administrativo;
 use App\Models\Cargo;
 use App\Models\Sede;
+use App\Services\UsuarioGeneradorService;
 
 class AdministrativoController extends Controller
 {
@@ -63,11 +64,28 @@ class AdministrativoController extends Controller
             $data['foto'] = 'uploads/administrativos/' . $nombreArchivo;
         }
 
+        $resultadoUsuario = UsuarioGeneradorService::generarUsuario(
+            $data['nombre_completo'],
+            $data['correo'] ?? null,
+            'administrativo',
+            $data['numero_documento'] ?? null
+        );
+
+        if ($resultadoUsuario) {
+            $data['user_id'] = $resultadoUsuario['user']->id;
+        }
+
         Administrativo::create($data);
+
+        $mensaje = 'Administrativo guardado correctamente';
+        if ($resultadoUsuario && $resultadoUsuario['password_generada']) {
+            $mensaje .= '. Se creó su cuenta de acceso: ' . $data['correo']
+                . ' / contraseña temporal: ' . $resultadoUsuario['password_generada'];
+        }
 
         return redirect()
             ->route('admin.administrativos.index')
-            ->with('success', 'Administrativo guardado correctamente');
+            ->with('success', $mensaje);
     }
 
     public function edit($id)
@@ -117,11 +135,31 @@ class AdministrativoController extends Controller
             $data['foto'] = 'uploads/administrativos/' . $nombreArchivo;
         }
 
+        $mensaje = 'Administrativo actualizado correctamente';
+
+        if (!$administrativo->user_id && !empty($data['correo'])) {
+            $resultadoUsuario = UsuarioGeneradorService::generarUsuario(
+                $data['nombre_completo'],
+                $data['correo'],
+                'administrativo',
+                $data['numero_documento'] ?? null
+            );
+
+            if ($resultadoUsuario) {
+                $data['user_id'] = $resultadoUsuario['user']->id;
+
+                if ($resultadoUsuario['password_generada']) {
+                    $mensaje .= '. Se creó su cuenta de acceso: ' . $data['correo']
+                        . ' / contraseña temporal: ' . $resultadoUsuario['password_generada'];
+                }
+            }
+        }
+
         $administrativo->update($data);
 
         return redirect()
             ->route('admin.administrativos.index')
-            ->with('success', 'Administrativo actualizado correctamente');
+            ->with('success', $mensaje);
     }
 
     public function destroy($id)

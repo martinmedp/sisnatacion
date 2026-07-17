@@ -27,5 +27,16 @@ class Docente extends Model
         'contacto_emergencia',
         'telefono_emergencia',
         'observaciones',
+        'user_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function grupos()
+    {
+        return $this->hasMany(Grupo::class);
+    }
 }
