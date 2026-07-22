@@ -8,6 +8,7 @@ use App\Models\Noticia;
 use App\Models\Galeria;
 use App\Models\Configuracion;
 use App\Models\Docente;
+use App\Models\Alumno;
 
 class WebsiteController extends Controller
 {
@@ -42,13 +43,18 @@ class WebsiteController extends Controller
             ->get();
         $configuracion = Configuracion::first();
 
+        $totalEstudiantes = Alumno::where('estado', 'activo')->count();
+        $totalDocentes = Docente::where('estado', 'ACTIVO')->count();
+
         return view(
             'website.inicio',
             compact(
                 'banners',
                 'ultimasNoticias',
                 'ultimasGalerias',
-                'configuracion'
+                'configuracion',
+                'totalEstudiantes',
+                'totalDocentes'
             )
         );
     }

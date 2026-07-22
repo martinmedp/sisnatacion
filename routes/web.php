@@ -197,8 +197,28 @@ Route::prefix('alumno')->name('alumno.')->middleware(['auth', 'role:alumno'])->g
 // =====================================================
 Route::prefix('docente')->name('docente.')->middleware(['auth', 'role:docente'])->group(function () {
   Route::get('/dashboard', [App\Http\Controllers\Docente\DashboardController::class, 'index'])->name('dashboard');
-  // Aquí irán: clases, alumnos, asistencia
+
+  Route::get('/dashboard', [App\Http\Controllers\Docente\DashboardController::class, 'index'])->name('dashboard');
+
+  // Alumnos por grupo
+  Route::get('/grupos/{grupoId}/alumnos', [App\Http\Controllers\Docente\DashboardController::class, 'alumnos'])->name('grupos.alumnos');
+
+  // Asistencia
+  Route::get('/asistencia/{grupoId}', [App\Http\Controllers\Docente\AsistenciaController::class, 'index'])->name('asistencia.index');
+  Route::post('/asistencia/{grupoId}', [App\Http\Controllers\Docente\AsistenciaController::class, 'store'])->name('asistencia.store');
+
+  // Logros (calificación de criterios)
+  Route::get('/logros/{matriculaId}', [App\Http\Controllers\Docente\LogroController::class, 'index'])->name('logros.index');
+  Route::put('/logros/{evaluacionId}', [App\Http\Controllers\Docente\LogroController::class, 'update'])->name('logros.update');
+
+  // Observador
+  Route::get('/observador/{alumnoId}', [App\Http\Controllers\Docente\ObservadorController::class, 'index'])->name('observador.index');
+  Route::post('/observador/{alumnoId}', [App\Http\Controllers\Docente\ObservadorController::class, 'store'])->name('observador.store');
+
+  Route::get('/asistencia/{grupoId}/resumen', [App\Http\Controllers\Docente\AsistenciaController::class, 'resumen'])->name('asistencia.resumen');
 });
+// Aquí irán: clases, alumnos, asistencia
+
 
 // =====================================================
 // PANEL ALUMNO — solo rol alumno

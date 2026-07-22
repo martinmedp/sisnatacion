@@ -15,7 +15,7 @@ class DashboardController extends Controller
         if ($acudiente) {
             $alumnos = $acudiente->alumnos()
                 ->with(['matriculas' => function ($q) {
-                    $q->where('estado', 'activa')->with('grupo.nivel', 'cobros')->latest('fecha_matricula');
+                    $q->where('estado', 'activa')->with('grupo.nivel', 'grupo.sede', 'cobros')->latest('fecha_matricula');
                 }])
                 ->orderBy('nombre_completo')
                 ->get();

@@ -442,31 +442,8 @@ return [
             ],
         ],
 
-        // ── Fase 4 — Económico ────────────────────────────────
-        [
-            'text'    => 'Económico',
-            'icon'    => 'fas fa-dollar-sign',
-            'can'     => 'admin.acceso',
-            'submenu' => [
-                [
-                    'text' => 'Cobros',
-                    'route'  => 'admin.cobros.index',
-                    'icon' => 'fas fa-file-invoice-dollar',
-                ],
-                [
-                    'text'  => 'Pagos',
-                    'route' => 'admin.pagos.index',
-                    'icon'  => 'fas fa-cash-register',
-                ],
-                [
-                    'text'  => 'Descuentos',
-                    'route' => 'admin.descuentos.index',
-                    'icon'  => 'fas fa-tag',
-                ],
-            ],
 
-        ],
-        // ── Fase 5 — Deportivo ────────────────────────────────
+        // ── Fase 5 — control Académico ────────────────────────────────
         [
             'text'    => 'Control Académico',
             'icon'    => 'fas fa-medal',
@@ -493,6 +470,31 @@ return [
                     'icon'  => 'fas fa-clipboard-check',
                 ],
             ],
+        ],
+
+        // ── Fase 4 — Económico ────────────────────────────────
+        [
+            'text'    => 'Económico',
+            'icon'    => 'fas fa-dollar-sign',
+            'can'     => 'admin.acceso',
+            'submenu' => [
+                [
+                    'text' => 'Cobros',
+                    'route'  => 'admin.cobros.index',
+                    'icon' => 'fas fa-file-invoice-dollar',
+                ],
+                [
+                    'text'  => 'Pagos',
+                    'route' => 'admin.pagos.index',
+                    'icon'  => 'fas fa-cash-register',
+                ],
+                [
+                    'text'  => 'Descuentos',
+                    'route' => 'admin.descuentos.index',
+                    'icon'  => 'fas fa-tag',
+                ],
+            ],
+
         ],
 
         // ── Fase 6 — Reportes ─────────────────────────────────

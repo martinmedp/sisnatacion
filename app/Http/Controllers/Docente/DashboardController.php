@@ -23,4 +23,30 @@ class DashboardController extends Controller
 
         return view('panel-docente.dashboard', compact('docente', 'grupos'));
     }
+
+    /**
+     * Lista los alumnos matriculados y activos de uno de los grupos
+     * de este docente, con accesos a asistencia, logros y observador.
+     * Verifica que el grupo realmente pertenezca a este docente.
+     */
+    public function alumnos($grupoId)
+    {
+        $docente = Docente::where('user_id', auth()->id())->first();
+        abort_if(!$docente, 403);
+
+        $grupo = Grupo::with('nivel', 'sede')
+            ->where('id', $grupoId)
+            ->where('docente_id', $docente->id)
+            ->first();
+
+        abort_if(!$grupo, 403, 'Este grupo no está a tu cargo.');
+
+        $matriculas = $grupo->matriculas()
+            ->with('alumno')
+            ->where('estado', 'activa')
+            ->get()
+            ->sortBy(fn ($m) => $m->alumno->nombre_completo ?? '');
+
+        return view('panel-docente.alumnos', compact('docente', 'grupo', 'matriculas'));
+    }
 }

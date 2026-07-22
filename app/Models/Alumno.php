@@ -43,6 +43,11 @@ class Alumno extends Model
         return $this->hasMany(Matricula::class);
     }
 
+    public function observador()
+    {
+        return $this->hasMany(Observador::class)->orderBy('fecha', 'desc');
+    }
+
     public function getEdadAttribute(): ?int
     {
         if (!$this->fecha_nacimiento) {

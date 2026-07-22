@@ -67,11 +67,11 @@
 
             <div class="hero-stats">
                 <div>
-                    <div class="stat-num">800+</div>
+                    <div class="stat-num">{{ $totalEstudiantes }}+</div>
                     <div class="stat-lbl">Estudiantes</div>
                 </div>
                 <div>
-                    <div class="stat-num">60</div>
+                    <div class="stat-num">{{ $totalDocentes }}</div>
                     <div class="stat-lbl">Docentes</div>
                 </div>
                 <div>

@@ -25,6 +25,7 @@
                             <th>Nivel</th>
                             <th>Sede</th>
                             <th>Horarios</th>
+                            <th width="160">Acción</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,10 +44,15 @@
                                         <span class="text-muted">Sin horario</span>
                                     @endforelse
                                 </td>
+                                <td>
+                                    <a href="{{ route('docente.grupos.alumnos', $grupo->id) }}" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-users"></i> Ver alumnos
+                                    </a>
+                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="text-center">No tienes grupos asignados actualmente.</td>
+                                <td colspan="5" class="text-center">No tienes grupos asignados actualmente.</td>
                             </tr>
                         @endforelse
                     </tbody>

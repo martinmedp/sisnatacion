@@ -48,6 +48,11 @@ class Matricula extends Model
         return $this->hasMany(Evaluacion::class);
     }
 
+    public function asistencias()
+    {
+        return $this->hasMany(Asistencia::class);
+    }
+
     public function getValorTotalConDescuentoAttribute(): float
     {
         return $this->valor_total_nivel - $this->descuento_aplicado;

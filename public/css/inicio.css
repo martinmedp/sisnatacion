@@ -123,11 +123,11 @@
   background: var(--color-badge-bg);
   border: 1px solid var(--color-badge-border);
   color: var(--color-acento);
-  font-size: 11px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 5px 16px;
+  padding: 8px 22px;
   border-radius: var(--radius-lg);
   margin-bottom: 1.25rem;
 }
@@ -156,21 +156,21 @@
 }
 
 .hero-logo-img {
-  max-height: 110px;
+  max-height: 220px;
   border-radius: var(--radius-sm);
   margin-bottom: 1.5rem;
 }
 
 .hero-logo-fallback {
-  width: 90px;
-  height: 90px;
+  width: 180px;
+  height: 180px;
   border-radius: var(--radius-sm);
   background: var(--color-primario);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--color-texto-blanco);
-  font-size: 30px;
+  font-size: 60px;
   font-weight: 700;
   margin: 0 auto 1.5rem;
 }
@@ -284,7 +284,7 @@
 
 .inst-section-alt {
   padding: 4rem 0;
-  background: var(--color-bg-white);
+  background: var(--color-texto-suave);
 }
 
 .section-eyebrow {
@@ -803,7 +803,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  min-height: 68px;
+  min-height: 100px;
 }
 
 /* Brand */
@@ -815,28 +815,28 @@
 }
 
 .inst-nav-logo {
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   border-radius: var(--radius-sm);
   object-fit: cover;
 }
 
 .inst-nav-logo-fallback {
-  width: 40px;
-  height: 40px;
+  width: 80px;
+  height: 80px;
   border-radius: var(--radius-sm);
   background: var(--color-primario);
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--texto-claro);
-  font-size: 16px;
+  font-size: 30px;
   font-weight: 700;
   flex-shrink: 0;
 }
 
 .inst-nav-nombre {
-  font-size: 15px;
+  font-size: 36px;
   font-weight: 700;
   color: var(--texto-claro);
   line-height: 1.2;
