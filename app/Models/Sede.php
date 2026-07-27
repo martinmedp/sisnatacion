@@ -15,11 +15,22 @@ class Sede extends Model
         'telefono',
         'encargado_id',
         'descripcion',
+        'duracion_clase_minutos',
         'estado',
     ];
 
     public function encargado()
     {
         return $this->belongsTo(Docente::class, 'encargado_id');
+    }
+
+    public function horariosAtencion()
+    {
+        return $this->hasMany(HorarioAtencionSede::class);
+    }
+
+    public function grupos()
+    {
+        return $this->hasMany(Grupo::class);
     }
 }

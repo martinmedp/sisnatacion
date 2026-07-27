@@ -29,11 +29,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   // Dashboard
   Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
 
-  // Configuración — protegida con permiso especial, ni el admin normal la ve
-  Route::middleware('can:configuracion.editar')->group(function () {
-    Route::get('/configuracion', [App\Http\Controllers\ConfiguracionController::class, 'index'])->name('configuracion.index');
-    Route::post('/configuracion/create', [App\Http\Controllers\ConfiguracionController::class, 'create'])->name('configuracion.create');
-  });
+  // Configuración
+  Route::get('/configuracion', [App\Http\Controllers\ConfiguracionController::class, 'index'])->name('configuracion.index');
+  Route::post('/configuracion/create', [App\Http\Controllers\ConfiguracionController::class, 'create'])->name('configuracion.create');
 
   // Cobros
   Route::get('/cobros', [App\Http\Controllers\CobroController::class, 'index'])->name('cobros.index');
@@ -91,6 +89,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::get('/reportes/cobros', [App\Http\Controllers\ReporteController::class, 'cobros'])->name('reportes.cobros');
   Route::get('/reportes/cobros/pdf', [App\Http\Controllers\ReporteController::class, 'cobrosPdf'])->name('reportes.cobros.pdf');
 
+
   // Evaluaciones (dentro del detalle de matrícula)
   Route::put('/evaluaciones/{id}', [App\Http\Controllers\EvaluacionController::class, 'update'])->name('evaluaciones.update');
   Route::put('/matriculas/{id}/resultado', [App\Http\Controllers\EvaluacionController::class, 'actualizarResultado'])->name('matriculas.resultado');
@@ -115,7 +114,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::get('/acudientes/{id}/edit', [App\Http\Controllers\AcudienteController::class, 'edit'])->name('acudientes.edit');
   Route::put('/acudientes/{id}', [App\Http\Controllers\AcudienteController::class, 'update'])->name('acudientes.update');
   Route::delete('/acudientes/{id}', [App\Http\Controllers\AcudienteController::class, 'destroy'])->name('acudientes.destroy');
+  Route::get('/avance/{alumnoId}', [App\Http\Controllers\Acudiente\DashboardController::class, 'avance'])->name('avance');
   Route::put('/acudientes/{id}/restablecer-clave', [App\Http\Controllers\AcudienteController::class, 'restablecerClave'])->name('acudientes.restablecerClave');
+
+
 
   // Alumnos
   Route::get('/alumnos', [App\Http\Controllers\AlumnoController::class, 'index'])->name('alumnos.index');
@@ -124,7 +126,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::get('/alumnos/{id}/edit', [App\Http\Controllers\AlumnoController::class, 'edit'])->name('alumnos.edit');
   Route::put('/alumnos/{id}', [App\Http\Controllers\AlumnoController::class, 'update'])->name('alumnos.update');
   Route::delete('/alumnos/{id}', [App\Http\Controllers\AlumnoController::class, 'destroy'])->name('alumnos.destroy');
+  Route::get('/avance', [App\Http\Controllers\Alumno\DashboardController::class, 'avance'])->name('avance');
   Route::put('/alumnos/{id}/restablecer-clave', [App\Http\Controllers\AlumnoController::class, 'restablecerClave'])->name('alumnos.restablecerClave');
+
 
   // Cargos
   Route::get('/cargos', [App\Http\Controllers\CargoController::class, 'index'])->name('cargos.index');
@@ -201,10 +205,22 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'role:admin'])->grou
   Route::get('/observador', [App\Http\Controllers\ObservadorController::class, 'index'])->name('observador.index');
 });
 
+Route::prefix('acudiente')->name('acudiente.')->middleware(['auth', 'role:acudiente'])->group(function () {
+  Route::get('/dashboard', [App\Http\Controllers\Acudiente\DashboardController::class, 'index'])->name('dashboard');
+  Route::get('/avance/{alumnoId}', [App\Http\Controllers\Acudiente\DashboardController::class, 'avance'])->name('avance');
+});
+
+Route::prefix('alumno')->name('alumno.')->middleware(['auth', 'role:alumno'])->group(function () {
+  Route::get('/dashboard', [App\Http\Controllers\Alumno\DashboardController::class, 'index'])->name('dashboard');
+  Route::get('/avance', [App\Http\Controllers\Alumno\DashboardController::class, 'avance'])->name('avance');
+});
+
 // =====================================================
 // PANEL DOCENTE — solo rol docente
 // =====================================================
 Route::prefix('docente')->name('docente.')->middleware(['auth', 'role:docente'])->group(function () {
+  Route::get('/dashboard', [App\Http\Controllers\Docente\DashboardController::class, 'index'])->name('dashboard');
+
   Route::get('/dashboard', [App\Http\Controllers\Docente\DashboardController::class, 'index'])->name('dashboard');
 
   // Alumnos por grupo
@@ -213,7 +229,6 @@ Route::prefix('docente')->name('docente.')->middleware(['auth', 'role:docente'])
   // Asistencia
   Route::get('/asistencia/{grupoId}', [App\Http\Controllers\Docente\AsistenciaController::class, 'index'])->name('asistencia.index');
   Route::post('/asistencia/{grupoId}', [App\Http\Controllers\Docente\AsistenciaController::class, 'store'])->name('asistencia.store');
-  Route::get('/asistencia/{grupoId}/resumen', [App\Http\Controllers\Docente\AsistenciaController::class, 'resumen'])->name('asistencia.resumen');
 
   // Logros (calificación de criterios)
   Route::get('/logros/{matriculaId}', [App\Http\Controllers\Docente\LogroController::class, 'index'])->name('logros.index');
@@ -223,17 +238,19 @@ Route::prefix('docente')->name('docente.')->middleware(['auth', 'role:docente'])
   Route::get('/observador/{alumnoId}', [App\Http\Controllers\Docente\ObservadorController::class, 'index'])->name('observador.index');
   Route::post('/observador/{alumnoId}', [App\Http\Controllers\Docente\ObservadorController::class, 'store'])->name('observador.store');
 
-  // Mi horario (solo lectura)
+  Route::get('/asistencia/{grupoId}/resumen', [App\Http\Controllers\Docente\AsistenciaController::class, 'resumen'])->name('asistencia.resumen');
   Route::get('/horario', [App\Http\Controllers\Docente\DashboardController::class, 'horario'])->name('horario');
 });
+// Aquí irán: clases, alumnos, asistencia
+
 
 // =====================================================
 // PANEL ALUMNO — solo rol alumno
 // =====================================================
 Route::prefix('alumno')->name('alumno.')->middleware(['auth', 'role:alumno'])->group(function () {
   Route::get('/dashboard', [App\Http\Controllers\Alumno\DashboardController::class, 'index'])->name('dashboard');
-  Route::get('/avance', [App\Http\Controllers\Alumno\DashboardController::class, 'avance'])->name('avance');
   Route::get('/observador', [App\Http\Controllers\Alumno\DashboardController::class, 'observador'])->name('observador');
+  // Aquí irán: horario, pagos, asistencia
 });
 
 // =====================================================
@@ -241,13 +258,10 @@ Route::prefix('alumno')->name('alumno.')->middleware(['auth', 'role:alumno'])->g
 // =====================================================
 Route::prefix('acudiente')->name('acudiente.')->middleware(['auth', 'role:acudiente'])->group(function () {
   Route::get('/dashboard', [App\Http\Controllers\Acudiente\DashboardController::class, 'index'])->name('dashboard');
-  Route::get('/avance/{alumnoId}', [App\Http\Controllers\Acudiente\DashboardController::class, 'avance'])->name('avance');
   Route::get('/observador/{alumnoId}', [App\Http\Controllers\Acudiente\DashboardController::class, 'observador'])->name('observador');
+  // Aquí irán: ver hijo, pagos, horario
 });
 
-// =====================================================
-// PANEL ADMINISTRATIVO — solo rol administrativo
-// =====================================================
 Route::prefix('administrativo')->name('administrativo.')->middleware(['auth', 'role:administrativo'])->group(function () {
   Route::get('/dashboard', [App\Http\Controllers\Administrativo\DashboardController::class, 'index'])->name('dashboard');
 });

@@ -216,4 +216,26 @@ class AlumnoController extends Controller
             ->route('admin.alumnos.index')
             ->with('success', 'Alumno eliminado correctamente');
     }
+
+    /**
+     * Genera una nueva contraseña temporal para la cuenta de acceso
+     * de este alumno y la muestra una sola vez en pantalla.
+     */
+    public function restablecerClave($id)
+    {
+        $alumno = Alumno::findOrFail($id);
+
+        if (!$alumno->user_id) {
+            return redirect()
+                ->route('admin.alumnos.edit', $id)
+                ->with('error', 'Este alumno no tiene una cuenta de acceso (no tiene correo registrado).');
+        }
+
+        $usuario = \App\Models\User::find($alumno->user_id);
+        $nuevaClave = UsuarioGeneradorService::restablecerClave($usuario, $alumno->numero_documento);
+
+        return redirect()
+            ->route('admin.alumnos.edit', $id)
+            ->with('success', 'Contraseña restablecida. Correo: ' . $usuario->email . ' — Nueva clave temporal: ' . $nuevaClave);
+    }
 }

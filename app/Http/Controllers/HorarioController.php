@@ -18,10 +18,11 @@ class HorarioController extends Controller
         return view('admin.horarios.index', compact('horarios'));
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $grupos = Grupo::with(['nivel', 'sede'])
             ->where('estado', 'activo')
+            ->when($request->sede_id, fn ($q) => $q->where('sede_id', $request->sede_id))
             ->orderBy('nombre')
             ->get();
 
@@ -47,7 +48,7 @@ class HorarioController extends Controller
             ]
         );
 
-        Horario::create($request->only([
+        $horario = Horario::create($request->only([
             'grupo_id',
             'dia_semana',
             'hora_inicio',
@@ -55,9 +56,30 @@ class HorarioController extends Controller
             'estado',
         ]));
 
+        // Advertencia (no bloqueante): revisar si el docente de este grupo
+        // ya tiene otra clase asignada en ese mismo horario, en cualquier sede.
+        $grupo = Grupo::with('docente')->find($request->grupo_id);
+        $mensaje = 'Horario creado correctamente';
+
+        if ($grupo && $grupo->docente_id) {
+            $choque = Horario::with('grupo')
+                ->where('id', '!=', $horario->id)
+                ->where('dia_semana', $request->dia_semana)
+                ->where('estado', 'activo')
+                ->where('hora_inicio', '<', $request->hora_fin)
+                ->where('hora_fin', '>', $request->hora_inicio)
+                ->whereHas('grupo', fn ($q) => $q->where('docente_id', $grupo->docente_id))
+                ->first();
+
+            if ($choque) {
+                $mensaje .= '. ⚠️ Atención: el docente ' . $grupo->docente->nombre_completo
+                    . ' ya tiene asignada otra clase en ese mismo horario (grupo "' . ($choque->grupo->nombre ?? '—') . '"). Verifica que no se cruce.';
+            }
+        }
+
         return redirect()
             ->route('admin.horarios.index')
-            ->with('success', 'Horario creado correctamente');
+            ->with('success', $mensaje);
     }
 
     public function edit($id)

@@ -49,6 +49,12 @@
                                 <a href="{{ route('admin.sedes.edit', $sede->id) }}" class="btn btn-success btn-sm">
                                     <i class="fas fa-edit"></i>
                                 </a>
+                                <a href="{{ route('admin.horarios-atencion.edit', $sede->id) }}" class="btn btn-warning btn-sm" title="Configurar horario de atención">
+                                    <i class="fas fa-cog"></i>
+                                </a>
+                                <a href="{{ route('admin.matriz-horarios.sede', $sede->id) }}" class="btn btn-info btn-sm" title="Ver matriz de horarios">
+                                    <i class="fas fa-th"></i>
+                                </a>
                                 <form action="{{ route('admin.sedes.destroy', $sede->id) }}" method="POST"
                                     class="form-eliminar" data-nombre="sede" style="display:inline;">
                                     @csrf

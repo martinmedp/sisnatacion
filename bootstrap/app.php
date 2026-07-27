@@ -18,5 +18,13 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+        // Si MySQL no está disponible (apagado, caído, etc.), mostrar
+        // una página amigable en vez del error técnico de Laravel.
+        $exceptions->render(function (\Illuminate\Database\QueryException $e, \Illuminate\Http\Request $request) {
+            return response()->view('errors.mantenimiento', [], 503);
+        });
+
+        $exceptions->render(function (\PDOException $e, \Illuminate\Http\Request $request) {
+            return response()->view('errors.mantenimiento', [], 503);
+        });
     })->create();

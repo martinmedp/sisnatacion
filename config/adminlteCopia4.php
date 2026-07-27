@@ -302,10 +302,21 @@ return [
 
         // ── Paneles propios por rol (no administrador) ─────────
         [
-            'text'  => 'Mi Panel',
-            'route' => 'docente.dashboard',
-            'icon'  => 'fas fa-chalkboard-teacher',
-            'can'   => 'docente.acceso',
+            'text'    => 'Mi Panel',
+            'icon'    => 'fas fa-chalkboard-teacher',
+            'can'     => 'docente.acceso',
+            'submenu' => [
+                [
+                    'text'  => 'Inicio',
+                    'route' => 'docente.dashboard',
+                    'icon'  => 'fas fa-home',
+                ],
+                [
+                    'text'  => 'Mi horario',
+                    'route' => 'docente.horario',
+                    'icon'  => 'fas fa-th',
+                ],
+            ],
         ],
         [
             'text'    => 'Mi Panel',

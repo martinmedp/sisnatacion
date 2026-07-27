@@ -302,10 +302,21 @@ return [
 
         // ── Paneles propios por rol (no administrador) ─────────
         [
-            'text'  => 'Mi Panel',
-            'route' => 'docente.dashboard',
-            'icon'  => 'fas fa-chalkboard-teacher',
-            'can'   => 'docente.acceso',
+            'text'    => 'Mi Panel',
+            'icon'    => 'fas fa-chalkboard-teacher',
+            'can'     => 'docente.acceso',
+            'submenu' => [
+                [
+                    'text'  => 'Inicio',
+                    'route' => 'docente.dashboard',
+                    'icon'  => 'fas fa-home',
+                ],
+                [
+                    'text'  => 'Mi horario',
+                    'route' => 'docente.horario',
+                    'icon'  => 'fas fa-th',
+                ],
+            ],
         ],
         [
             'text'    => 'Mi Panel',
@@ -450,19 +461,19 @@ return [
             'can'     => 'admin.acceso',
             'submenu' => [
                 [
-                    'text' => 'Asistencia',
-                    'url'  => '#',
-                    'icon' => 'fas fa-calendar-check',
+                    'text'  => 'Asistencia',
+                    'route' => 'admin.asistencia.index',
+                    'icon'  => 'fas fa-calendar-check',
                 ],
                 [
-                    'text' => 'Evaluaciones',
-                    'url'  => '#',
-                    'icon' => 'fas fa-award',
+                    'text'  => 'Evaluaciones',
+                    'route' => 'admin.matriculas.index',
+                    'icon'  => 'fas fa-award',
                 ],
                 [
-                    'text' => 'Anotaciones',
-                    'url'  => '#',
-                    'icon' => 'fas fa-award',
+                    'text'  => 'Anotaciones',
+                    'route' => 'admin.observador.index',
+                    'icon'  => 'fas fa-book',
                 ],
                 [
                     'text'  => 'Criterios de Evaluación',

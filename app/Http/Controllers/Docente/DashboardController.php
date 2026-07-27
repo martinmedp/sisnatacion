@@ -49,4 +49,24 @@ class DashboardController extends Controller
 
         return view('panel-docente.alumnos', compact('docente', 'grupo', 'matriculas'));
     }
+
+    /**
+     * Muestra el horario personal del docente (solo lectura, sin
+     * poder modificar ni agregar nada) — combina todas las sedes
+     * donde dicta clase, igual que la vista que ve el administrador.
+     */
+    public function horario()
+    {
+        $docente = Docente::where('user_id', auth()->id())->first();
+
+        abort_if(!$docente, 403);
+
+        $matriz = \App\Services\HorarioMatrizService::matrizDocente($docente->id);
+
+        return view('panel-docente.horario', [
+            'docente' => $docente,
+            'dias'    => $matriz['dias'],
+            'filas'   => $matriz['filas'],
+        ]);
+    }
 }

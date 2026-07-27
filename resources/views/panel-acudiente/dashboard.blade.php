@@ -20,6 +20,7 @@
                     ? $matriculaActiva->cobros->sortBy('numero_cuota')->first(fn ($c) => $c->estado !== 'pagado')
                     : null;
                 $rutaAvance = route('acudiente.avance', $alumno->id);
+                $rutaObservador = route('acudiente.observador', $alumno->id);
             @endphp
 
             <div class="card card-outline card-info mb-4">

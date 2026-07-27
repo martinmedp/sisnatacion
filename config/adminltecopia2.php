@@ -322,6 +322,11 @@ return [
                     'route' => 'alumno.avance',
                     'icon'  => 'fas fa-chart-line',
                 ],
+                [
+                    'text'  => 'Mi observador',
+                    'route' => 'alumno.observador',
+                    'icon'  => 'fas fa-book',
+                ],
             ],
         ],
         [

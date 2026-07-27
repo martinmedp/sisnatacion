@@ -81,9 +81,6 @@
                 icon: 'success',
                 title: 'Correcto',
                 text: '{{ session('success') }}',
-                timer: 1500,
-                timerProgressBar: true,
-                showConfirmButton: false
             });
             });
         </script>

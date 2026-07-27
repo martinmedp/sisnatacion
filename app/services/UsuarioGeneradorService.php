@@ -69,4 +69,23 @@ class UsuarioGeneradorService
             'password_generada' => $passwordPlano,
         ];
     }
+
+    /**
+     * Genera una nueva contraseña temporal para un usuario ya existente
+     * y la guarda (encriptada). Devuelve la contraseña en texto plano
+     * para mostrarla una sola vez en pantalla — después de esto no
+     * queda recuperable en ningún lugar, igual que al crear la cuenta.
+     */
+    public static function restablecerClave(User $usuario, ?string $documento = null): string
+    {
+        $passwordPlano = ($documento && strlen($documento) >= 4)
+            ? $documento
+            : Str::random(8);
+
+        $usuario->update([
+            'password' => Hash::make($passwordPlano),
+        ]);
+
+        return $passwordPlano;
+    }
 }

@@ -176,4 +176,26 @@ class AdministrativoController extends Controller
             ->route('admin.administrativos.index')
             ->with('success', 'Administrativo eliminado correctamente');
     }
+
+    /**
+     * Genera una nueva contraseña temporal para la cuenta de acceso
+     * de este administrativo y la muestra una sola vez en pantalla.
+     */
+    public function restablecerClave($id)
+    {
+        $administrativo = Administrativo::findOrFail($id);
+
+        if (!$administrativo->user_id) {
+            return redirect()
+                ->route('admin.administrativos.edit', $id)
+                ->with('error', 'Este administrativo no tiene una cuenta de acceso (no tiene correo registrado).');
+        }
+
+        $usuario = \App\Models\User::find($administrativo->user_id);
+        $nuevaClave = UsuarioGeneradorService::restablecerClave($usuario, $administrativo->numero_documento);
+
+        return redirect()
+            ->route('admin.administrativos.edit', $id)
+            ->with('success', 'Contraseña restablecida. Correo: ' . $usuario->email . ' — Nueva clave temporal: ' . $nuevaClave);
+    }
 }

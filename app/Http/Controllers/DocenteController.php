@@ -263,4 +263,26 @@ class DocenteController extends Controller
                 'Docente eliminado correctamente'
             );
     }
+
+    /**
+     * Genera una nueva contraseña temporal para la cuenta de acceso
+     * de este docente y la muestra una sola vez en pantalla.
+     */
+    public function restablecerClave($id)
+    {
+        $docente = Docente::findOrFail($id);
+
+        if (!$docente->user_id) {
+            return redirect()
+                ->route('admin.docentes.edit', $id)
+                ->with('error', 'Este docente no tiene una cuenta de acceso (no tiene correo registrado).');
+        }
+
+        $usuario = \App\Models\User::find($docente->user_id);
+        $nuevaClave = UsuarioGeneradorService::restablecerClave($usuario, $docente->numero_documento);
+
+        return redirect()
+            ->route('admin.docentes.edit', $id)
+            ->with('success', 'Contraseña restablecida. Correo: ' . $usuario->email . ' — Nueva clave temporal: ' . $nuevaClave);
+    }
 }

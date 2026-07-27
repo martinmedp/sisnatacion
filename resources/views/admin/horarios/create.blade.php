@@ -35,7 +35,7 @@
                     <select name="dia_semana" class="form-control @error('dia_semana') is-invalid @enderror">
                         <option value="">-- Seleccionar día --</option>
                         @foreach(['lunes','martes','miercoles','jueves','viernes','sabado','domingo'] as $dia)
-                            <option value="{{ $dia }}" {{ old('dia_semana') == $dia ? 'selected' : '' }}>
+                            <option value="{{ $dia }}" {{ (old('dia_semana') ?? request('dia_semana')) == $dia ? 'selected' : '' }}>
                                 {{ ucfirst($dia) }}
                             </option>
                         @endforeach
@@ -50,7 +50,7 @@
                         <label>Hora de inicio</label>
                         <input type="time" name="hora_inicio"
                             class="form-control @error('hora_inicio') is-invalid @enderror"
-                            value="{{ old('hora_inicio') }}">
+                            value="{{ old('hora_inicio') ?? request('hora_inicio') }}">
                         @error('hora_inicio')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror
@@ -59,7 +59,7 @@
                         <label>Hora de fin</label>
                         <input type="time" name="hora_fin"
                             class="form-control @error('hora_fin') is-invalid @enderror"
-                            value="{{ old('hora_fin') }}">
+                            value="{{ old('hora_fin') ?? request('hora_fin') }}">
                         @error('hora_fin')
                             <span class="invalid-feedback">{{ $message }}</span>
                         @enderror

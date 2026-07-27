@@ -402,6 +402,11 @@ return [
                     'icon'  => 'fas fa-clock',
                 ],
                 [
+                    'text'  => 'Matriz de Horarios',
+                    'route' => 'admin.matriz-horarios.index',
+                    'icon'  => 'fas fa-th',
+                ],
+                [
                     'text' => 'Matrículas',
                     'route'  => 'admin.matriculas.index',
                     'icon' => 'fas fa-clipboard-list',

@@ -50,4 +50,16 @@ class DashboardController extends Controller
 
         return view('panel-alumno.avance', compact('alumno', 'matriculas'));
     }
+
+    /**
+     * Muestra el libro observador del alumno (solo lectura) —
+     * anotaciones de comportamiento, conducta y rendimiento que
+     * han registrado sus docentes.
+     */
+    public function observador()
+    {
+        $alumno = Alumno::with('observador.docente')->where('user_id', auth()->id())->first();
+
+        return view('panel-alumno.observador', compact('alumno'));
+    }
 }

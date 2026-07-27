@@ -47,4 +47,25 @@ class DashboardController extends Controller
 
         return view('panel-acudiente.avance', compact('acudiente', 'alumno', 'matriculas'));
     }
+
+    /**
+     * Muestra el libro observador (solo lectura) de uno de los
+     * alumnos a cargo de este acudiente. Verifica que el alumno
+     * realmente pertenezca a este acudiente antes de mostrar nada.
+     */
+    public function observador($alumnoId)
+    {
+        $acudiente = Acudiente::where('user_id', auth()->id())->first();
+
+        abort_if(!$acudiente, 403);
+
+        $alumno = $acudiente->alumnos()
+            ->with('observador.docente')
+            ->where('id', $alumnoId)
+            ->first();
+
+        abort_if(!$alumno, 403, 'Este alumno no está a tu cargo.');
+
+        return view('panel-acudiente.observador', compact('acudiente', 'alumno'));
+    }
 }

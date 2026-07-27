@@ -66,6 +66,9 @@
                             <a href="{{ route('admin.docentes.edit', $docente->id) }}" class="btn btn-success btn-sm">
                                 <i class="fas fa-edit"></i>
                             </a>
+                            <a href="{{ route('admin.matriz-horarios.docente', $docente->id) }}" class="btn btn-info btn-sm" title="Ver horario">
+                                <i class="fas fa-th"></i>
+                            </a>
                             <form action="{{ route('admin.docentes.destroy', $docente->id) }}" method="POST"
                                 class="form-eliminar" data-nombre="docente" style="display:inline;">
                                 @csrf

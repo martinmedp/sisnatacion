@@ -96,6 +96,12 @@
                         <i class="fas fa-chart-line"></i> Ver avance académico
                     </a>
                 @endif
+
+                @if ($rutaObservador ?? false)
+                    <a href="{{ $rutaObservador }}" class="btn btn-warning btn-sm">
+                        <i class="fas fa-book"></i> Ver observador
+                    </a>
+                @endif
             </div>
         </div>
     </div>

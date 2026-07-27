@@ -13,7 +13,7 @@
             Tu usuario no está vinculado todavía a una ficha de alumno. Contacta al administrador.
         </div>
     @else
-        @php $rutaAvance = route('alumno.avance'); @endphp
+        @php $rutaAvance = route('alumno.avance'); $rutaObservador = route('alumno.observador'); @endphp
         @include('partials.resumen-alumno')
     @endif
 
