@@ -24,9 +24,22 @@
                     </div>
                 </div>
 
-                <p class="section-desc">
-                    {!! nl2br(e($configuracion->historia)) !!}
-                </p>
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-7">
+                        <div class="historia-texto">
+                            @foreach (preg_split('/\n\s*\n/', trim($configuracion->historia)) as $parrafo)
+                                <p>{{ trim($parrafo) }}</p>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    @if ($primerBanner && !empty($primerBanner->imagen))
+                        <div class="col-md-5">
+                            <img src="{{ asset($primerBanner->imagen) }}"
+                                alt="{{ $primerBanner->titulo ?? 'Nuestra institución' }}" class="historia-imagen">
+                        </div>
+                    @endif
+                </div>
 
             </div>
         </section>

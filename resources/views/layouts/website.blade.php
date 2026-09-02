@@ -97,11 +97,6 @@
                             {{ $configuracion->nombre }}
                         @endif
                     </h5>
-                    <p>
-                        @if (!empty($configuracion->descripcion))
-                            {{ $configuracion->descripcion }}
-                        @endif
-                    </p>
                 </div>
                 <div class="col-md-4">
                     <h5>
@@ -171,16 +166,6 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('.inst-nav');
-            if (window.scrollY > 20) {
-                nav.classList.add('nav-scrolled');
-            } else {
-                nav.classList.remove('nav-scrolled');
-            }
-        });
-    </script>
 </body>
 
 </html>

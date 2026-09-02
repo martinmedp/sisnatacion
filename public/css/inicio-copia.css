@@ -4,14 +4,14 @@
 
 /* ── Variables ────────────────────────────────────── */
 :root {
-  /* Paleta principal — Aqua Vibrant */
-  --color-primario: #0096C7;
-  --color-secundario: #48CAE4;
-  --color-acento: #FFC300;
-  --color-premium: #FF477E;
+  /* Paleta principal */
+  --color-primario: #005F8F;
+  --color-secundario: #00B4D8;
+  --color-acento: #90E0EF;
+  --color-premium: #D4AF37;
   --bg-principal: #F8FAFC;
   --bg-secundario: #7edefb52;
-  --bg-dark: #03045E;
+  --bg-dark: #0F172A;
   --texto-principal: #0F172A;
   --texto-secundario: #64748B;
   --texto-claro: #FFFFFF;
@@ -26,36 +26,36 @@
   --radius-lg: 24px;
 
   /* Complementos derivados de la paleta */
-  --color-primario-oscuro: #007399;
+  --color-primario-oscuro: #004A70;
   /* hover de primario */
   --color-primario-suave: #2c3c43;
   /* fondos tenues azul */
 
   --color-bg-white: var(--bg-principal);
   --color-bg-suave: var(--bg-secundario);
-  --color-bg-profundo: #020341;
+  --color-bg-profundo: #0A2540;
   /* oscuro más profundo que bg-dark */
-  --color-bg-placeholder: #A9E4F0;
+  --color-bg-placeholder: #B0D8E8;
   /* placeholder claro azulado */
 
-  --color-borde-suave: #BEEBF5;
-  --color-borde-info: #9FE0EE;
+  --color-borde-suave: #C8E6F4;
+  --color-borde-info: #A8D8EA;
   --color-tag-info-bg: var(--bg-secundario);
 
   --color-texto-blanco: var(--texto-claro);
   --color-texto-titulo: var(--texto-principal);
   --color-texto-desc: var(--texto-secundario);
   --color-texto-suave: #94A3B8;
-  --color-texto-caption: #7CE0EA;
+  --color-texto-caption: #7EC8E3;
   --color-texto-secundario: #B0C4CE;
 
   /* Transparencias — hero blobs */
-  --color-blob-1: rgba(72, 202, 228, 0.12);
-  --color-blob-2: rgba(72, 202, 228, 0.08);
+  --color-blob-1: rgba(0, 180, 216, 0.10);
+  --color-blob-2: rgba(0, 180, 216, 0.07);
 
   /* Transparencias — badge hero */
-  --color-badge-bg: rgba(255, 195, 0, 0.15);
-  --color-badge-border: rgba(255, 195, 0, 0.40);
+  --color-badge-bg: rgba(0, 180, 216, 0.15);
+  --color-badge-border: rgba(0, 180, 216, 0.40);
 
   /* Transparencias — botón secundario */
   --color-btn-sec-border: rgba(255, 255, 255, 0.20);
@@ -69,7 +69,7 @@
   --color-overlay-galeria: rgba(15, 23, 42, 0.88);
 
   /* Tags de pilares */
-  --color-mision-tag-bg: rgba(255, 195, 0, 0.18);
+  --color-mision-tag-bg: rgba(144, 224, 239, 0.18);
   --color-vision-tag-bg: rgba(255, 255, 255, 0.20);
 
   /* Textos sobre fondos oscuros */
@@ -83,10 +83,14 @@
   --color-indicador-activo: var(--color-acento);
 }
 
+body {
+  background-color: var(--bg-dark);
+}
+
 /* ── Hero ─────────────────────────────────────────── */
 .hero-section {
   background: var(--bg-dark);
-  padding: 5rem 0 4rem;
+  padding: 8rem 0 4rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -150,7 +154,7 @@
 .hero-section .hero-desc {
   color: var(--color-texto-suave);
   font-size: 1rem;
-  max-width: 900px;
+  max-width: 520px;
   margin: 0 auto 2rem;
   line-height: 1.8;
 }
@@ -237,6 +241,15 @@
 }
 
 /* ── Carrusel ─────────────────────────────────────── */
+#carouselInstitucion {
+  margin-top: 100px;
+}
+
+.hero-section-primero {
+  padding-top: 8rem;
+  /* solo cuando el hero es el primer elemento (sin banners) */
+}
+
 #carouselInstitucion .carousel-item img {
   height: 480px;
   object-fit: cover;
@@ -280,46 +293,11 @@
 /* ── Helpers de sección ───────────────────────────── */
 .inst-section {
   padding: 4rem 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.inst-section::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='40' viewBox='0 0 120 40'%3E%3Cpath fill='none' stroke='%230096C7' stroke-opacity='0.06' stroke-width='2' d='M0,20 C10,10 20,30 30,20 C40,10 50,30 60,20 C70,10 80,30 90,20 C100,10 110,30 120,20'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  pointer-events: none;
-}
-
-.inst-section .container {
-  position: relative;
-  z-index: 1;
 }
 
 .inst-section-alt {
   padding: 4rem 0;
   background: var(--color-texto-suave);
-  position: relative;
-  overflow: hidden;
-}
-
-.inst-section-alt::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle at 8% 20%, rgba(255, 255, 255, 0.15) 0 40px, transparent 41px),
-    radial-gradient(circle at 92% 75%, rgba(255, 255, 255, 0.12) 0 60px, transparent 61px),
-    radial-gradient(circle at 50% 92%, rgba(255, 255, 255, 0.10) 0 30px, transparent 31px),
-    radial-gradient(circle at 25% 60%, rgba(255, 255, 255, 0.08) 0 18px, transparent 19px);
-  pointer-events: none;
-}
-
-.inst-section-alt .container {
-  position: relative;
-  z-index: 1;
 }
 
 .section-eyebrow {
@@ -346,30 +324,6 @@
   margin-bottom: 2rem;
 }
 
-.historia-texto {
-  font-size: 14px;
-  color: var(--color-texto-desc);
-  line-height: 1.9;
-  text-align: justify;
-}
-
-.historia-texto p {
-  text-indent: 2em;
-  margin-bottom: 1.1rem;
-}
-
-.historia-texto p:last-child {
-  margin-bottom: 0;
-}
-
-.historia-imagen {
-  width: 100%;
-  height: 340px;
-  object-fit: cover;
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
-}
-
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -394,11 +348,8 @@
 
 .inst-divider {
   border: none;
-  height: 44px;
+  border-top: 1px solid var(--color-borde-suave);
   margin: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 44'%3E%3Cpath fill='%2348CAE4' fill-opacity='0.35' d='M0,22 C150,42 350,2 600,22 C850,42 1050,2 1200,22 L1200,44 L0,44 Z'/%3E%3C/svg%3E");
-  background-repeat: repeat-x;
-  background-size: 600px 44px;
 }
 
 /* ── Cards de pilares (Misión / Visión / Info) ────── */
@@ -860,12 +811,22 @@
 
 /* ── Navbar ───────────────────────────────────────── */
 .inst-nav {
-  background: var(--bg-dark) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  position: sticky;
+  background: transparent !important;
+  border-bottom: none;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
   min-height: 100px;
+  transition: background 0.25s ease, backdrop-filter 0.25s ease, box-shadow 0.25s ease;
+}
+
+.inst-nav.nav-scrolled {
+  background: rgba(0, 0, 0, 0.55) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Brand */
@@ -948,7 +909,7 @@
 
 .inst-nav-link.active {
   color: var(--color-acento) !important;
-  background: rgba(255, 195, 0, 0.10);
+  background: rgba(144, 224, 239, 0.08);
 }
 
 /* Menú móvil */

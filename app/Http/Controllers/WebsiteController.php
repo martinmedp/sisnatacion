@@ -64,9 +64,13 @@ class WebsiteController extends Controller
     {
         $configuracion = Configuracion::first();
 
+        $primerBanner = Banner::where('estado', 'ACTIVO')
+            ->orderBy('orden')
+            ->first();
+
         return view(
             'website.nosotros',
-            compact('configuracion')
+            compact('configuracion', 'primerBanner')
         );
     }
     public function contacto()
