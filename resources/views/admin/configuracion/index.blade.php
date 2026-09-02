@@ -165,7 +165,7 @@
                                                     <option value="">Moneda</option>
 
                                                     <!-- Agrega más opciones de monedas según sea necesario,en configuracionController hacemos lectura
-                                                                                                                                                                                                                                                                                de la API y enviamos la información a la vista -->
+                                                                                                                                                                                                                                                                                    de la API y enviamos la información a la vista -->
                                                     @foreach ($divisas as $divisa)
                                                         <option value="{{ $divisa['symbol'] }}"
                                                             {{ old('divisa', $configuracion->divisa ?? '') == $divisa['symbol'] ? 'selected' : '' }}>
@@ -251,7 +251,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-12">
-                                <a href="{{ url('/admin', []) }}}" class="btn btn-default">Volver</a>
+                                <a href="{{ url('/admin', []) }}" class="btn btn-default">Volver</a>
                                 <button type="submit" class="btn btn-primary">Guardar Configuración</button>
                             </div>
                         </div>

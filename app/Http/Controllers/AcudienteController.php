@@ -131,32 +131,18 @@ class AcudienteController extends Controller
     public function destroy($id)
     {
         $acudiente = Acudiente::findOrFail($id);
+
+        // Si tenía cuenta de acceso vinculada, se borra también — de lo
+        // contrario su correo queda "atascado" y no se puede volver a
+        // registrar ni asignar a otro acudiente.
+        if ($acudiente->user_id) {
+            \App\Models\User::where('id', $acudiente->user_id)->delete();
+        }
+
         $acudiente->delete();
 
         return redirect()
             ->route('admin.acudientes.index')
             ->with('success', 'Acudiente eliminado correctamente');
-    }
-
-    /**
-     * Genera una nueva contraseña temporal para la cuenta de acceso
-     * de este acudiente y la muestra una sola vez en pantalla.
-     */
-    public function restablecerClave($id)
-    {
-        $acudiente = Acudiente::findOrFail($id);
-
-        if (!$acudiente->user_id) {
-            return redirect()
-                ->route('admin.acudientes.edit', $id)
-                ->with('error', 'Este acudiente no tiene una cuenta de acceso (no tiene correo registrado).');
-        }
-
-        $usuario = \App\Models\User::find($acudiente->user_id);
-        $nuevaClave = UsuarioGeneradorService::restablecerClave($usuario, $acudiente->numero_documento);
-
-        return redirect()
-            ->route('admin.acudientes.edit', $id)
-            ->with('success', 'Contraseña restablecida. Correo: ' . $usuario->email . ' — Nueva clave temporal: ' . $nuevaClave);
     }
 }

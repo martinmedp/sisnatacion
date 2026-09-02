@@ -45,6 +45,8 @@
                             <td>
                                 @if ($acudiente->estado === 'activo')
                                     <span class="badge badge-success">Activo</span>
+                                @elseif ($acudiente->autorregistro)
+                                    <span class="badge badge-warning">Pendiente de aprobar</span>
                                 @else
                                     <span class="badge badge-secondary">Inactivo</span>
                                 @endif

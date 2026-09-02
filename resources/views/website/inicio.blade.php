@@ -40,7 +40,7 @@
     @endif
 
     {{-- ── Hero institucional ── --}}
-    <section class="hero-section">
+    <section class="hero-section @if ($banners->count() === 0) hero-section-primero @endif">
         <div class="container position-relative" style="z-index: 1;">
             <div class="hero-badge">Bienvenido a nuestra institución</div>
             <hr class="inst-divider">

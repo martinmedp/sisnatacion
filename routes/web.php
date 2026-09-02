@@ -9,6 +9,8 @@ Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+
 // =====================================================
 // SITIO WEB PÚBLICO
 // =====================================================
@@ -20,6 +22,13 @@ Route::get('/noticias', [WebsiteController::class, 'noticias'])->name('noticias'
 Route::get('/noticias/{noticia}', [WebsiteController::class, 'noticiaDetalle'])->name('noticias.show');
 Route::get('/galeria', [WebsiteController::class, 'galeria'])->name('galeria');
 Route::get('/docentes', [WebsiteController::class, 'docentes'])->name('docentes');
+
+// =====================================================
+// REGISTRO DE ACUDIENTE (público, sin login) 
+// =====================================================
+
+Route::get('/registro-acudiente', [App\Http\Controllers\RegistroAcudienteController::class, 'create'])->name('registro.acudiente');
+Route::post('/registro-acudiente', [App\Http\Controllers\RegistroAcudienteController::class, 'store'])->name('registro.acudiente.store');
 
 // =====================================================
 // PANEL ADMIN — solo rol admin

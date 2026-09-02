@@ -27,7 +27,17 @@
                     </div>
                 @endif
                 @if (!empty($configuracion->nombre))
-                    <span class="inst-nav-nombre">{{ $configuracion->nombre }}</span>
+                    @php
+                        $partesNombre = explode(' ', trim($configuracion->nombre));
+                        $marca = array_pop($partesNombre);
+                        $resto = implode(' ', $partesNombre);
+                    @endphp
+                    <span class="inst-nav-nombre">
+                        @if ($resto)
+                            <span class="inst-nav-nombre-linea1">{{ $resto }}</span>
+                        @endif
+                        <span class="inst-nav-nombre-linea2">{{ $marca }}</span>
+                    </span>
                 @endif
             </a>
             {{-- ── Toggler ─────────────────────────────────────── --}}
@@ -161,6 +171,16 @@
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('.inst-nav');
+            if (window.scrollY > 20) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+        });
+    </script>
 </body>
 
 </html>

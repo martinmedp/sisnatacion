@@ -308,6 +308,10 @@
                 <div class="alert alert-success">{{ session('status') }}</div>
             @endif
 
+            @if (session('error'))
+                <div class="alert alert-warning">{{ session('error') }}</div>
+            @endif
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <i class="fas fa-exclamation-circle me-1"></i>
@@ -358,6 +362,13 @@
                     Iniciar sesión
                 </button>
             </form>
+
+            <p style="text-align:center; margin-top: 1.5rem; font-size: 13px; color: var(--texto-secundario);">
+                ¿Eres acudiente y aún no tienes cuenta?
+                <a href="{{ route('registro.acudiente') }}" style="color: var(--color-primario); font-weight: 600; text-decoration:none;">
+                    Regístrate aquí
+                </a>
+            </p>
         </div>
 
     </div>

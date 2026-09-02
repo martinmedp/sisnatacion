@@ -25,6 +25,7 @@ class Alumno extends Model
         'telefono_emergencia',
         'observaciones',
         'estado',
+        'autorregistro',
         'user_id',
     ];
 

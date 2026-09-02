@@ -9,6 +9,18 @@
             </h3>
         </div>
         <div class="card-body">
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <h5><i class="icon fas fa-ban"></i> Revisa lo siguiente:</h5>
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{ route('admin.noticias.update', $noticia->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -16,56 +28,78 @@
                     <div class="col-md-8">
                         <div class="form-group">
                             <label>Título</label>
-                            <input type="text" name="titulo" class="form-control" value="{{ $noticia->titulo }}">
+                            <input type="text" name="titulo" class="form-control @error('titulo') is-invalid @enderror"
+                                value="{{ old('titulo', $noticia->titulo) }}">
+                            @error('titulo')
+                                <span class="invalid-feedback d-block">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Fecha publicación</label>
-                            <input type="date" name="fecha_publicacion" class="form-control"
-                                value="{{ $noticia->fecha_publicacion }}">
+                            <input type="date" name="fecha_publicacion"
+                                class="form-control @error('fecha_publicacion') is-invalid @enderror"
+                                value="{{ old('fecha_publicacion', $noticia->fecha_publicacion) }}">
+                            @error('fecha_publicacion')
+                                <span class="invalid-feedback d-block">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label>Resumen</label>
-                    <textarea name="resumen" class="form-control" rows="3">{{ $noticia->resumen }}</textarea>
+                    <textarea name="resumen" class="form-control @error('resumen') is-invalid @enderror" rows="3">{{ old('resumen', $noticia->resumen) }}</textarea>
+                    @error('resumen')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Contenido</label>
-                    <textarea name="contenido" class="form-control" rows="8">{{ $noticia->contenido }}</textarea>
+                    <textarea name="contenido" class="form-control @error('contenido') is-invalid @enderror" rows="8">{{ old('contenido', $noticia->contenido) }}</textarea>
+                    @error('contenido')
+                        <span class="invalid-feedback d-block">{{ $message }}</span>
+                    @enderror
                 </div>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Imagen</label>
-                            <input type="file" name="imagen" class="form-control" accept="image/*"
-                                onchange="mostrarImagen(event)">
+                            <label>Imagen (opcional, deja vacío para conservar la actual)</label>
+                            <input type="file" name="imagen" class="form-control @error('imagen') is-invalid @enderror"
+                                accept="image/*" onchange="mostrarImagen(event)">
                             <small class="text-muted">
                                 Tamaño recomendado: 1200x675 px.
                                 Relación 16:9.
                                 Máximo 4 MB.
                                 Formatos:.jpg, .jpeg, .png, .webp
                             </small>
+                            @error('imagen')
+                                <span class="invalid-feedback d-block">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-group">
                             <label>Estado</label>
-                            <select name="estado" class="form-control">
-                                <option value="ACTIVO" {{ $noticia->estado == 'ACTIVO' ? 'selected' : '' }}>
+                            <select name="estado" class="form-control @error('estado') is-invalid @enderror">
+                                <option value="ACTIVO" {{ old('estado', $noticia->estado) == 'ACTIVO' ? 'selected' : '' }}>
                                     ACTIVO
                                 </option>
-                                <option value="INACTIVO" {{ $noticia->estado == 'INACTIVO' ? 'selected' : '' }}>
+                                <option value="INACTIVO"
+                                    {{ old('estado', $noticia->estado) == 'INACTIVO' ? 'selected' : '' }}>
                                     INACTIVO
                                 </option>
                             </select>
+                            @error('estado')
+                                <span class="invalid-feedback d-block">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-md-3 text-center">
                         <label>Imagen actual</label>
                         <br>
-                        <img id="preview" src="{{ asset($noticia->imagen) }}" class="img-fluid" style="max-height:180px;">
+                        <img id="preview" src="{{ asset($noticia->imagen) }}" class="img-fluid"
+                            style="max-height:180px;">
                     </div>
                 </div>
                 <br>

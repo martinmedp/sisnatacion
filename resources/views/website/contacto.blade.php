@@ -8,7 +8,24 @@
         <p class="hero-desc">
             Estamos disponibles para atender tus consultas e inquietudes.
         </p>
+
+        @php
+            $telefonoWhatsapp = preg_replace('/\D/', '', $configuracion->telefono1 ?? '');
+            if (strlen($telefonoWhatsapp) === 10) {
+                $telefonoWhatsapp = '57' . $telefonoWhatsapp; // Colombia
+            }
+            $mensajeWhatsapp = urlencode(
+                'Hola, me gustaría más información sobre ' . ($configuracion->nombre ?? 'la institución') . '.',
+            );
+        @endphp
+        @if ($telefonoWhatsapp)
+            <a href="https://wa.me/{{ $telefonoWhatsapp }}?text={{ $mensajeWhatsapp }}" class="btn btn-success mt-3"
+                target="_blank" rel="noopener">
+                <i class="fab fa-whatsapp"></i> Escríbenos por WhatsApp
+            </a>
+        @endif
     </section>
+
 
     <div class="inst-divider"></div>
 
@@ -53,6 +70,24 @@
                             </div>
 
                         </div>
+
+                        @php
+                            $telefonoWhatsapp = preg_replace('/\D/', '', $configuracion->telefono1 ?? '');
+                            if (strlen($telefonoWhatsapp) === 10) {
+                                $telefonoWhatsapp = '57' . $telefonoWhatsapp; // Colombia
+                            }
+                            $mensajeWhatsapp = urlencode(
+                                'Hola, me gustaría más información sobre ' .
+                                    ($configuracion->nombre ?? 'la institución') .
+                                    '.',
+                            );
+                        @endphp
+                        @if ($telefonoWhatsapp)
+                            <a href="https://wa.me/{{ $telefonoWhatsapp }}?text={{ $mensajeWhatsapp }}"
+                                class="btn btn-success mt-3" target="_blank" rel="noopener">
+                                <i class="fab fa-whatsapp"></i> Escríbenos por WhatsApp
+                            </a>
+                        @endif
                     </div>
 
                 </div>

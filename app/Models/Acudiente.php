@@ -19,6 +19,7 @@ class Acudiente extends Model
         'direccion',
         'observaciones',
         'estado',
+        'autorregistro',
         'user_id',
     ];
 

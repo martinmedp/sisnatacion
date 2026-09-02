@@ -83,10 +83,14 @@
   --color-indicador-activo: var(--color-acento);
 }
 
+body {
+  background-color: var(--bg-dark);
+}
+
 /* ── Hero ─────────────────────────────────────────── */
 .hero-section {
   background: var(--bg-dark);
-  padding: 5rem 0 4rem;
+  padding: 8rem 0 4rem;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -237,6 +241,15 @@
 }
 
 /* ── Carrusel ─────────────────────────────────────── */
+#carouselInstitucion {
+  margin-top: 100px;
+}
+
+.hero-section-primero {
+  padding-top: 8rem;
+  /* solo cuando el hero es el primer elemento (sin banners) */
+}
+
 #carouselInstitucion .carousel-item img {
   height: 480px;
   object-fit: cover;
@@ -798,12 +811,22 @@
 
 /* ── Navbar ───────────────────────────────────────── */
 .inst-nav {
-  background: var(--bg-dark) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  position: sticky;
+  background: transparent !important;
+  border-bottom: none;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 1000;
   min-height: 100px;
+  transition: background 0.25s ease, backdrop-filter 0.25s ease, box-shadow 0.25s ease;
+}
+
+.inst-nav.nav-scrolled {
+  background: rgba(0, 0, 0, 0.55) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Brand */
@@ -836,10 +859,29 @@
 }
 
 .inst-nav-nombre {
-  font-size: 36px;
-  font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   color: var(--texto-claro);
-  line-height: 1.2;
+  line-height: 1.15;
+}
+
+.inst-nav-nombre-linea1 {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--texto-claro);
+  opacity: 0.85;
+}
+
+.inst-nav-nombre-linea2 {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--texto-claro);
 }
 
 /* Toggler */

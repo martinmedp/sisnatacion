@@ -29,6 +29,15 @@ class HomeController extends Controller
         }
 
         if ($user->hasRole('acudiente')) {
+            $acudiente = \App\Models\Acudiente::where('user_id', $user->id)->first();
+
+            if ($acudiente && $acudiente->estado !== 'activo') {
+                auth()->logout();
+                return redirect()
+                    ->route('login')
+                    ->with('error', 'Tu registro está pendiente de revisión por el administrador. Te avisaremos cuando esté activo.');
+            }
+
             return redirect()->route('acudiente.dashboard');
         }
 
