@@ -47,6 +47,24 @@ class RolesAndPermissionsSeeder extends Seeder
     $admin = Role::create(['name' => 'admin']);
     $admin->givePermissionTo(Permission::all());
 
+    // El admin no debe tener los permisos "de acceso" exclusivos de otros
+    // roles (docente.acceso, alumno.acceso, acudiente.acceso, etc.) — esos
+    // solo sirven para mostrar el ítem "Mi Panel" de CADA rol en el menú.
+    // Si el admin los tuviera, vería duplicado el "Mi Panel" de todos los
+    // demás roles en su propio menú.
+    // 'administrativo.acceso' se crea aquí de una vez (aunque el rol
+    // Administrativo no se define en este seeder) solo para poder
+    // revocárselo al admin de forma segura, sin que Spatie falle por
+    // intentar revocar un permiso que todavía no existe.
+    Permission::firstOrCreate(['name' => 'administrativo.acceso']);
+
+    $admin->revokePermissionTo([
+      'docente.acceso',
+      'alumno.acceso',
+      'acudiente.acceso',
+      'administrativo.acceso',
+    ]);
+
     $docente = Role::create(['name' => 'docente']);
     $docente->givePermissionTo([
       'docente.acceso',

@@ -94,3 +94,44 @@
 .user-panel .info a {
   color: #ffffff !important;
 }
+
+/* Pie de página del sidebar — marca del desarrollador */
+/* Se posiciona "absolute" respecto al <aside> (que AdminLTE ya deja
+   fixed y a pantalla completa), así queda pegado al fondo de la
+   pantalla sin tocar el cálculo de alto/scroll que AdminLTE hace
+   por su cuenta con JavaScript sobre el menú. */
+.main-sidebar .sidebar {
+  padding-bottom: 85px;
+}
+
+.sidebar-footer-dev {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  margin-top: 18px;
+  padding: 16px 18px 18px;
+  border-top: 2px solid rgba(255, 255, 255, 0.18);
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.sidebar-footer-dev-nombre {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+
+.sidebar-footer-dev-tel {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #FFC300;
+}
+
+.sidebar-footer-dev-tel i {
+  margin-right: 6px;
+}

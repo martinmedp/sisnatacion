@@ -302,6 +302,7 @@ body {
 /* ── Helpers de sección ───────────────────────────── */
 .inst-section {
   padding: 4rem 0;
+  background: var(--bg-principal);
   position: relative;
   overflow: hidden;
 }

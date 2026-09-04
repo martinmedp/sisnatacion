@@ -63,7 +63,7 @@ return [
     |
     */
 
-  'logo' => '<b>EXE</b>ENGINER',
+  'logo' => 'SWIMFIT_FER',
   'logo_img' => 'vendor/adminlte/dist/img/logoSwimFitFer.png',
   'logo_img_class' => 'brand-image img-circle elevation-3',
   'logo_img_xl' => null,
@@ -154,7 +154,7 @@ return [
 
   'layout_topnav' => null,
   'layout_boxed' => null,
-  'layout_fixed_sidebar' => null,
+  'layout_fixed_sidebar' => true,
   'layout_fixed_navbar' => null,
   'layout_fixed_footer' => null,
   'layout_dark_mode' => null,
