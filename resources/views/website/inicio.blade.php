@@ -222,4 +222,132 @@
 
         </div>
     </section>
+
+    <div class="inst-divider"></div>
+
+    {{-- ── Servicios / Niveles ──────────────────────────────────────── --}}
+    <section class="inst-section-alt">
+        <div class="container">
+
+            <div class="section-header">
+                <div>
+                    <span class="section-eyebrow">Nuestro programa</span>
+                    <h2 class="section-title">Niveles de Enseñanza</h2>
+                </div>
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="nivel-card">
+                        <div class="nivel-icono"><i class="fas fa-baby"></i></div>
+                        <span class="nivel-badge">Nivel 1</span>
+                        <h4>Familiarización</h4>
+                        <p class="nivel-subtitulo">El primer paso en el agua, sin miedo</p>
+                        <ol class="nivel-lista">
+                            <li>Adaptación progresiva al medio acuático</li>
+                            <li>Pérdida del miedo al agua con juegos guiados</li>
+                            <li>Ingreso y salida segura de la piscina</li>
+                            <li>Control de la respiración básica (soplar burbujas)</li>
+                            <li>Flotación asistida boca arriba y boca abajo</li>
+                            <li>Desplazamientos cortos con apoyo de flotadores</li>
+                            <li>Desarrollo de confianza con el instructor</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="nivel-card">
+                        <div class="nivel-icono"><i class="fas fa-wind"></i></div>
+                        <span class="nivel-badge">Nivel 2</span>
+                        <h4>Flotación y respiración</h4>
+                        <p class="nivel-subtitulo">Aprendiendo a sostenerse solo en el agua</p>
+                        <ol class="nivel-lista">
+                            <li>Flotación autónoma boca arriba y boca abajo</li>
+                            <li>Control de respiración lateral coordinada</li>
+                            <li>Desplazamientos de 5 metros con flotador</li>
+                            <li>Recuperación de la posición vertical</li>
+                            <li>Ejercicios de exhalación dentro del agua</li>
+                            <li>Coordinación básica de brazos y piernas</li>
+                            <li>Superación de miedos residuales al agua profunda</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="nivel-card">
+                        <div class="nivel-icono"><i class="fas fa-water"></i></div>
+                        <span class="nivel-badge">Nivel 3</span>
+                        <h4>Iniciación a estilos</h4>
+                        <p class="nivel-subtitulo">Los primeros metros nadando de verdad</p>
+                        <ol class="nivel-lista">
+                            <li>Patada básica de estilo libre (crol)</li>
+                            <li>Patada básica de espalda</li>
+                            <li>Coordinación de brazada de crol</li>
+                            <li>Respiración lateral durante el nado</li>
+                            <li>Nado de 10 metros en crol</li>
+                            <li>Nado de 10 metros en espalda</li>
+                            <li>Fortalecimiento de la resistencia inicial</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="nivel-card">
+                        <div class="nivel-icono"><i class="fas fa-swimmer"></i></div>
+                        <span class="nivel-badge">Nivel 4</span>
+                        <h4>Consolidación de estilos</h4>
+                        <p class="nivel-subtitulo">Perfeccionando la técnica en cada estilo</p>
+                        <ol class="nivel-lista">
+                            <li>Nado de 25 metros en crol con técnica correcta</li>
+                            <li>Nado de 25 metros en espalda con técnica correcta</li>
+                            <li>Introducción a la patada de pecho</li>
+                            <li>Coordinación de brazada de pecho</li>
+                            <li>Ejecución de virajes básicos en la pared</li>
+                            <li>Resistencia en tramos de 50 metros continuos</li>
+                            <li>Mejora de la eficiencia respiratoria</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="nivel-card">
+                        <div class="nivel-icono"><i class="fas fa-bolt"></i></div>
+                        <span class="nivel-badge">Nivel 5</span>
+                        <h4>Perfeccionamiento técnico</h4>
+                        <p class="nivel-subtitulo">Dominando los 4 estilos con precisión</p>
+                        <ol class="nivel-lista">
+                            <li>Nado de 50 metros en crol avanzado</li>
+                            <li>Nado de 50 metros en pecho avanzado</li>
+                            <li>Introducción al estilo mariposa</li>
+                            <li>Ejecución de salidas desde el bloque</li>
+                            <li>Virajes reglamentarios de competencia</li>
+                            <li>Resistencia en 100 metros combinados</li>
+                            <li>Técnica de respiración bilateral</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4">
+                    <div class="nivel-card">
+                        <div class="nivel-icono"><i class="fas fa-medal"></i></div>
+                        <span class="nivel-badge">Nivel 6</span>
+                        <h4>Preparación competitiva</h4>
+                        <p class="nivel-subtitulo">Formando nadadores para competir</p>
+                        <ol class="nivel-lista">
+                            <li>Dominio técnico de los 4 estilos</li>
+                            <li>Salidas y virajes reglamentarios de competencia</li>
+                            <li>Nado de 200 metros combinado individual</li>
+                            <li>Cumplimiento de marcas mínimas de tiempo</li>
+                            <li>Participación en competencias internas y externas</li>
+                            <li>Planes de entrenamiento personalizados</li>
+                            <li>Trabajo de resistencia y velocidad específica</li>
+                        </ol>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
 @endsection
